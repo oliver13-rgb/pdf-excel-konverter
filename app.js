@@ -91,6 +91,13 @@ resetBtn.addEventListener("click", resetUI);
 // ---- Drag & Drop / Datei-Auswahl ----
 dropzone.addEventListener("click", () => fileInput.click());
 
+dropzone.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    fileInput.click();
+  }
+});
+
 dropzone.addEventListener("dragover", (e) => {
   e.preventDefault();
   dropzone.classList.add("dragover");
