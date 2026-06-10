@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF ⇄ Excel Konverter (100% lokal im Browser)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>PDF ⇄ Excel Konverter</h1>
+      <p class="subtitle">
+        Alle Konvertierungen laufen <strong>vollständig lokal in deinem Browser</strong> ab.
+        Es werden keine Dateien hochgeladen oder gespeichert.
+      </p>
+    </header>
+
+    <!-- Richtungsauswahl -->
+    <section class="mode-switch">
+      <button id="mode-pdf2xlsx" class="mode-btn active">PDF → Excel (.xlsx)</button>
+      <button id="mode-xlsx2pdf" class="mode-btn">Excel (.xlsx) → PDF</button>
+    </section>
+
+    <!-- Drag & Drop Bereich -->
+    <section id="dropzone" class="dropzone">
+      <div class="dropzone-content">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        <p id="dropzone-text">Datei hierher ziehen oder klicken, um eine PDF-Datei auszuwählen</p>
+        <input type="file" id="file-input" accept=".pdf" hidden />
+      </div>
+    </section>
+
+    <!-- Status / Fortschritt -->
+    <section id="status" class="status hidden">
+      <div class="spinner"></div>
+      <p id="status-text">Verarbeite Datei...</p>
+    </section>
+
+    <!-- Ergebnis / Download -->
+    <section id="result" class="result hidden">
+      <p id="result-text">Deine Datei ist fertig!</p>
+      <a id="download-link" class="download-btn" download>Datei herunterladen</a>
+      <button id="reset-btn" class="reset-btn">Neue Datei konvertieren</button>
+    </section>
+
+    <!-- Fehleranzeige -->
+    <section id="error" class="error hidden">
+      <p id="error-text"></p>
+    </section>
+
+    <footer>
+      <p>
+        Diese Anwendung verarbeitet alle Dateien <strong>ausschließlich lokal in deinem Browser</strong>
+        (Client-Side). Es findet keine Übertragung an einen Server statt — auch nicht an den Server,
+        der diese Webseite ausliefert.
+      </p>
+    </footer>
+  </div>
+
+  <!-- Externe Bibliotheken (CDN) -->
+  <!-- PDF.js: zum Auslesen von PDF-Dateien -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- SheetJS (xlsx): zum Lesen/Schreiben von Excel-Dateien -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <!-- jsPDF + AutoTable: zum Erzeugen von PDFs aus Tabellendaten -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+  <!-- Eigene Anwendungslogik -->
+  <script src="app.js"></script>
+</body>
+</html>
