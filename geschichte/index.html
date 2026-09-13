@@ -1,0 +1,193 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kursarchiv Geschichte S1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Karla:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+<script>
+  /* Farbschema vor dem ersten Paint setzen, damit es nicht umspringt. */
+  try {
+    var m = localStorage.getItem("geschichte-s1-theme");
+    if (m === "dark" || m === "light") document.documentElement.setAttribute("data-theme", m);
+  } catch (e) {}
+</script>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="brand">
+      <span class="kurs">Geschichte S1 · P4</span>
+      <span class="name">Kursarchiv</span>
+      <span class="sub">Vom mittelalterlichen Weltbild zur europäischen Expansion</span>
+    </div>
+
+    <nav class="nav" id="nav" aria-label="Bereiche"></nav>
+
+    <div class="railfoot">
+      <div class="themeswitch" role="group" aria-label="Farbschema">
+        <button type="button" id="th-auto" data-theme-set="auto">Auto</button>
+        <button type="button" id="th-light" data-theme-set="light">Hell</button>
+        <button type="button" id="th-dark" data-theme-set="dark">Dunkel</button>
+      </div>
+      <span class="syncnote" id="syncnote" data-state="local">Fortschritt lokal</span>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- ÜBERSICHT -->
+    <section class="view" id="view-uebersicht" data-active="true" aria-labelledby="h-uebersicht">
+      <div class="hero">
+        <svg class="rose" viewBox="0 0 200 200" aria-hidden="true">
+          <g fill="none" stroke="#7FD4C0" stroke-width="1">
+            <circle cx="100" cy="100" r="88"></circle>
+            <circle cx="100" cy="100" r="62"></circle>
+            <circle cx="100" cy="100" r="30"></circle>
+            <path d="M100 12 L100 188 M12 100 L188 100 M38 38 L162 162 M162 38 L38 162"></path>
+            <path d="M100 12 L153 100 L100 188 L47 100 Z"></path>
+            <path d="M100 38 L124 100 L100 162 L76 100 Z"></path>
+          </g>
+          <circle cx="100" cy="100" r="4" fill="#7FD4C0"></circle>
+        </svg>
+        <div class="hero-in">
+          <span class="eyebrow">Unterrichtsreihe · Abitur 2028</span>
+          <h1 id="h-uebersicht">Vom mittelalterlichen Weltbild zur europäischen Expansion</h1>
+          <p class="lead">Jede Stunde aus dem Unterricht, strukturiert zum Wiederholen: Begriffe, Quellen, Daten und die Fragen, auf die es in der Klausur ankommt.</p>
+          <div class="meta" id="hero-meta"></div>
+        </div>
+      </div>
+
+      <div class="statrow" id="statrow"></div>
+
+      <h3 class="sectitle">Leitfragen der Reihe</h3>
+      <ol class="leitfragen" id="leitfragen"></ol>
+
+      <h3 class="sectitle">Zuletzt im Unterricht</h3>
+      <div id="zuletzt"></div>
+
+      <h3 class="sectitle">Offene Aufgaben</h3>
+      <div id="offene-uebersicht"></div>
+    </section>
+
+    <!-- STUNDEN -->
+    <section class="view" id="view-stunden" aria-labelledby="h-stunden">
+      <header class="viewhead">
+        <span class="eyebrow">Unterrichtsstunden</span>
+        <h2 id="h-stunden">Jede Stunde, wie sie lief</h2>
+        <p>Chronologisch von der neuesten Stunde rückwärts. Tippe auf eine Stunde, um sie aufzuklappen; Arbeitsaufträge lassen sich erst ohne, dann mit Lösung lesen.</p>
+      </header>
+      <div class="toolbar">
+        <input type="search" class="suche" id="stunden-suche" placeholder="In allen Stunden suchen …" aria-label="Stunden durchsuchen">
+        <div class="filter" id="stunden-filter" role="group" aria-label="Nach Thema filtern"></div>
+      </div>
+      <div class="stundenliste" id="stundenliste"></div>
+    </section>
+
+    <!-- ZEITSTRAHL -->
+    <section class="view" id="view-zeitstrahl" aria-labelledby="h-zeitstrahl">
+      <header class="viewhead">
+        <span class="eyebrow">Chronologie</span>
+        <h2 id="h-zeitstrahl">Zeitstrahl der Reihe</h2>
+        <p>Alle Jahreszahlen, die bisher im Unterricht gefallen sind – von der maurischen Eroberung Iberiens bis zu Huntingtons These.</p>
+      </header>
+      <div class="toolbar">
+        <div class="filter" id="tl-filter" role="group" aria-label="Nach Kategorie filtern"></div>
+      </div>
+      <div class="tl" id="zeitstrahl"></div>
+    </section>
+
+    <!-- BEGRIFFE -->
+    <section class="view" id="view-begriffe" aria-labelledby="h-begriffe">
+      <header class="viewhead">
+        <span class="eyebrow">Glossar</span>
+        <h2 id="h-begriffe">Begriffe, die sitzen müssen</h2>
+        <p>Fachbegriffe aus dem Unterricht mit Kurzantwort und Erläuterung. In der Klausur zählt die Definition, nicht die Umschreibung.</p>
+      </header>
+      <div class="toolbar">
+        <input type="search" class="suche" id="gl-suche" placeholder="Begriff suchen …" aria-label="Begriff suchen">
+        <div class="filter" id="gl-filter" role="group" aria-label="Nach Kategorie filtern"></div>
+      </div>
+      <dl class="glossar" id="glossar"></dl>
+    </section>
+
+    <!-- KARTEIKARTEN -->
+    <section class="view" id="view-karten" aria-labelledby="h-karten">
+      <header class="viewhead">
+        <span class="eyebrow">Aktives Abrufen</span>
+        <h2 id="h-karten">Karteikarten</h2>
+        <p>Erst antworten, dann aufdecken. Gewusste Karten wandern eine Box weiter und kommen seltener; „Nochmal“ setzt sie zurück auf Box 1.</p>
+      </header>
+      <div class="toolbar">
+        <div class="filter" id="fc-filter" role="group" aria-label="Nach Kategorie filtern"></div>
+      </div>
+      <div class="fcwrap">
+        <div class="fcmeta">
+          <span id="fc-zaehler"></span>
+          <span id="fc-kat"></span>
+        </div>
+        <button type="button" class="fcard" id="fcard" aria-live="polite"></button>
+        <div class="fcbtns" id="fc-btns"></div>
+        <div class="boxen" id="fc-boxen"></div>
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="view" id="view-quiz" aria-labelledby="h-quiz">
+      <header class="viewhead">
+        <span class="eyebrow">Selbsttest</span>
+        <h2 id="h-quiz">Quiz zur Reihe</h2>
+        <p>Vierundzwanzig Fragen im Zufallsmodus, mit sofortiger Rückmeldung und Begründung. Der letzte Punktestand bleibt gespeichert.</p>
+      </header>
+      <div class="quizwrap" id="quizwrap"></div>
+    </section>
+
+    <!-- KLAUSUR -->
+    <section class="view" id="view-klausur" aria-labelledby="h-klausur">
+      <header class="viewhead">
+        <span class="eyebrow">Prüfungsformat</span>
+        <h2 id="h-klausur">Klausur &amp; Abitur 2028</h2>
+        <p>Die Operatoren entscheiden, was eine Aufgabe verlangt – und die Vorgaben aus dem A-Heft zeigen, worauf die Reihe hinausläuft.</p>
+      </header>
+      <div id="abi-fakten"></div>
+
+      <h3 class="sectitle">Schwerpunkte im Abitur 2028</h3>
+      <div class="grid two" id="abi-schwerpunkte"></div>
+
+      <h3 class="sectitle">Prüfungsablauf</h3>
+      <div class="panel"><ul class="punkte" id="abi-ablauf"></ul></div>
+
+      <h3 class="sectitle">Operatoren nach Anforderungsbereich</h3>
+      <div class="toolbar">
+        <input type="search" class="suche" id="op-suche" placeholder="Operator suchen …" aria-label="Operator suchen">
+      </div>
+      <div class="tabellenrahmen">
+        <table class="optabelle">
+          <thead><tr><th scope="col">Operator</th><th scope="col">Definition</th></tr></thead>
+          <tbody id="optabelle"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- AUFGABEN -->
+    <section class="view" id="view-aufgaben" aria-labelledby="h-aufgaben">
+      <header class="viewhead">
+        <span class="eyebrow">Hausaufgaben</span>
+        <h2 id="h-aufgaben">Was noch zu tun ist</h2>
+        <p>Alle Arbeitsaufträge, die im Unterricht als Hausaufgabe vergeben wurden. Abhaken speichert den Stand.</p>
+      </header>
+      <div class="panel">
+        <div class="todo" id="todo"></div>
+      </div>
+
+      <h3 class="sectitle">Fortschritt zurücksetzen</h3>
+      <div class="panel">
+        <p style="font-size:14.5px;color:var(--ink-2);max-width:60ch">Setzt gelernte Stunden, Karteikarten-Boxen, den Quiz-Stand und abgehakte Aufgaben zurück. Lässt sich nicht rückgängig machen.</p>
+        <div class="fcbtns"><button type="button" class="btn ghost" id="reset">Allen Fortschritt löschen</button></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="daten.js"></script>
+<script src="app.js"></script>
