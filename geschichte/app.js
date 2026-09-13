@@ -44,7 +44,14 @@
 
   /* ------------------------------------------------------- Fortschritt */
 
-  const LEER = { gelernt: {}, boxen: {}, aufgaben: {}, quiz: null };
+  const LEER = { gelernt: {}, boxen: {}, aufgaben: {}, quiz: {} };
+
+  /** Frühere Fassung speicherte genau einen Quiz-Bestwert statt einen je Fach. */
+  function migriere(s) {
+    if (s.quiz && typeof s.quiz.punkte === "number") s.quiz = { Alle: s.quiz };
+    if (!s.quiz) s.quiz = {};
+    return s;
+  }
   const SPEICHER = "geschichte-s1-fortschritt";
   let stand = JSON.parse(JSON.stringify(LEER));
   let cloud = null;
@@ -53,7 +60,7 @@
   function ladeLokal() {
     try {
       const roh = localStorage.getItem(SPEICHER);
-      if (roh) stand = Object.assign(JSON.parse(JSON.stringify(LEER)), JSON.parse(roh));
+      if (roh) stand = migriere(Object.assign(JSON.parse(JSON.stringify(LEER)), JSON.parse(roh)));
     } catch (e) { /* privater Modus o. Ä. — dann eben ohne */ }
   }
 
@@ -76,7 +83,7 @@
       if (snap && snap.exists) {
         const d = snap.data() || {};
         if (typeof d.stand === "string") {
-          stand = Object.assign(JSON.parse(JSON.stringify(LEER)), JSON.parse(d.stand));
+          stand = migriere(Object.assign(JSON.parse(JSON.stringify(LEER)), JSON.parse(d.stand)));
           zeichneAlles();
         }
       }
@@ -89,33 +96,58 @@
 
   /* ------------------------------------------------------------ Navigation */
 
-  const BEREICHE = [
-    { id: "uebersicht", label: "Übersicht" },
-    { id: "stunden", label: "Stunden" },
-    { id: "zeitstrahl", label: "Zeitstrahl" },
-    { id: "begriffe", label: "Begriffe" },
-    { id: "karten", label: "Karteikarten" },
-    { id: "quiz", label: "Quiz" },
-    { id: "klausur", label: "Klausur & Abi" },
-    { id: "aufgaben", label: "Aufgaben" }
+  const GRUPPEN = [
+    { gruppe: null, eintraege: [{ id: "uebersicht", label: "Übersicht" }] },
+    {
+      gruppe: "Geschichte", eintraege: [
+        { id: "stunden", label: "Stunden" },
+        { id: "zeitstrahl", label: "Zeitstrahl" },
+        { id: "begriffe", label: "Begriffe" }
+      ]
+    },
+    {
+      gruppe: "Seminarfach", eintraege: [
+        { id: "seminar", label: "Sitzungen" },
+        { id: "werkstatt", label: "Schreibwerkstatt" }
+      ]
+    },
+    {
+      gruppe: "Üben", eintraege: [
+        { id: "karten", label: "Karteikarten" },
+        { id: "quiz", label: "Quiz" }
+      ]
+    },
+    {
+      gruppe: "Prüfung", eintraege: [
+        { id: "klausur", label: "Operatoren & Abi" },
+        { id: "aufgaben", label: "Aufgaben" }
+      ]
+    }
   ];
+
+  const BEREICHE = GRUPPEN.reduce((a, g) => a.concat(g.eintraege), []);
+  const navKnoepfe = {};
 
   function bautNav() {
     const nav = $("#nav");
-    BEREICHE.forEach((b, i) => {
-      const btn = el("button", null, '<span class="idx">' + String(i + 1).padStart(2, "0") + "</span><span>" + esc(b.label) + "</span>");
-      btn.type = "button";
-      btn.addEventListener("click", () => zeige(b.id));
-      nav.appendChild(btn);
+    GRUPPEN.forEach((g) => {
+      if (g.gruppe) nav.appendChild(el("span", "navgruppe", esc(g.gruppe)));
+      g.eintraege.forEach((b) => {
+        const btn = el("button", null, "<span>" + esc(b.label) + "</span>");
+        btn.type = "button";
+        btn.addEventListener("click", () => zeige(b.id));
+        nav.appendChild(btn);
+        navKnoepfe[b.id] = btn;
+      });
     });
   }
 
   function zeige(id) {
     if (!BEREICHE.some((b) => b.id === id)) id = "uebersicht";
-    BEREICHE.forEach((b, i) => {
+    BEREICHE.forEach((b) => {
       const aktiv = b.id === id;
       $("#view-" + b.id).dataset.active = aktiv ? "true" : "false";
-      $("#nav").children[i].setAttribute("aria-current", aktiv ? "true" : "false");
+      navKnoepfe[b.id].setAttribute("aria-current", aktiv ? "true" : "false");
     });
     if (location.hash.slice(1) !== id) history.replaceState(null, "", "#" + id);
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -143,17 +175,17 @@
 
   /* ------------------------------------------------------------ Filterleiste */
 
-  function bauFilter(host, kats, beiWahl) {
+  function bauFilter(host, kats, beiWahl, alleLabel) {
+    const ALLE = alleLabel || "Alle";
     host.innerHTML = "";
-    const alle = ["Alle"].concat(kats);
-    alle.forEach((k) => {
+    [ALLE].concat(kats).forEach((k) => {
       const b = el("button", null, esc(k));
       b.type = "button";
-      b.setAttribute("aria-pressed", k === "Alle" ? "true" : "false");
+      b.setAttribute("aria-pressed", k === ALLE ? "true" : "false");
       b.addEventListener("click", () => {
         Array.from(host.children).forEach((c) => c.setAttribute("aria-pressed", "false"));
         b.setAttribute("aria-pressed", "true");
-        beiWahl(k === "Alle" ? null : k);
+        beiWahl(k === ALLE ? null : k);
       });
       host.appendChild(b);
     });
@@ -161,22 +193,54 @@
 
   /* -------------------------------------------------------------- Übersicht */
 
+  function fachVon(x) { return x.fach || "Geschichte"; }
+
+  function springeZu(bereich, id) {
+    zeige(bereich);
+    const d = document.getElementById("st-" + id);
+    if (d) { d.open = true; d.scrollIntoView({ block: "center" }); }
+  }
+
+  function strangKarte(opt) {
+    const n = el("div", "strang");
+    n.innerHTML =
+      '<div class="nr">' + esc(opt.eyebrow) + "</div>" +
+      "<h3>" + esc(opt.titel) + "</h3>" +
+      '<p class="strangtext">' + esc(opt.text) + "</p>" +
+      '<div class="strangzahlen">' + opt.zahlen.map((z) =>
+        '<span><b>' + z.v + "</b> " + esc(z.k) + "</span>").join("") + "</div>" +
+      '<div class="letzte"><span class="chip accent">' + esc(opt.letzte.datum) + "</span>" +
+      '<div class="lt">' + esc(opt.letzte.titel) + "</div></div>";
+    const b = el("div", "fcbtns");
+    const go = el("button", "btn primary", opt.knopf);
+    go.type = "button";
+    go.addEventListener("click", () => springeZu(opt.bereich, opt.letzte.id));
+    b.appendChild(go);
+    n.appendChild(b);
+    return n;
+  }
+
   function zeichneUebersicht() {
     const neueste = STUNDEN[0];
-    $("#hero-meta").innerHTML =
-      "<span>Kurs <b>" + esc(KURS.kurs) + "</b></span>" +
-      "<span>Lehrkraft <b>" + esc(KURS.lehrkraft) + "</b></span>" +
-      "<span>Themenbereich <b>" + esc(KURS.themenbereich) + "</b></span>" +
-      "<span>Stand <b>" + esc(neueste.datum) + "</b></span>";
+    const neuesteSem = SEMINAR.sitzungen[0];
+    const letzterTermin = [neueste.datum, neuesteSem.datum]
+      .sort((a, b) => a.split(".").reverse().join("") < b.split(".").reverse().join("") ? 1 : -1)[0];
 
-    const gelernt = STUNDEN.filter((s) => stand.gelernt[s.id]).length;
+    $("#hero-meta").innerHTML =
+      "<span><b>" + esc(KURS.profil) + "</b></span>" +
+      "<span>Geschichte <b>" + esc(KURS.kurs) + " · " + esc(KURS.lehrkraft) + "</b></span>" +
+      "<span>Schuljahr <b>" + esc(KURS.schuljahr) + "</b></span>" +
+      "<span>Stand <b>" + esc(letzterTermin) + "</b></span>";
+
+    const alleSitzungen = STUNDEN.length + SEMINAR.sitzungen.length;
+    const gelernt = STUNDEN.concat(SEMINAR.sitzungen).filter((s) => stand.gelernt[s.id]).length;
     const inBox3 = KARTEN.filter((k) => (stand.boxen[schluessel(k.f)] || 1) >= 3).length;
     const offen = AUFGABEN.filter((a) => !stand.aufgaben[a.id]).length;
 
     const stats = [
-      { k: "Stunden erfasst", v: STUNDEN.length, sub: gelernt + " als gelernt markiert", pct: gelernt / STUNDEN.length },
+      { k: "Termine erfasst", v: alleSitzungen, sub: gelernt + " als gelernt markiert", pct: gelernt / alleSitzungen },
       { k: "Karteikarten", v: KARTEN.length, sub: inBox3 + " sitzen sicher", pct: inBox3 / KARTEN.length },
-      { k: "Begriffe im Glossar", v: GLOSSAR.length, sub: "aus " + STUNDEN.length + " Stunden", pct: null },
+      { k: "Begriffe im Glossar", v: GLOSSAR.length, sub: "beide Fächer zusammen", pct: null },
       { k: "Offene Aufgaben", v: offen, sub: AUFGABEN.length + " insgesamt", pct: null }
     ];
 
@@ -191,28 +255,58 @@
       row.appendChild(n);
     });
 
-    const lf = $("#leitfragen");
-    lf.innerHTML = "";
-    KURS.leitfragen.forEach((f) => lf.appendChild(el("li", null, esc(f))));
+    const str = $("#straenge");
+    str.innerHTML = "";
+    str.appendChild(strangKarte({
+      eyebrow: "Geschichte S1 · P4 — der Inhalt",
+      titel: KURS.reihe,
+      text: "Was im Geschichtsunterricht passiert ist: Weltbild, Expansion, Kulturtheorie. Hier steht der Stoff, den die Klausur abfragt.",
+      zahlen: [
+        { v: STUNDEN.length, k: "Stunden" },
+        { v: ZEITSTRAHL.filter((z) => fachVon(z) === "Geschichte").length, k: "Daten" },
+        { v: GLOSSAR.filter((g) => fachVon(g) === "Geschichte").length, k: "Begriffe" }
+      ],
+      letzte: neueste,
+      bereich: "stunden",
+      knopf: "Zur letzten Stunde"
+    }));
+    str.appendChild(strangKarte({
+      eyebrow: "Seminarfach — die Methode",
+      titel: SEMINAR.titel,
+      text: "Wie man mit dem Stoff umgeht: Quellenkritik, Analyseschritte, Operatoren. Hier steht das Handwerk für den schriftlichen Teil.",
+      zahlen: [
+        { v: SEMINAR.sitzungen.length, k: "Sitzungen" },
+        { v: WERKSTATT.length, k: "Werkzeuge" },
+        { v: GLOSSAR.filter((g) => fachVon(g) === "Seminar").length, k: "Begriffe" }
+      ],
+      letzte: neuesteSem,
+      bereich: "seminar",
+      knopf: "Zur letzten Sitzung"
+    }));
 
-    const z = $("#zuletzt");
-    z.innerHTML = "";
-    const karte = el("div", "panel");
-    karte.innerHTML =
-      '<span class="chip accent">' + esc(neueste.datum) + "</span>" +
-      '<h3 style="margin-top:10px;font-size:21px">' + esc(neueste.titel) + "</h3>" +
-      '<p style="margin-top:7px;color:var(--ink-2);font-size:15px;max-width:var(--maxread)">' + esc(neueste.untertitel) + "</p>";
-    const b = el("div", "fcbtns");
-    const go = el("button", "btn primary", "Zur Stunde");
-    go.type = "button";
-    go.addEventListener("click", () => {
-      zeige("stunden");
-      const d = document.getElementById("st-" + neueste.id);
-      if (d) { d.open = true; d.scrollIntoView({ block: "center" }); }
+    const lfb = $("#leitfragen-box");
+    lfb.innerHTML = "";
+    const lfG = el("div", "panel");
+    lfG.innerHTML = '<div class="panelkopf"><span class="chip accent">Geschichte</span> Leitfragen der Unterrichtsreihe</div>' +
+      '<ol class="leitfragen">' + KURS.leitfragen.map((f) => "<li>" + esc(f) + "</li>").join("") + "</ol>";
+    const lfS = el("div", "panel");
+    lfS.innerHTML = '<div class="panelkopf"><span class="chip brass">Seminarfach</span> Leitfrage des Halbjahres</div>' +
+      '<p class="grossefrage">' + esc(SEMINAR.leitfrage) + "</p>" +
+      '<p class="fuss">' + esc(SEMINAR.leitfrageZusatz) + "</p>";
+    lfb.appendChild(lfG);
+    lfb.appendChild(lfS);
+
+    const br = $("#bruecken");
+    br.innerHTML = "";
+    const bl = el("div", "bruecken");
+    BRUECKEN.forEach((b) => {
+      bl.appendChild(el("div", "bruecke",
+        '<div class="von"><span class="chip brass">Seminar</span>' + esc(b.methode) + "</div>" +
+        '<div class="pfeil" aria-hidden="true">→</div>' +
+        '<div class="nach"><span class="chip accent">Geschichte</span>' + esc(b.ziel) +
+        '<p>' + esc(b.text) + "</p></div>"));
     });
-    b.appendChild(go);
-    karte.appendChild(b);
-    z.appendChild(karte);
+    br.appendChild(bl);
 
     const o = $("#offene-uebersicht");
     o.innerHTML = "";
@@ -298,12 +392,35 @@
           '<p class="einleitung">' + esc(b.einleitung) + "</p><ol>" +
           b.schritte.map((s) => "<li>" + esc(s) + "</li>").join("") + "</ol></div>";
 
+      case "bausteine": {
+        let h = '<div class="block breit"><h4>' + esc(b.h) + '</h4><div class="bausteine">';
+        h += b.items.map((i) =>
+          '<div class="phase"><div class="phasekopf"><span class="pname">' + esc(i.phase) + "</span>" +
+          (i.hinweis ? '<span class="phinweis">' + esc(i.hinweis) + "</span>" : "") + "</div>" +
+          '<ul class="saetze">' + i.saetze.map((s) => "<li>" + esc(s) + "</li>").join("") + "</ul></div>").join("");
+        return h + "</div></div>";
+      }
+
+      case "verweis":
+        return '<div class="block"><p class="verweis" data-ziel="' + esc(b.ziel) + '">' + fmt(b.text) + "</p></div>";
+
       case "schema":
         return schemaTO();
 
       default:
         return "";
     }
+  }
+
+  /** Verweis-Absätze klickbar machen (nach dem Einfügen aufrufen). */
+  function verkabelnVerweise(root) {
+    root.querySelectorAll(".verweis[data-ziel]").forEach((p) => {
+      p.setAttribute("role", "button");
+      p.setAttribute("tabindex", "0");
+      const hin = () => zeige(p.dataset.ziel);
+      p.addEventListener("click", hin);
+      p.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.code === "Space") { e.preventDefault(); hin(); } });
+    });
   }
 
   function schemaTO() {
@@ -325,20 +442,36 @@
 
   let stundenFilter = null;
   let stundenSuche = "";
+  let seminarFilter = null;
+  let seminarSuche = "";
 
   function zeichneStunden() {
-    const host = $("#stundenliste");
-    host.innerHTML = "";
-    const q = stundenSuche.trim().toLowerCase();
+    renderSitzungen({
+      liste: STUNDEN, host: $("#stundenliste"), filter: stundenFilter, suche: stundenSuche,
+      wort: "Stunde", einheit: "Stunde"
+    });
+  }
 
-    const treffer = STUNDEN.filter((s) => {
-      if (stundenFilter && s.tags.indexOf(stundenFilter) === -1) return false;
+  function zeichneSeminar() {
+    renderSitzungen({
+      liste: SEMINAR.sitzungen, host: $("#seminarliste"), filter: seminarFilter, suche: seminarSuche,
+      wort: "Sitzung", einheit: "Sitzung"
+    });
+  }
+
+  function renderSitzungen(opt) {
+    const host = opt.host;
+    host.innerHTML = "";
+    const q = opt.suche.trim().toLowerCase();
+
+    const treffer = opt.liste.filter((s) => {
+      if (opt.filter && s.tags.indexOf(opt.filter) === -1) return false;
       if (!q) return true;
       return JSON.stringify(s).toLowerCase().indexOf(q) !== -1;
     });
 
     if (!treffer.length) {
-      host.appendChild(el("p", "leer", "Keine Stunde passt zu dieser Suche."));
+      host.appendChild(el("p", "leer", "Keine " + opt.wort + " passt zu dieser Suche."));
       return;
     }
 
@@ -355,7 +488,7 @@
         '<div class="kopf"><h3>' + esc(s.titel) + "</h3>" +
         '<p class="unter">' + esc(s.untertitel) + "</p>" +
         '<div class="tags">' + (s.neu ? '<span class="chip accent">Neu</span>' : "") +
-        '<span class="chip">Stunde ' + s.nr + "</span>" +
+        '<span class="chip">' + esc(opt.einheit) + " " + s.nr + "</span>" +
         s.tags.map((t) => '<span class="chip">' + esc(t) + "</span>").join("") +
         (s.hausaufgabe ? '<span class="chip brass">Hausaufgabe</span>' : "") +
         "</div></div>";
@@ -388,32 +521,95 @@
         koerper.insertAdjacentHTML("beforeend",
           '<div class="hausaufgabe"><span class="label">Hausaufgabe</span><p>' + fmt(s.hausaufgabe) + "</p></div>");
       }
+      verkabelnVerweise(koerper);
       d.appendChild(koerper);
       host.appendChild(d);
     });
   }
 
+  /* ------------------------------------------------------ Schreibwerkstatt */
+
+  function zeichneWerkstatt() {
+    const nav = $("#werkstatt-nav");
+    const host = $("#werkstatt");
+    nav.innerHTML = "";
+    host.innerHTML = "";
+
+    WERKSTATT.forEach((w) => {
+      const a = el("button", "wtab", esc(w.titel));
+      a.type = "button";
+      a.addEventListener("click", () => {
+        const ziel = document.getElementById("wz-" + w.id);
+        if (ziel) ziel.scrollIntoView({ block: "start", behavior: "smooth" });
+      });
+      nav.appendChild(a);
+
+      const sec = el("section", "werkzeug");
+      sec.id = "wz-" + w.id;
+      const sitzung = SEMINAR.sitzungen.filter((s) => s.id === w.sitzung)[0];
+      sec.innerHTML =
+        '<div class="wkopf"><h3>' + esc(w.titel) + "</h3>" +
+        '<p>' + esc(w.untertitel) + "</p>" +
+        (sitzung ? '<span class="chip brass">Seminarfach · ' + esc(sitzung.datum) + "</span>" : "") + "</div>";
+      sec.insertAdjacentHTML("beforeend", w.bloecke.map(blockHtml).join(""));
+      verkabelnVerweise(sec);
+      host.appendChild(sec);
+    });
+  }
+
+  function zeichneSeminarRahmen() {
+    $("#seminar-unter").textContent = SEMINAR.untertitel;
+    const host = $("#seminar-rahmen");
+    host.innerHTML = "";
+
+    const p = el("div", "panel");
+    p.innerHTML =
+      '<div class="panelkopf"><span class="chip brass">Leitfrage des Halbjahres</span></div>' +
+      '<p class="grossefrage">' + esc(SEMINAR.leitfrage) + "</p>" +
+      '<p class="fuss">' + esc(SEMINAR.leitfrageZusatz) + "</p>";
+    host.appendChild(p);
+
+    const g = el("div", "grid two");
+    g.style.marginTop = "14px";
+    const fp = el("div", "panel");
+    fp.innerHTML = '<div class="panelkopf">Fahrplan durch das Halbjahr</div>' +
+      '<div class="stufen">' + SEMINAR.fahrplan.map((f) =>
+        '<div class="stufe"><div class="num"></div><div><h5>' + esc(f.k) + "</h5><ul><li>" + esc(f.v) + "</li></ul></div></div>").join("") + "</div>";
+    const sp = el("div", "panel");
+    sp.innerHTML = '<div class="panelkopf">Die vier Semester</div>' +
+      '<ul class="punkte">' + SEMINAR.semester.map((s) =>
+        "<li><strong>" + esc(s.k) + "</strong><br>" + esc(s.v) + "</li>").join("") + "</ul>" +
+      '<p class="fuss">' + esc(SEMINAR.grundlage) + "</p>";
+    g.appendChild(fp);
+    g.appendChild(sp);
+    host.appendChild(g);
+  }
+
   /* ------------------------------------------------------------- Zeitstrahl */
 
   let tlFilter = null;
+  let tlFach = null;
 
   function zeichneZeitstrahl() {
     const host = $("#zeitstrahl");
     host.innerHTML = "";
-    const items = ZEITSTRAHL.filter((z) => !tlFilter || z.kat === tlFilter);
-    if (!items.length) { host.appendChild(el("p", "leer", "Keine Einträge in dieser Kategorie.")); return; }
+    const items = ZEITSTRAHL
+      .filter((z) => !tlFach || fachVon(z) === tlFach)
+      .filter((z) => !tlFilter || z.kat === tlFilter);
+    if (!items.length) { host.appendChild(el("p", "leer", "Keine Einträge in dieser Auswahl.")); return; }
     items.forEach((z) => {
-      host.appendChild(el("div", "tlitem",
+      host.appendChild(el("div", "tlitem" + (fachVon(z) === "Seminar" ? " sem" : ""),
         '<span class="jahr">' + esc(z.jahr) + "</span>" +
         "<h4>" + esc(z.titel) + "</h4>" +
         "<p>" + esc(z.text) + "</p>" +
-        '<span class="chip">' + esc(z.kat) + "</span>"));
+        '<span class="chip' + (fachVon(z) === "Seminar" ? " brass" : "") + '">' + esc(z.kat) + "</span>"));
     });
   }
 
   /* ---------------------------------------------------------------- Glossar */
 
   let glFilter = null;
+  let glFach = null;
   let glSuche = "";
 
   function zeichneGlossar() {
@@ -421,29 +617,44 @@
     host.innerHTML = "";
     const q = glSuche.trim().toLowerCase();
     const items = GLOSSAR
+      .filter((g) => !glFach || fachVon(g) === glFach)
       .filter((g) => !glFilter || g.kat === glFilter)
       .filter((g) => !q || (g.begriff + " " + g.kurz + " " + g.lang).toLowerCase().indexOf(q) !== -1);
 
     if (!items.length) { host.appendChild(el("p", "leer", "Kein Begriff passt zu dieser Suche.")); return; }
 
     items.forEach((g) => {
+      const sem = fachVon(g) === "Seminar";
       const wrap = el("div", "gterm");
       wrap.innerHTML =
-        "<dt>" + esc(g.begriff) + '<span class="chip">' + esc(g.kat) + "</span></dt>" +
+        "<dt>" + esc(g.begriff) + '<span class="chip' + (sem ? " brass" : " accent") + '">' +
+        (sem ? "Seminar · " : "") + esc(g.kat) + "</span></dt>" +
         '<dd><p class="kurz">' + esc(g.kurz) + '</p><p class="lang">' + esc(g.lang) + "</p></dd>";
       host.appendChild(wrap);
     });
   }
 
+  /** Kategorien, die es im gewählten Fach überhaupt gibt. */
+  function katsFuer(liste, fach) {
+    return Array.from(new Set(liste.filter((x) => !fach || fachVon(x) === fach).map((x) => x.kat))).sort();
+  }
+
   /* ----------------------------------------------------------- Karteikarten */
 
   let fcFilter = null;
+  let fcFach = null;
   let fcStapel = [];
   let fcPos = 0;
   let fcOffen = false;
 
+  function fcKarten() {
+    return KARTEN
+      .filter((k) => !fcFach || fachVon(k) === fcFach)
+      .filter((k) => !fcFilter || k.kat === fcFilter);
+  }
+
   function fcAuswahl() {
-    const alle = KARTEN.filter((k) => !fcFilter || k.kat === fcFilter);
+    const alle = fcKarten();
     // Box 1 zuerst, dann 2, dann 3 — innerhalb der Box gemischt.
     const nachBox = [[], [], []];
     alle.forEach((k) => nachBox[Math.min(3, stand.boxen[schluessel(k.f)] || 1) - 1].push(k));
@@ -475,7 +686,7 @@
       (fcOffen ? '<div class="back">' + fmt(karte.r) + "</div>" : '<span class="hint">Klicken oder Leertaste zum Aufdecken</span>');
 
     $("#fc-zaehler").textContent = "Karte " + (fcPos + 1) + " von " + fcStapel.length;
-    $("#fc-kat").textContent = karte.kat;
+    $("#fc-kat").textContent = fachVon(karte) + " · " + karte.kat;
 
     if (!fcOffen) {
       const b = el("button", "btn primary", "Antwort aufdecken");
@@ -508,7 +719,7 @@
 
   function zeichneBoxen() {
     const host = $("#fc-boxen");
-    const alle = KARTEN.filter((k) => !fcFilter || k.kat === fcFilter);
+    const alle = fcKarten();
     const z = [0, 0, 0];
     alle.forEach((k) => z[Math.min(3, stand.boxen[schluessel(k.f)] || 1) - 1]++);
     host.innerHTML =
@@ -543,9 +754,21 @@
   let qPos = 0;
   let qPunkte = 0;
   let qBeantwortet = false;
+  let quizFach = null;
+
+  function quizKey() { return quizFach || "Alle"; }
+
+  function bestwert() {
+    return (stand.quiz && stand.quiz[quizKey()]) || null;
+  }
+
+  function bestwertText() {
+    const b = bestwert();
+    return b ? "Bestwert " + b.punkte + "/" + b.gesamt : "noch kein Bestwert";
+  }
 
   function quizStart() {
-    qStapel = mische(QUIZ);
+    qStapel = mische(QUIZ.filter((f) => !quizFach || fachVon(f) === quizFach));
     qPos = 0;
     qPunkte = 0;
     qBeantwortet = false;
@@ -555,6 +778,11 @@
   function zeichneQuiz() {
     const host = $("#quizwrap");
     host.innerHTML = "";
+
+    if (!qStapel.length) {
+      host.appendChild(el("p", "leer", "Für diese Auswahl gibt es noch keine Fragen."));
+      return;
+    }
 
     if (qPos >= qStapel.length) {
       const proz = Math.round((qPunkte / qStapel.length) * 100);
@@ -570,12 +798,14 @@
       b.type = "button";
       b.addEventListener("click", quizStart);
       f.appendChild(b);
-      if (stand.quiz) f.appendChild(el("span", "qscore", "Bester Stand: " + stand.quiz.punkte + "/" + stand.quiz.gesamt));
+      const alt = bestwert();
+      if (alt) f.appendChild(el("span", "qscore", "Bester Stand (" + quizKey() + "): " + alt.punkte + "/" + alt.gesamt));
       card.appendChild(f);
       host.appendChild(card);
 
-      if (!stand.quiz || qPunkte / qStapel.length > stand.quiz.punkte / stand.quiz.gesamt) {
-        stand.quiz = { punkte: qPunkte, gesamt: qStapel.length, zeit: Date.now() };
+      if (!alt || qPunkte / qStapel.length > alt.punkte / alt.gesamt) {
+        if (!stand.quiz) stand.quiz = {};
+        stand.quiz[quizKey()] = { punkte: qPunkte, gesamt: qStapel.length, zeit: Date.now() };
         sichere();
       }
       return;
@@ -584,7 +814,7 @@
     const f = qStapel[qPos];
     const card = el("div", "qcard");
     card.innerHTML =
-      '<div class="qnum">Frage ' + (qPos + 1) + " von " + qStapel.length + " · " + esc(f.kat) + "</div>" +
+      '<div class="qnum">Frage ' + (qPos + 1) + " von " + qStapel.length + " · " + esc(fachVon(f)) + " · " + esc(f.kat) + "</div>" +
       '<div class="qfrage">' + esc(f.frage) + "</div>";
 
     const opts = el("div", "qopts");
@@ -615,7 +845,7 @@
     weiterBtn.disabled = true;
     weiterBtn.addEventListener("click", () => { qPos++; qBeantwortet = false; zeichneQuiz(); });
     fuss.appendChild(weiterBtn);
-    fuss.appendChild(el("span", "qscore", "Punkte " + qPunkte + " · " + (stand.quiz ? "Bestwert " + stand.quiz.punkte + "/" + stand.quiz.gesamt : "noch kein Bestwert")));
+    fuss.appendChild(el("span", "qscore", "Punkte " + qPunkte + " · " + bestwertText()));
     card.appendChild(fuss);
 
     host.appendChild(card);
@@ -707,6 +937,9 @@
   function zeichneAlles() {
     zeichneUebersicht();
     zeichneStunden();
+    zeichneSeminarRahmen();
+    zeichneSeminar();
+    zeichneWerkstatt();
     zeichneZeitstrahl();
     zeichneGlossar();
     zeichneKlausur();
@@ -714,18 +947,43 @@
     fcNeu();
   }
 
+  const FAECHER = ["Geschichte", "Seminar"];
+
   function start() {
     themeStart();
     ladeLokal();
     bautNav();
 
-    const themen = Array.from(new Set(STUNDEN.flatMap((s) => s.tags))).sort();
-    bauFilter($("#stunden-filter"), themen, (k) => { stundenFilter = k; zeichneStunden(); });
-    bauFilter($("#tl-filter"), Array.from(new Set(ZEITSTRAHL.map((z) => z.kat))), (k) => { tlFilter = k; zeichneZeitstrahl(); });
-    bauFilter($("#gl-filter"), Array.from(new Set(GLOSSAR.map((g) => g.kat))).sort(), (k) => { glFilter = k; zeichneGlossar(); });
-    bauFilter($("#fc-filter"), Array.from(new Set(KARTEN.map((k) => k.kat))).sort(), (k) => { fcFilter = k; fcNeu(); });
+    bauFilter($("#stunden-filter"), Array.from(new Set(STUNDEN.flatMap((s) => s.tags))).sort(),
+      (k) => { stundenFilter = k; zeichneStunden(); });
+    bauFilter($("#seminar-filter"), Array.from(new Set(SEMINAR.sitzungen.flatMap((s) => s.tags))).sort(),
+      (k) => { seminarFilter = k; zeichneSeminar(); });
+
+    bauFilter($("#tl-fach"), FAECHER, (f) => {
+      tlFach = f; tlFilter = null;
+      bauFilter($("#tl-filter"), katsFuer(ZEITSTRAHL, f), (k) => { tlFilter = k; zeichneZeitstrahl(); });
+      zeichneZeitstrahl();
+    }, "Beide Fächer");
+    bauFilter($("#tl-filter"), katsFuer(ZEITSTRAHL, null), (k) => { tlFilter = k; zeichneZeitstrahl(); });
+
+    bauFilter($("#gl-fach"), FAECHER, (f) => {
+      glFach = f; glFilter = null;
+      bauFilter($("#gl-filter"), katsFuer(GLOSSAR, f), (k) => { glFilter = k; zeichneGlossar(); });
+      zeichneGlossar();
+    }, "Beide Fächer");
+    bauFilter($("#gl-filter"), katsFuer(GLOSSAR, null), (k) => { glFilter = k; zeichneGlossar(); });
+
+    bauFilter($("#fc-fach"), FAECHER, (f) => {
+      fcFach = f; fcFilter = null;
+      bauFilter($("#fc-filter"), katsFuer(KARTEN, f), (k) => { fcFilter = k; fcNeu(); });
+      fcNeu();
+    }, "Beide Fächer");
+    bauFilter($("#fc-filter"), katsFuer(KARTEN, null), (k) => { fcFilter = k; fcNeu(); });
+
+    bauFilter($("#quiz-fach"), FAECHER, (f) => { quizFach = f; quizStart(); }, "Beide Fächer");
 
     $("#stunden-suche").addEventListener("input", (e) => { stundenSuche = e.target.value; zeichneStunden(); });
+    $("#seminar-suche").addEventListener("input", (e) => { seminarSuche = e.target.value; zeichneSeminar(); });
     $("#gl-suche").addEventListener("input", (e) => { glSuche = e.target.value; zeichneGlossar(); });
     $("#op-suche").addEventListener("input", (e) => zeichneOperatoren(e.target.value));
 

@@ -16,9 +16,9 @@
 <div class="shell">
   <aside class="rail">
     <div class="brand">
-      <span class="kurs">Geschichte S1 · P4</span>
+      <span class="kurs">Profil Geschichte-Kunst</span>
       <span class="name">Kursarchiv</span>
-      <span class="sub">Vom mittelalterlichen Weltbild zur europäischen Expansion</span>
+      <span class="sub">Geschichte S1 &amp; Seminarfach · Jahrgang 11</span>
     </div>
 
     <nav class="nav" id="nav" aria-label="Bereiche"></nav>
@@ -50,29 +50,60 @@
           <circle cx="100" cy="100" r="4" fill="#7FD4C0"></circle>
         </svg>
         <div class="hero-in">
-          <span class="eyebrow">Unterrichtsreihe · Abitur 2028</span>
+          <span class="eyebrow">Profil Geschichte-Kunst · Abitur 2028</span>
           <h1 id="h-uebersicht">Vom mittelalterlichen Weltbild zur europäischen Expansion</h1>
-          <p class="lead">Jede Stunde aus dem Unterricht, strukturiert zum Wiederholen: Begriffe, Quellen, Daten und die Fragen, auf die es in der Klausur ankommt.</p>
+          <p class="lead">Zwei Fächer, ein Gegenstand: Im <strong>Geschichtsunterricht</strong> steht der Stoff, im <strong>Seminarfach</strong> das Handwerk, mit dem du ihn im schriftlichen Teil bearbeitest. Beides hier getrennt abgelegt – und dort verknüpft, wo es zusammengehört.</p>
           <div class="meta" id="hero-meta"></div>
         </div>
       </div>
 
       <div class="statrow" id="statrow"></div>
 
-      <h3 class="sectitle">Leitfragen der Reihe</h3>
-      <ol class="leitfragen" id="leitfragen"></ol>
+      <h3 class="sectitle">Die beiden Stränge</h3>
+      <div class="grid two" id="straenge"></div>
 
-      <h3 class="sectitle">Zuletzt im Unterricht</h3>
-      <div id="zuletzt"></div>
+      <h3 class="sectitle">Leitfragen</h3>
+      <div class="grid two" id="leitfragen-box"></div>
+
+      <h3 class="sectitle">Wo Methode und Inhalt sich treffen</h3>
+      <div id="bruecken"></div>
 
       <h3 class="sectitle">Offene Aufgaben</h3>
       <div id="offene-uebersicht"></div>
     </section>
 
+    <!-- SEMINAR -->
+    <section class="view" id="view-seminar" aria-labelledby="h-seminar">
+      <header class="viewhead">
+        <span class="eyebrow">Seminarfach · Profil Geschichte-Kunst</span>
+        <h2 id="h-seminar">Kulturen und europäische Expansion</h2>
+        <p id="seminar-unter"></p>
+      </header>
+      <div id="seminar-rahmen"></div>
+
+      <h3 class="sectitle">Sitzungen</h3>
+      <div class="toolbar">
+        <input type="search" class="suche" id="seminar-suche" placeholder="In allen Sitzungen suchen …" aria-label="Sitzungen durchsuchen">
+        <div class="filter" id="seminar-filter" role="group" aria-label="Nach Thema filtern"></div>
+      </div>
+      <div class="stundenliste" id="seminarliste"></div>
+    </section>
+
+    <!-- SCHREIBWERKSTATT -->
+    <section class="view" id="view-werkstatt" aria-labelledby="h-werkstatt">
+      <header class="viewhead">
+        <span class="eyebrow">Werkzeugkasten</span>
+        <h2 id="h-werkstatt">Schreibwerkstatt</h2>
+        <p>Alles, was du beim Schreiben einer Quellenanalyse offen daneben liegen haben willst – der Fünfschritt, die Satzanfänge, die Einordnung der Quellenart und die Anforderungsbereiche.</p>
+      </header>
+      <div class="werkstattnav" id="werkstatt-nav" role="group" aria-label="Werkzeuge"></div>
+      <div id="werkstatt"></div>
+    </section>
+
     <!-- STUNDEN -->
     <section class="view" id="view-stunden" aria-labelledby="h-stunden">
       <header class="viewhead">
-        <span class="eyebrow">Unterrichtsstunden</span>
+        <span class="eyebrow">Geschichte S1 · P4 · Tony Gugenheimer</span>
         <h2 id="h-stunden">Jede Stunde, wie sie lief</h2>
         <p>Chronologisch von der neuesten Stunde rückwärts. Tippe auf eine Stunde, um sie aufzuklappen; Arbeitsaufträge lassen sich erst ohne, dann mit Lösung lesen.</p>
       </header>
@@ -91,6 +122,7 @@
         <p>Alle Jahreszahlen, die bisher im Unterricht gefallen sind – von der maurischen Eroberung Iberiens bis zu Huntingtons These.</p>
       </header>
       <div class="toolbar">
+        <div class="filter fach" id="tl-fach" role="group" aria-label="Nach Fach filtern"></div>
         <div class="filter" id="tl-filter" role="group" aria-label="Nach Kategorie filtern"></div>
       </div>
       <div class="tl" id="zeitstrahl"></div>
@@ -105,6 +137,7 @@
       </header>
       <div class="toolbar">
         <input type="search" class="suche" id="gl-suche" placeholder="Begriff suchen …" aria-label="Begriff suchen">
+        <div class="filter fach" id="gl-fach" role="group" aria-label="Nach Fach filtern"></div>
         <div class="filter" id="gl-filter" role="group" aria-label="Nach Kategorie filtern"></div>
       </div>
       <dl class="glossar" id="glossar"></dl>
@@ -118,6 +151,7 @@
         <p>Erst antworten, dann aufdecken. Gewusste Karten wandern eine Box weiter und kommen seltener; „Nochmal“ setzt sie zurück auf Box 1.</p>
       </header>
       <div class="toolbar">
+        <div class="filter fach" id="fc-fach" role="group" aria-label="Nach Fach filtern"></div>
         <div class="filter" id="fc-filter" role="group" aria-label="Nach Kategorie filtern"></div>
       </div>
       <div class="fcwrap">
@@ -135,9 +169,12 @@
     <section class="view" id="view-quiz" aria-labelledby="h-quiz">
       <header class="viewhead">
         <span class="eyebrow">Selbsttest</span>
-        <h2 id="h-quiz">Quiz zur Reihe</h2>
-        <p>Vierundzwanzig Fragen im Zufallsmodus, mit sofortiger Rückmeldung und Begründung. Der letzte Punktestand bleibt gespeichert.</p>
+        <h2 id="h-quiz">Quiz</h2>
+        <p>Fragen im Zufallsmodus, mit sofortiger Rückmeldung und Begründung. Wähle, ob du Geschichte, Seminarfach oder beides abgefragt werden willst – der beste Stand je Auswahl bleibt gespeichert.</p>
       </header>
+      <div class="toolbar">
+        <div class="filter fach" id="quiz-fach" role="group" aria-label="Nach Fach filtern"></div>
+      </div>
       <div class="quizwrap" id="quizwrap"></div>
     </section>
 

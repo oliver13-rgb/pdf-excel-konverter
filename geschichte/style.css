@@ -291,8 +291,19 @@ button { font: inherit; color: inherit; }
   padding: 14px 16px;
 }
 .stat .k { font-family: var(--f-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
-.stat .v { font-family: var(--f-display); font-size: 28px; font-weight: 600; margin-top: 4px; font-variant-numeric: tabular-nums; }
-.stat .v small { font-size: 15px; color: var(--ink-3); font-weight: 400; }
+.stat .v {
+  font-family: var(--f-display);
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 4px;
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 7px;
+  line-height: 1.15;
+}
+.stat .v small { font-size: 14.5px; color: var(--ink-3); font-weight: 400; line-height: 1.35; }
 .stat .bar { height: 4px; border-radius: 2px; background: var(--surface-2); margin-top: 9px; overflow: hidden; }
 .stat .bar i { display: block; height: 100%; background: var(--accent); border-radius: 2px; transition: width .4s ease; }
 
@@ -800,6 +811,157 @@ button { font: inherit; color: inherit; }
 .todo .txt .meta { font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-3); margin-top: 4px; letter-spacing: .06em; }
 .todo input:checked + .txt > .satz { text-decoration: line-through; color: var(--ink-3); }
 
+/* ------------------------------------------------- Zwei Stränge & Brücken */
+
+.navgruppe {
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 14px 10px 4px;
+}
+
+.panelkopf {
+  font-family: var(--f-display);
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.grossefrage {
+  font-family: var(--f-display);
+  font-size: 19px;
+  line-height: 1.4;
+  font-style: italic;
+  border-left: 2px solid var(--brass);
+  padding-left: 15px;
+}
+
+.strang {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-l);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.strang:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+.strang:last-child { box-shadow: inset 3px 0 0 var(--brass); }
+.strang .nr {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.strang h3 { font-size: 19px; }
+.strang .strangtext { font-size: 14.5px; color: var(--ink-2); }
+.strang .strangzahlen { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-3); }
+.strang .strangzahlen b {
+  font-family: var(--f-mono);
+  font-size: 17px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  margin-right: 3px;
+}
+.strang .letzte { border-top: 1px solid var(--line-soft); padding-top: 12px; }
+.strang .letzte .lt { font-family: var(--f-display); font-size: 15.5px; font-weight: 600; margin-top: 7px; }
+.strang .fcbtns { margin-top: auto; }
+
+.bruecken { display: flex; flex-direction: column; }
+.bruecke {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) 34px minmax(0, 1.6fr);
+  gap: 14px;
+  align-items: start;
+  padding: 15px 0;
+  border-top: 1px solid var(--line-soft);
+}
+.bruecke:first-child { border-top: 0; }
+.bruecke .von, .bruecke .nach { font-size: 14.5px; font-weight: 700; }
+.bruecke .chip { display: block; width: fit-content; margin-bottom: 6px; }
+.bruecke .pfeil { color: var(--ink-3); font-size: 18px; text-align: center; padding-top: 22px; }
+.bruecke .nach p { font-weight: 400; color: var(--ink-2); margin-top: 5px; font-size: 14px; }
+
+.filter.fach button[aria-pressed="true"] { background: var(--brass); border-color: var(--brass); color: #fff; }
+:root[data-theme="dark"] .filter.fach button[aria-pressed="true"] { color: #1B1405; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .filter.fach button[aria-pressed="true"] { color: #1B1405; }
+}
+
+.tlitem.sem::before { border-color: var(--brass); }
+
+/* ------------------------------------------------------- Schreibwerkstatt */
+
+.werkstattnav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
+.wtab {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--ink-2);
+}
+.wtab:hover { border-color: var(--brass); color: var(--ink); }
+
+.werkzeug {
+  border: 1px solid var(--line);
+  border-radius: var(--r-l);
+  background: var(--surface);
+  padding: 22px 24px 26px;
+  margin-bottom: 16px;
+  scroll-margin-top: 20px;
+}
+.werkzeug .wkopf { border-bottom: 1px solid var(--line-soft); padding-bottom: 14px; }
+.werkzeug .wkopf h3 { font-size: 21px; }
+.werkzeug .wkopf p { font-size: 14.5px; color: var(--ink-2); margin-top: 5px; max-width: var(--maxread); }
+.werkzeug .wkopf .chip { margin-top: 10px; }
+
+.bausteine { display: flex; flex-direction: column; gap: 4px; }
+.phase { border-top: 1px solid var(--line-soft); padding: 14px 0; }
+.phase:first-child { border-top: 0; }
+.phasekopf { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 9px; }
+.phase .pname {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+.phase .phinweis { font-size: 13px; color: var(--ink-3); }
+.saetze { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.saetze li {
+  font-family: var(--f-display);
+  font-size: 15.5px;
+  line-height: 1.45;
+  background: var(--surface-2);
+  border-radius: var(--r-m);
+  padding: 10px 14px;
+  border-left: 2px solid var(--brass);
+}
+
+.verweis {
+  font-size: 14px;
+  color: var(--ink-2);
+  background: var(--surface-2);
+  border-radius: var(--r-m);
+  padding: 11px 15px;
+  cursor: pointer;
+  display: flex;
+  gap: 9px;
+  align-items: baseline;
+  transition: color .14s;
+}
+.verweis::before { content: "→"; color: var(--accent); flex: none; }
+.verweis:hover { color: var(--ink); }
+
 /* ------------------------------------------------------------- Responsive */
 
 @media (max-width: 900px) {
@@ -816,9 +978,11 @@ button { font: inherit; color: inherit; }
     padding-inline: 18px;
     gap: 12px;
   }
-  .nav { flex-direction: row; overflow-x: auto; gap: 4px; padding-bottom: 2px; }
+  .nav { flex-direction: row; overflow-x: auto; gap: 4px; padding-bottom: 2px; align-items: center; }
   .nav button { white-space: nowrap; padding: 6px 12px; border: 1px solid var(--line); }
   .nav button .idx { display: none; }
+  .navgruppe { padding: 0 4px 0 8px; white-space: nowrap; border-left: 1px solid var(--line); align-self: stretch; display: flex; align-items: center; }
+  .navgruppe:first-child { border-left: 0; }
   .railfoot { margin-top: 0; flex-direction: row; align-items: center; justify-content: space-between; }
   .themeswitch { flex: 0 0 auto; }
   .main { padding-inline: 18px; padding-block: 22px 60px; }
@@ -836,4 +1000,7 @@ button { font: inherit; color: inherit; }
   .fcard { padding: 30px 22px; }
   .fcard .seite, .fcard .hint { left: 22px; }
   .qcard { padding: 20px 18px; }
+  .werkzeug { padding: 18px 16px 22px; }
+  .bruecke { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .bruecke .pfeil { text-align: left; padding-top: 0; }
 }
