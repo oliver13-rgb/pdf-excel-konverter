@@ -1,4 +1,4 @@
-# Geschichtslärm 2028
+# Geschichte2028
 
 Lern-Website für das **Profil Geschichte-Kunst, Jahrgang 11**, Abiturjahrgang 2028.
 Sie bündelt zwei getrennte, aber verknüpfte Stränge:
@@ -17,7 +17,7 @@ Statische Seite ohne Abhängigkeiten: `index.html` im Browser öffnen genügt.
 | `app.js` | Rendering, Filter, Karteikarten, Quiz, Fortschrittsspeicher |
 | `daten.js` | **Alle Inhalte.** Die einzige Datei, die pro Unterrichtswoche wächst. |
 | `build.js` | Baut aus den vier Dateien eine einzelne, offline lauffähige HTML-Datei |
-| `Geschichtslaerm-2028.html` | Das Ergebnis des Builds – zum Weitergeben und Offline-Nutzen |
+| `Geschichte2028.html` | Das Ergebnis des Builds – zum Weitergeben und Offline-Nutzen |
 
 Nach jeder Inhaltsänderung neu bauen:
 

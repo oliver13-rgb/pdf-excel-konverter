@@ -1,6 +1,6 @@
 /* =========================================================================
    Baut aus index.html, style.css, daten.js und app.js eine einzige
-   eigenständige HTML-Datei: Geschichtslaerm-2028.html
+   eigenständige HTML-Datei: Geschichte2028.html
    Aufruf:  node build.js
    ========================================================================= */
 
@@ -47,10 +47,10 @@ if (schnitt === -1) {
 const kopf = eineDatei.slice(0, schnitt).trim();
 const rumpf = eineDatei.slice(schnitt).trim();
 
-const ziel = path.join(hier, "Geschichtslaerm-2028.html");
+const ziel = path.join(hier, "Geschichte2028.html");
 fs.writeFileSync(ziel,
   "<!doctype html>\n<html lang=\"de\">\n<head>\n" + kopf +
   "\n</head>\n<body>\n" + rumpf + "\n</body>\n</html>\n");
 
 const kb = (fs.statSync(ziel).size / 1024).toFixed(0);
-console.log("Geschichtslaerm-2028.html geschrieben — " + kb + " KB, eine Datei, ohne Abhängigkeiten.");
+console.log("Geschichte2028.html geschrieben — " + kb + " KB, eine Datei, ohne Abhängigkeiten.");
