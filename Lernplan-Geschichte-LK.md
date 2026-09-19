@@ -13,10 +13,10 @@ Entdeckung Amerikas (Anfang 16. Jh.); Theoriemodelle: **Bitterli und Huntington*
    fachliche Standardgerüst zu diesem Thema. Geh ihn mit deinen Folien durch und **streiche alles,
    was ihr nicht hattet** — und **ergänze**, was auf den Folien steht, aber hier fehlt. Was auf den
    Folien war, ist im Zweifel wichtiger als das hier.
-2. **Noch eine offene Stelle auf dem Zettel:**
-   - „**Mönch**" ohne Namen — mit sehr hoher Wahrscheinlichkeit **Bartolomé de Las Casas**
-     (Dominikaner). Falls ihr im Unterricht eine konkrete Mönchs-Quelle gelesen habt, ist genau
-     die mit großer Wahrscheinlichkeit die Klausurquelle → die **unbedingt** noch mal lesen.
+2. **Auf dem Zettel steht „Mönch" ohne Namen.** Mit sehr hoher Wahrscheinlichkeit ist
+   **Bartolomé de Las Casas** gemeint (Dominikaner). Falls ihr im Unterricht eine konkrete
+   Mönchs-Quelle gelesen habt, ist genau die mit großer Wahrscheinlichkeit die Klausurquelle
+   → die **unbedingt** noch mal lesen.
 
 > ✅ **Geklärt:** Auf dem Zettel steht „erläutern → erklären mit Bsp → **Bitterli und Huntington**".
 > Damit ist der Schwerpunkt von Aufgabe 2 eindeutig: **zwei konkurrierende Modelle des
@@ -38,7 +38,7 @@ Entdeckung Amerikas (Anfang 16. Jh.); Theoriemodelle: **Bitterli und Huntington*
 **Zeitplan in der Klausur** (Annahme: 180 min; wenn ihr mehr/weniger habt, proportional anpassen):
 
 ```
-0–20 min    Aufgabenstellung + Quelle lesen, markieren, Randnotizen, Gliederung stichwortartig
+0–20 min    Aufgabenstellung + Quelle lesen, markieren, Gliederung notieren
 20–50 min   Aufgabe 1 (Zusammenfassung)      ← Lehrer sagt ausdrücklich: 30 min
 50–110 min  Aufgabe 2 (Erläutern)
 110–155 min Aufgabe 3 (Diskutieren)
@@ -53,6 +53,7 @@ Entdeckung Amerikas (Anfang 16. Jh.); Theoriemodelle: **Bitterli und Huntington*
 ## Aufgabe 1 — Zusammenfassen (30 BE)
 
 **Was der Lehrer explizit will:**
+
 - **Präsens** als Grundtempus, Vorzeitiges im **Perfekt**
   („Der Autor berichtet, … Die Spanier **haben** die Stadt **zerstört**.")
 - **Konjunktiv I!!!** (dreifach unterstrichen = das ist sein Hauptkriterium)
@@ -60,6 +61,7 @@ Entdeckung Amerikas (Anfang 16. Jh.); Theoriemodelle: **Bitterli und Huntington*
 - **Kein Fazit** — die Zusammenfassung endet mit dem letzten Textinhalt, Punkt.
 
 **Aufbau:**
+
 1. **Einleitungssatz (TATTE):** **T**extsorte, **A**utor, **T**itel, **T**hema/Datum, **E**ntstehungskontext/Adressat
    > *„In seinem 1552 veröffentlichten Bericht ‚Kurzgefasster Bericht von der Verwüstung der
    > Westindischen Länder', gerichtet an den spanischen Thronfolger Philipp, schildert der
@@ -101,6 +103,7 @@ Entdeckung Amerikas (Anfang 16. Jh.); Theoriemodelle: **Bitterli und Huntington*
 
 **Drill (3× diese Woche, je 5 Min.):** Nimm 5 Sätze aus einer Quelle und schreib sie in indirekter
 Rede um. Beispiele zum Selbsttest:
+
 1. „Wir haben die Stadt eingenommen." → *Er schreibt, sie **hätten** die Stadt eingenommen.*
 2. „Die Indianer sind vernünftige Menschen." → *Er behauptet, die Indigenen **seien** vernünftige Menschen.*
 3. „Der König muss eingreifen." → *Er fordert, der König **müsse** eingreifen.*
@@ -114,6 +117,7 @@ Rede um. Beispiele zum Selbsttest:
 **Operator „erläutern" = erklären + mit Beispiel belegen.** Nicht nur nennen, nicht nur beschreiben.
 
 **Was der Lehrer explizit will:**
+
 - **Präsens**
 - **Kein Fazit**
 - **Fließender Text** — keine Stichpunkte, keine Aufzählungszeichen!
@@ -143,6 +147,7 @@ Pro Absatz **ein** Aspekt. Bei 40 BE sind **4–6 solcher Absätze** realistisch
 ## Aufgabe 3 — Diskutieren / Stellung nehmen (30 BE)
 
 **Was der Lehrer explizit will:**
+
 - **Gegenargumente entkräften** — nicht nur Pro und Contra nebeneinanderstellen, sondern die
   Gegenseite aktiv widerlegen
 - Aufhänger: ein **Zitat / eine Behauptung / ein kontroverser Begriff** aus dem Material
@@ -175,6 +180,7 @@ Fazit        Abwägung + klare eigene Position  ← PFLICHT
 > Dieser Einwand ist zwar berechtigt, **relativiert sich aber**, wenn man berücksichtigt, dass …
 
 **Wichtig im LK — Sachurteil vs. Werturteil:**
+
 - **Sachurteil** = Beurteilung aus der Zeit heraus, mit zeitgenössischen Maßstäben
   („Gemessen an den Rechtsvorstellungen des 16. Jahrhunderts …")
 - **Werturteil** = Bewertung aus heutiger Sicht, mit heutigen Maßstäben (Menschenrechte, Völkermord)
@@ -189,6 +195,7 @@ Fazit        Abwägung + klare eigene Position  ← PFLICHT
 > Blatt schreibst. Nur Lesen bringt in einer LK-Klausur fast nichts.
 
 ### 📅 Samstag, 19.09. — Überblick & Material sortieren (ca. 2 h)
+
 - [ ] Alle Folien/Hefteinträge/Quellen auf **einen Stapel**, chronologisch ordnen
 - [ ] Teil C dieses Plans einmal durchlesen und mit den Folien abgleichen:
       ✅ = hatten wir, ➕ = fehlt hier, ❌ = hatten wir nicht (durchstreichen)
@@ -198,6 +205,7 @@ Fazit        Abwägung + klare eigene Position  ← PFLICHT
       markieren — sie sind für Aufgabe 2 (40 BE) die wichtigsten des ganzen Stapels.
 
 ### 📅 Sonntag, 20.09. — Inhalt I: Ursachen & Verlauf (ca. 2,5 h)
+
 - [ ] C1 (Voraussetzungen/Motive) + C2 (Verlauf, Cortés) lernen
 - [ ] **Aktiv:** Schreib in 10 Min. frei auf, *warum* wenige hundert Spanier ein Millionenreich
       besiegen konnten — mind. 5 Faktoren (siehe C2). Das ist eine sehr wahrscheinliche Aufgabe.
@@ -206,11 +214,13 @@ Fazit        Abwägung + klare eigene Position  ← PFLICHT
 - [ ] 5 Min. Konjunktiv-I-Drill
 
 ### 📅 Montag, 21.09. — Inhalt II: Folgen & Las Casas (ca. 90 Min.)
+
 - [ ] C3 (Folgen) + C4 (Las Casas / Valladolid) lernen
 - [ ] **Aktiv:** Tabelle „Las Casas vs. Sepúlveda" aus dem Kopf rekonstruieren
 - [ ] 5 Min. Konjunktiv-I-Drill
 
 ### 📅 Dienstag, 22.09. — ⭐ Bitterli & Huntington (ca. 2 h — heute etwas mehr einplanen)
+
 - [ ] C5 (**Bitterli**) **auswendig können** — 4 Kategorien + je 1 Beispiel
 - [ ] C6 (**Huntington**) — Kernthese, Kulturkreise, **und vor allem die vier Kritikpunkte**
 - [ ] C7 (**Vergleichstabelle**) — die Unterschiede in eigenen Worten erklären können
@@ -221,6 +231,7 @@ Fazit        Abwägung + klare eigene Position  ← PFLICHT
       Präsens? Konjunktiv I durchgehend? Keine Wertung? Kein Fazit? Einleitungssatz vollständig?
 
 ### 📅 Mittwoch, 23.09. — Methodentraining Aufgabe 2 + 3 (ca. 90 Min.)
+
 - [ ] **Übung A2 (35 Min.):** *„Erläutern Sie, inwiefern sich die Begegnung zwischen Spaniern und
       Azteken mit den Modellen Bitterlis und Huntingtons beschreiben lässt."* → fließender Text,
       Präsens, kein Fazit, in **jedem** Absatz ein Beispiel. **Das ist die wahrscheinlichste
@@ -231,6 +242,7 @@ Fazit        Abwägung + klare eigene Position  ← PFLICHT
 - [ ] Die Ich-Ersatz-Tabelle abdecken und aus dem Kopf reproduzieren
 
 ### 📅 Donnerstag, 24.09. — Wiederholung & Simulation (ca. 90 Min.)
+
 - [ ] Zeitstrahl + alle Begriffe aus C8 **aus dem Kopf** auf ein leeres Blatt (20 Min.)
 - [ ] Lücken gezielt nachlesen (20 Min.)
 - [ ] **Formulierungsbausteine** aus Teil A auf eine Karteikarte schreiben und laut aufsagen
@@ -238,6 +250,7 @@ Fazit        Abwägung + klare eigene Position  ← PFLICHT
 - [ ] **Früh ins Bett.** Nichts Neues mehr lernen.
 
 ### 📅 Freitag, 25.09. — Klausur
+
 - [ ] Morgens 5 Min.: Zeitplan (siehe Teil A) + die 3 Regeln:
       **(1) Konjunktiv I in A1 · (2) Beispiel in jedem Absatz in A2 · (3) Fazit mit Position in A3**
 
@@ -250,6 +263,7 @@ Fazit        Abwägung + klare eigene Position  ← PFLICHT
 ## C1 — Voraussetzungen und Motive der Expansion
 
 **Die drei klassischen Motive — „Gold, Gott, Ruhm"** (Gold, Gospel, Glory):
+
 - **Ökonomisch:** Gewürze, Gold, Silber; der venezianische Levantehandel ist teuer, nach dem
   **Fall Konstantinopels 1453** wird der Landweg nach Asien zusätzlich erschwert → Suche nach dem
   **Seeweg nach Indien**
@@ -283,6 +297,7 @@ Unterwerfungsaufruf, der die Gewalt formal legitimieren sollte
 | 1550/51 | **Disput von Valladolid** |
 
 ### ❗ Warum siegten wenige hundert Spanier? (Kernfrage — sehr klausurverdächtig)
+
 1. **Krankheiten** — der mit Abstand wichtigste Faktor: Pocken, Masern, Typhus treffen auf eine
    Bevölkerung ohne jede Immunität („virgin soil epidemics") → demografischer Kollaps
 2. **Indigene Bündnispartner** — v. a. die **Tlaxcalteken**, Feinde der Azteken; Cortés führt
@@ -298,6 +313,7 @@ Unterwerfungsaufruf, der die Gewalt formal legitimieren sollte
 ## C3 — Folgen
 
 **Für Amerika:**
+
 - **Demografische Katastrophe:** Schätzungen für Mesoamerika von ca. 25 Mio. (1519) auf unter
   1,5 Mio. (um 1600). *(Zahlen sind Schätzungen und in der Forschung umstritten — im LK immer
   als Schätzung kennzeichnen!)*
@@ -307,6 +323,7 @@ Unterwerfungsaufruf, der die Gewalt formal legitimieren sollte
 - **Kastengesellschaft** (Peninsulares – Criollos – Mestizen – Indigene – Sklaven)
 
 **Für Europa und die Welt:**
+
 - **Columbian Exchange** (Alfred W. Crosby): nach Europa Kartoffel, Mais, Tomate, Kakao, Tabak;
   nach Amerika Pferd, Rind, Weizen, Zuckerrohr — **und Krankheiten**
 - **Silberströme** → Preisrevolution/Inflation in Europa, Aufstieg Spaniens und sein späterer Verfall
@@ -336,14 +353,16 @@ Unterwerfungsaufruf, der die Gewalt formal legitimieren sollte
 | Menschenbild | Indigene sind „Sklaven von Natur" (Aristoteles), kulturell unterlegen | Indigene sind vernunftbegabte Menschen mit Seele, teils zivilisierter als Europäer |
 | Krieg | „gerechter Krieg" (*bellum iustum*) zur Zivilisierung und Missionierung zulässig | Krieg ist unzulässig; Mission darf nur **friedlich** und durch Überzeugung erfolgen |
 | Menschenopfer | beweisen Barbarei, rechtfertigen Eingreifen | sind Irrtum, aber Ausdruck echter Frömmigkeit; rechtfertigen keine Eroberung |
-| Ergebnis | kein formales Urteil — beide Seiten reklamierten den Sieg; die Praxis änderte sich kaum | |
+
+**Ergebnis:** kein formales Urteil — beide Seiten reklamierten den Sieg für sich; an der Praxis
+in den Kolonien änderte sich zunächst kaum etwas.
 
 - **Kritikpunkte an Las Casas** (für Aufgabe 3 sehr wertvoll — nie nur Heldenerzählung!):
-  - Er schlug zeitweise **afrikanische Sklaven als Ersatzarbeitskräfte** vor; er widerrief das später ausdrücklich
-  - Seine Zahlen sind stark **übertrieben** (rhetorische Wirkungsabsicht)
-  - Seine Schrift wurde von England und den Niederlanden für die antispanische Propaganda der
-    **„Leyenda negra"** (Schwarze Legende) instrumentalisiert
-  - Er stellte die spanische Herrschaft als solche nicht grundsätzlich infrage, nur ihre Methoden
+    - Er schlug zeitweise **afrikanische Sklaven als Ersatzarbeitskräfte** vor; er widerrief das später ausdrücklich
+    - Seine Zahlen sind stark **übertrieben** (rhetorische Wirkungsabsicht)
+    - Seine Schrift wurde von England und den Niederlanden für die antispanische Propaganda der
+      **„Leyenda negra"** (Schwarze Legende) instrumentalisiert
+    - Er stellte die spanische Herrschaft als solche nicht grundsätzlich infrage, nur ihre Methoden
 - **Francisco de Vitoria** und die **Schule von Salamanca**: aus dieser Debatte entstehen die
   Anfänge des modernen **Völkerrechts** (*ius gentium*)
 
@@ -376,6 +395,7 @@ schreibt **nach dem Ende des Kalten Krieges** und will die **Zukunft** deuten, n
 > Frontlinien der Zukunft."
 
 **Die Bausteine des Modells:**
+
 - Die Welt zerfällt in **sieben bis acht Kulturkreise** („Zivilisationen"): westlich, lateinamerikanisch,
   orthodox-slawisch, islamisch, sinisch/konfuzianisch, hinduistisch, japanisch, (afrikanisch)
 - Das prägende Merkmal einer Zivilisation ist vor allem die **Religion**
@@ -385,6 +405,7 @@ schreibt **nach dem Ende des Kalten Krieges** und will die **Zukunft** deuten, n
   und stattdessen die eigene Kultur bewahren
 
 ### ❗ Die vier Standardkritiken (unbedingt können — sie sind das Material für Aufgabe 3)
+
 1. **Essentialismus / Homogenisierung:** Kulturen werden als geschlossene, einheitliche, statische
    Blöcke gedacht. Real sind sie **heterogen, in sich zerstritten, durchlässig und wandelbar**.
 2. **Empirischer Einwand:** Die meisten Konflikte finden **innerhalb** von Kulturkreisen statt
@@ -423,6 +444,7 @@ das *Davor* und *Danach* erfassen.
 **Mit Huntington (trägt nur teilweise — und genau das ist dein Punkt):**
 Auf den ersten Blick passt es: zwei Zivilisationen treffen aufeinander, Religion ist zentral
 (Mission, Menschenopfer, *Requerimiento*). **Aber drei starke Einwände:**
+
 1. **Anachronismus:** Huntingtons Modell ist für die Welt **nach 1989** entworfen. Es auf 1521
    anzuwenden, überträgt eine Gegenwartsdeutung auf eine Epoche mit völlig anderen Strukturen.
 2. **Die Tlaxcalteken widerlegen die Bruchlinien-Logik:** Die entscheidenden Bündnisse liefen
@@ -453,13 +475,13 @@ Bruchlinie (*fault line*) · Essentialismus · „The West versus the Rest" · S
   „**Eroberung**" vs. „**Begegnung**" vs. „**Invasion**". Seit der 500-Jahr-Debatte 1992 ist das
   ein Dauerstreit. **Perfekter Aufhänger für Aufgabe 3.**
 - **Quellen und ihre Interessen — immer mitdenken:**
-  - **Cortés, *Cartas de Relación*** → Rechtfertigungsschreiben an Karl V.; Cortés war formal
-    ungehorsam und musste seinen Alleingang legitimieren → **stark geschönt**
-  - **Bernal Díaz del Castillo** → Augenzeuge, schreibt aber Jahrzehnte später und will Cortés'
-    Ruhm relativieren
-  - **Las Casas** → Anklageschrift mit Appellcharakter, bewusst zugespitzt
-  - **Codex Florentinus / Sahagún, Lienzo de Tlaxcala** → **indigene Perspektive**, allerdings
-    nachträglich und unter spanischer Aufsicht entstanden
+    - **Cortés, *Cartas de Relación*** → Rechtfertigungsschreiben an Karl V.; Cortés war formal
+      ungehorsam und musste seinen Alleingang legitimieren → **stark geschönt**
+    - **Bernal Díaz del Castillo** → Augenzeuge, schreibt aber Jahrzehnte später und will Cortés'
+      Ruhm relativieren
+    - **Las Casas** → Anklageschrift mit Appellcharakter, bewusst zugespitzt
+    - **Codex Florentinus / Sahagún, Lienzo de Tlaxcala** → **indigene Perspektive**, allerdings
+      nachträglich und unter spanischer Aufsicht entstanden
 - **Tzvetan Todorov**, *Die Eroberung Amerikas. Das Problem des Anderen* — Umgang mit dem Fremden
 - **Debatte „War die Conquista ein Völkermord?"** — Argumente: gewaltiger Bevölkerungsverlust,
   gezielte Massaker, Zerstörung der Kultur · Gegenargumente: die Masse der Toten ging auf
@@ -473,16 +495,17 @@ Bruchlinie (*fault line*) · Essentialismus · „The West versus the Rest" · S
 
 1. Nenne fünf Gründe für den militärischen Erfolg der Konquistadoren — geordnet nach Wichtigkeit.
 2. Erkläre Bitterlis vier Kategorien und ordne die Conquista begründet zu.
-2b. Nenne Huntingtons Kernthese in einem Satz und **vier** Kritikpunkte an seinem Modell.
-2c. Stelle Bitterli und Huntington in fünf Gegensatzpaaren gegenüber (Fach, Zeitbezug,
-    Kulturbegriff, Rolle des Konflikts, Vermischung).
-2d. Warum sprechen die Tlaxcalteken gegen Huntingtons Bruchlinien-These?
-3. Stelle die Positionen von Las Casas und Sepúlveda in Valladolid gegenüber.
-4. Wandle fünf Sätze einer Quelle in indirekte Rede mit Konjunktiv I um.
-5. Nenne drei Folgen der Expansion für Europa und drei für Amerika.
-6. Warum ist der Begriff „Entdeckung Amerikas" umstritten? Beziehe Position.
-7. Welche Interessen verfolgt Las Casas mit seinem Bericht? Was heißt das für seine Glaubwürdigkeit?
-8. Nenne drei Formulierungen, mit denen du ein „ich" vermeidest.
+3. Nenne Huntingtons Kernthese in einem Satz und **vier** Kritikpunkte an seinem Modell.
+4. Stelle Bitterli und Huntington in fünf Gegensatzpaaren gegenüber (Fach, Zeitbezug,
+   Kulturbegriff, Rolle des Konflikts, Vermischung).
+5. Warum sprechen die Tlaxcalteken gegen Huntingtons Bruchlinien-These?
+6. Stelle die Positionen von Las Casas und Sepúlveda in Valladolid gegenüber.
+7. Wandle fünf Sätze einer Quelle in indirekte Rede mit Konjunktiv I um.
+8. Nenne drei Folgen der Expansion für Europa und drei für Amerika.
+9. Warum ist der Begriff „Entdeckung Amerikas" umstritten? Beziehe Position.
+10. Welche Interessen verfolgt Las Casas mit seinem Bericht? Was heißt das für seine
+    Glaubwürdigkeit?
+11. Nenne drei Formulierungen, mit denen du ein „ich" vermeidest.
 
 ---
 
