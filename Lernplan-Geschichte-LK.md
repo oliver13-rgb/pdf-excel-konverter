@@ -2,7 +2,8 @@
 
 **Klausurtermin:** Freitag, 25.09.2026
 **Plan erstellt:** Samstag, 19.09.2026 → **6 Lerntage** (Sa, So, Mo, Di, Mi, Do)
-**Thema laut Zettel:** Spanische Expansion / Conquista — Cortés, „der Mönch", Bedeutung der Entdeckung Amerikas (Anfang 16. Jh.)
+**Thema laut Zettel:** Spanische Expansion / Conquista — Cortés, „der Mönch", Bedeutung der
+Entdeckung Amerikas (Anfang 16. Jh.); Theoriemodelle: **Bitterli und Huntington**
 
 ---
 
@@ -12,13 +13,15 @@
    fachliche Standardgerüst zu diesem Thema. Geh ihn mit deinen Folien durch und **streiche alles,
    was ihr nicht hattet** — und **ergänze**, was auf den Folien steht, aber hier fehlt. Was auf den
    Folien war, ist im Zweifel wichtiger als das hier.
-2. **Zwei Stellen auf dem Zettel sind nicht sicher lesbar:**
-   - „erläutern → erklären mit Bsp → **Bitterli und Hartigkeit(?)**" — „Bitterli" ist eindeutig
-     (Urs Bitterli, Typologie der Kulturbegegnung, siehe C5). Das zweite Wort ist unklar:
-     vermutlich ein zweiter Autorenname oder ein Fachbegriff. **Frag Montag im Kurs nach.**
+2. **Noch eine offene Stelle auf dem Zettel:**
    - „**Mönch**" ohne Namen — mit sehr hoher Wahrscheinlichkeit **Bartolomé de Las Casas**
      (Dominikaner). Falls ihr im Unterricht eine konkrete Mönchs-Quelle gelesen habt, ist genau
      die mit großer Wahrscheinlichkeit die Klausurquelle → die **unbedingt** noch mal lesen.
+
+> ✅ **Geklärt:** Auf dem Zettel steht „erläutern → erklären mit Bsp → **Bitterli und Huntington**".
+> Damit ist der Schwerpunkt von Aufgabe 2 eindeutig: **zwei konkurrierende Modelle des
+> Kulturkontakts gegeneinanderhalten und auf die Conquista anwenden** (→ C5, C6, C7).
+> Das ist der wichtigste Block dieses Plans.
 
 ---
 
@@ -114,8 +117,13 @@ Rede um. Beispiele zum Selbsttest:
 - **Präsens**
 - **Kein Fazit**
 - **Fließender Text** — keine Stichpunkte, keine Aufzählungszeichen!
-- **Bitterli** (+ der zweite, unleserliche Begriff) → hier wird sehr wahrscheinlich verlangt, den
-  Fall mit **Bitterlis Kategorien der Kulturbegegnung** zu erklären (siehe C5).
+- **Bitterli und Huntington** → hier wird verlangt, den Fall mit den **Theoriemodellen des
+  Kulturkontakts** zu erklären: Bitterlis vier Kategorien (C5), Huntingtons Kulturkreis-Modell (C6)
+  und der **Vergleich beider** (C7). Damit steht und fällt die 40-BE-Aufgabe.
+
+> ⚠️ **Falle bei Theorieanwendung:** Modell nicht nur *nennen* und die Conquista hineinpressen,
+> sondern **prüfen, wie weit es trägt**. Der Satz „Das Modell erklärt X, stößt aber bei Y an seine
+> Grenzen, weil …" ist genau das, was im LK die Differenzierungspunkte bringt.
 
 **Das Schema pro Absatz — vier Schritte, immer gleich:**
 ```
@@ -186,7 +194,8 @@ Fazit        Abwägung + klare eigene Position  ← PFLICHT
       ✅ = hatten wir, ➕ = fehlt hier, ❌ = hatten wir nicht (durchstreichen)
 - [ ] **Zeitstrahl** auf ein A4-Blatt: 1453 · 1492 · 1494 · 1511 · 1519–21 · 1532 · 1542 · 1550/51
 - [ ] Die Mönchs-Quelle aus dem Unterricht raussuchen und **einmal komplett lesen**
-- [ ] Offene Frage notieren: Was heißt „Bitterli und ___"? → Montag klären
+- [ ] Auf den Folien gezielt suchen: Wo kamen **Bitterli** und **Huntington** vor? Diese Folien
+      markieren — sie sind für Aufgabe 2 (40 BE) die wichtigsten des ganzen Stapels.
 
 ### 📅 Sonntag, 20.09. — Inhalt I: Ursachen & Verlauf (ca. 2,5 h)
 - [ ] C1 (Voraussetzungen/Motive) + C2 (Verlauf, Cortés) lernen
@@ -197,26 +206,32 @@ Fazit        Abwägung + klare eigene Position  ← PFLICHT
 - [ ] 5 Min. Konjunktiv-I-Drill
 
 ### 📅 Montag, 21.09. — Inhalt II: Folgen & Las Casas (ca. 90 Min.)
-- [ ] Im Kurs: **„Bitterli und ___" klären!**
 - [ ] C3 (Folgen) + C4 (Las Casas / Valladolid) lernen
 - [ ] **Aktiv:** Tabelle „Las Casas vs. Sepúlveda" aus dem Kopf rekonstruieren
 - [ ] 5 Min. Konjunktiv-I-Drill
 
-### 📅 Dienstag, 22.09. — Bitterli + Methodentraining Aufgabe 1 (ca. 90 Min.)
-- [ ] C5 (Bitterli) **auswendig können** — 4 Kategorien + je 1 Beispiel
+### 📅 Dienstag, 22.09. — ⭐ Bitterli & Huntington (ca. 2 h — heute etwas mehr einplanen)
+- [ ] C5 (**Bitterli**) **auswendig können** — 4 Kategorien + je 1 Beispiel
+- [ ] C6 (**Huntington**) — Kernthese, Kulturkreise, **und vor allem die vier Kritikpunkte**
+- [ ] C7 (**Vergleichstabelle**) — die Unterschiede in eigenen Worten erklären können
+- [ ] **Aktiv:** Schreib in 15 Min. frei auf: *„Warum passt Bitterli besser auf die Conquista als
+      Huntington?"* — mind. drei Argumente (Tlaxcalteken! Anachronismus! Kulturverflechtung!)
 - [ ] **Übung:** Nimm die Mönchs-Quelle und schreib eine **echte Zusammenfassung** (30 Min., Uhr
       stellen, handschriftlich!). Danach selbst prüfen:
       Präsens? Konjunktiv I durchgehend? Keine Wertung? Kein Fazit? Einleitungssatz vollständig?
 
 ### 📅 Mittwoch, 23.09. — Methodentraining Aufgabe 2 + 3 (ca. 90 Min.)
-- [ ] **Übung A2 (30 Min.):** *„Erläutern Sie, inwiefern sich die Begegnung zwischen Spaniern und
-      Azteken mit Bitterlis Kategorien beschreiben lässt."* → fließender Text, Präsens, kein Fazit
-- [ ] **Übung A3 (25 Min.):** *„Nehmen Sie Stellung zu der Behauptung, der Begriff ‚Entdeckung
-      Amerikas' sei unangemessen."* → 2–3 Punkte pro Seite, Fazit mit klarer Position, kein „ich"
+- [ ] **Übung A2 (35 Min.):** *„Erläutern Sie, inwiefern sich die Begegnung zwischen Spaniern und
+      Azteken mit den Modellen Bitterlis und Huntingtons beschreiben lässt."* → fließender Text,
+      Präsens, kein Fazit, in **jedem** Absatz ein Beispiel. **Das ist die wahrscheinlichste
+      Klausuraufgabe — diese Übung nicht auslassen.**
+- [ ] **Übung A3 (25 Min.):** *„Nehmen Sie Stellung zu der These, Huntingtons ‚Kampf der Kulturen'
+      sei ein geeignetes Modell zur Deutung der Conquista."* → 2–3 Punkte pro Seite,
+      Gegenargumente entkräften, Fazit mit klarer Position, kein „ich"
 - [ ] Die Ich-Ersatz-Tabelle abdecken und aus dem Kopf reproduzieren
 
 ### 📅 Donnerstag, 24.09. — Wiederholung & Simulation (ca. 90 Min.)
-- [ ] Zeitstrahl + alle Begriffe aus C6 **aus dem Kopf** auf ein leeres Blatt (20 Min.)
+- [ ] Zeitstrahl + alle Begriffe aus C8 **aus dem Kopf** auf ein leeres Blatt (20 Min.)
 - [ ] Lücken gezielt nachlesen (20 Min.)
 - [ ] **Formulierungsbausteine** aus Teil A auf eine Karteikarte schreiben und laut aufsagen
 - [ ] Letzte 10 Min.: Nur den Klausurzettel-Foto noch mal ansehen — Format, nicht Inhalt
@@ -348,14 +363,91 @@ Schubladen. Die Conquista ist primär **Kulturzusammenstoß**, geht aber aus ein
 hervor und mündet langfristig in **Kulturverflechtung**. Genau diese Differenzierung bringt Punkte.
 → Bitterlis Hauptwerk: *„Die ‚Wilden' und die ‚Zivilisierten'"* (1976)
 
-## C6 — Begriffsliste (müssen sitzen)
+## C6 — ⭐ Samuel P. Huntington: „Kampf der Kulturen"
+
+**Werk:** Aufsatz *„The Clash of Civilizations?"* (1993), Buch *„The Clash of Civilizations and the
+Remaking of World Order"* (1996), deutsch *„Kampf der Kulturen"*.
+**Achtung — wichtig fürs Urteil:** Huntington ist **Politikwissenschaftler**, kein Historiker. Er
+schreibt **nach dem Ende des Kalten Krieges** und will die **Zukunft** deuten, nicht das 16. Jahrhundert.
+
+**Kernthese:**
+> Nach 1989 verlaufen die großen Konflikte nicht mehr entlang **ideologischer** oder **ökonomischer**
+> Linien, sondern entlang **kultureller** Grenzen. „Die Bruchlinien zwischen den Kulturen sind die
+> Frontlinien der Zukunft."
+
+**Die Bausteine des Modells:**
+- Die Welt zerfällt in **sieben bis acht Kulturkreise** („Zivilisationen"): westlich, lateinamerikanisch,
+  orthodox-slawisch, islamisch, sinisch/konfuzianisch, hinduistisch, japanisch, (afrikanisch)
+- Das prägende Merkmal einer Zivilisation ist vor allem die **Religion**
+- Konflikte entstehen an den **Bruchlinien** (*fault lines*) zwischen diesen Blöcken
+- Kulturelle Identität ist **tief verwurzelt und kaum wandelbar** — anders als politische Ideologien
+- „**The West versus the Rest**": Der Westen soll seinen Anspruch auf Universalität aufgeben
+  und stattdessen die eigene Kultur bewahren
+
+### ❗ Die vier Standardkritiken (unbedingt können — sie sind das Material für Aufgabe 3)
+1. **Essentialismus / Homogenisierung:** Kulturen werden als geschlossene, einheitliche, statische
+   Blöcke gedacht. Real sind sie **heterogen, in sich zerstritten, durchlässig und wandelbar**.
+2. **Empirischer Einwand:** Die meisten Konflikte finden **innerhalb** von Kulturkreisen statt
+   (Bürgerkriege, Konflikte zwischen Sunniten und Schiiten), nicht zwischen ihnen.
+3. **Reduktionismus:** Religion wird überbetont; ökonomische Interessen, Machtpolitik, Ressourcen
+   und koloniale Vorgeschichte werden ausgeblendet.
+4. **Self-fulfilling prophecy:** Das Denken in Blöcken **erzeugt** die Feindbilder, die es zu
+   beschreiben vorgibt. → *Edward Said, „The Clash of Ignorance"*; *Amartya Sen*: Menschen haben
+   **multiple Identitäten**, nicht nur eine kulturelle.
+
+## C7 — ⭐⭐ Der Vergleich: Bitterli vs. Huntington
+
+**Das ist mit hoher Wahrscheinlichkeit der Kern von Aufgabe 2 (40 BE).**
+
+| | **Urs Bitterli** | **Samuel P. Huntington** |
+|---|---|---|
+| Fach | **Historiker** (Kulturgeschichte) | **Politikwissenschaftler** |
+| Werk / Jahr | „Die ‚Wilden' und die ‚Zivilisierten'" (1976) | „Kampf der Kulturen" (1993/96) |
+| Erkenntnisinteresse | **deskriptiv-historisch**: Wie *verliefen* Kulturkontakte tatsächlich? | **prognostisch-politisch**: Wie werden künftige Konflikte verlaufen? |
+| Bezugszeit | Frühe Neuzeit, europäische Expansion | Welt **nach 1989** |
+| Modell | **Vier Typen** von Begegnung, **prozesshaft**, Ausgang **offen** | Welt aus 7–8 festen Kulturkreisen, Konflikt an den Bruchlinien |
+| Kulturbegriff | **dynamisch** — Begegnung verändert **beide** Seiten | eher **statisch** — Identität als dauerhafte Größe (v. a. Religion) |
+| Rolle des Konflikts | **eine von vier** Möglichkeiten (Kulturzusammenstoß) | der **Normal- und Regelfall** |
+| Vermischung | eigene Kategorie: **Kulturverflechtung** | kaum vorgesehen, eher als Bedrohung gedeutet |
+| Reichweite | erklärt Abstufungen und Übergänge | erklärt Großkonflikte grob, aber Binnendifferenzen nicht |
+
+### Anwendung auf die Conquista — so argumentierst du
+
+**Mit Bitterli (trägt gut):**
+Die Begegnung lässt sich als **Prozess** beschreiben: **Kulturberührung** (1519, Landung bei
+Veracruz, Gesandte Moctezumas — Ausgang noch offen) → **Kulturzusammenstoß** (1519–1521,
+Eroberung Tenochtitláns) → langfristig **Kulturverflechtung** (Mestizengesellschaft, religiöser
+Synkretismus wie die Virgen de Guadalupe). Bitterli kann also nicht nur die Gewalt, sondern auch
+das *Davor* und *Danach* erfassen.
+
+**Mit Huntington (trägt nur teilweise — und genau das ist dein Punkt):**
+Auf den ersten Blick passt es: zwei Zivilisationen treffen aufeinander, Religion ist zentral
+(Mission, Menschenopfer, *Requerimiento*). **Aber drei starke Einwände:**
+1. **Anachronismus:** Huntingtons Modell ist für die Welt **nach 1989** entworfen. Es auf 1521
+   anzuwenden, überträgt eine Gegenwartsdeutung auf eine Epoche mit völlig anderen Strukturen.
+2. **Die Tlaxcalteken widerlegen die Bruchlinien-Logik:** Die entscheidenden Bündnisse liefen
+   **quer** zu den Kulturgrenzen — Indigene kämpften gemeinsam mit den Spaniern gegen andere
+   Indigene. Der Konflikt verlief also **innerhalb** eines „Kulturkreises", nicht zwischen zweien.
+   **Das ist dein stärkstes Argument — unbedingt bringen.**
+3. **Huntingtons eigene Karte spricht gegen ihn:** Er führt „Lateinamerika" als **eigene**
+   Zivilisation — aber die ist überhaupt erst *durch* die Conquista entstanden, also durch genau
+   jene Vermischung, die sein statisches Modell nicht vorsieht.
+
+> **Musterformulierung fürs Fazit von Aufgabe 3:**
+> *„Abwägend lässt sich festhalten, dass Bitterlis Typologie der historischen Komplexität der
+> Conquista deutlich eher gerecht wird als Huntingtons Modell. Zwar vermag Letzteres die
+> religiöse Dimension des Aufeinandertreffens zu erfassen, doch scheitert es an dem Befund,
+> dass die entscheidenden Bündnisse quer zu den vermeintlichen Kulturgrenzen verliefen."*
+
+## C8 — Begriffsliste (müssen sitzen)
 
 Conquista · Konquistador · Encomienda · Repartimiento · Mita · Requerimiento · Tordesillas ·
 *Inter caetera* · Hidalgo · Criollo · Mestize · Columbian Exchange · Leyes Nuevas ·
 Disput von Valladolid · *bellum iustum* · Leyenda negra · *ius gentium* · Eurozentrismus ·
-Synkretismus · Kulturberührung/-zusammenstoß/-beziehung/-verflechtung
+Synkretismus · Kulturberührung/-zusammenstoß/-beziehung/-verflechtung · Kulturkreis/Zivilisation ·
+Bruchlinie (*fault line*) · Essentialismus · „The West versus the Rest" · Self-fulfilling prophecy
 
-## C7 — Perspektivität & Quellenkritik (bringt Extrapunkte)
+## C9 — Perspektivität & Quellenkritik (bringt Extrapunkte)
 
 - **Begriffsstreit:** „**Entdeckung**" (eurozentrisch — der Kontinent war bewohnt) vs.
   „**Eroberung**" vs. „**Begegnung**" vs. „**Invasion**". Seit der 500-Jahr-Debatte 1992 ist das
@@ -381,6 +473,10 @@ Synkretismus · Kulturberührung/-zusammenstoß/-beziehung/-verflechtung
 
 1. Nenne fünf Gründe für den militärischen Erfolg der Konquistadoren — geordnet nach Wichtigkeit.
 2. Erkläre Bitterlis vier Kategorien und ordne die Conquista begründet zu.
+2b. Nenne Huntingtons Kernthese in einem Satz und **vier** Kritikpunkte an seinem Modell.
+2c. Stelle Bitterli und Huntington in fünf Gegensatzpaaren gegenüber (Fach, Zeitbezug,
+    Kulturbegriff, Rolle des Konflikts, Vermischung).
+2d. Warum sprechen die Tlaxcalteken gegen Huntingtons Bruchlinien-These?
 3. Stelle die Positionen von Las Casas und Sepúlveda in Valladolid gegenüber.
 4. Wandle fünf Sätze einer Quelle in indirekte Rede mit Konjunktiv I um.
 5. Nenne drei Folgen der Expansion für Europa und drei für Amerika.
@@ -394,6 +490,7 @@ Synkretismus · Kulturberührung/-zusammenstoß/-beziehung/-verflechtung
 
 1. **Aufgabe 1:** Präsens, **Konjunktiv I**, keine Wertung, kein Fazit.
 2. **Aufgabe 2:** Präsens, **fließender Text**, in **jedem** Absatz ein Beispiel/Beleg, kein Fazit.
+   Bei Theoriefragen: **Bitterli und Huntington** anwenden **und ihre Grenzen benennen.**
 3. **Aufgabe 3:** 2–3 Punkte pro Seite, Gegenargumente **entkräften**, **Fazit mit klarer eigener Position**.
 4. **Kein „ich"** — „Es ist anzunehmen, dass …"
 5. **Immer mit Zeilenangabe belegen** (Z. 14 ff.) und Kontextwissen (Jahreszahl/Begriff) einbauen.
