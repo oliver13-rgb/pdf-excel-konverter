@@ -1,14 +1,30 @@
-# Lernplan als PDF bauen
+# Lernzettel als PDF bauen
 
-Der Lernplan wird aus `Lernplan-Geschichte-LK.md` erzeugt:
+Quelle ist `Lernplan-Geschichte-LK.md`. Der Build läuft in zwei Durchgängen:
+Der erste ermittelt, auf welcher Seite jedes Kapitel beginnt, der zweite trägt
+diese Seitenzahlen ins Inhaltsverzeichnis ein.
 
 ```bash
-# 1. Markdown -> druckfertiges HTML (A4-CSS)
-python3 tools/lernplan_to_html.py Lernplan-Geschichte-LK.md /tmp/lernplan.html
+npm install                       # einmalig, zieht playwright-core
+pip install markdown pymupdf      # einmalig
 
-# 2. HTML -> PDF (Chromium, mit Seitenzahlen in der Fußzeile)
-node tools/lernplan_to_pdf.mjs /tmp/lernplan.html Lernplan-Geschichte-LK.pdf
+cd tools
+python3 build_lernplan.py ../Lernplan-Geschichte-LK.md ../Lernplan-Geschichte-LK.pdf /tmp
 ```
 
-Voraussetzungen: `pip install markdown`, `npm install playwright-core`
-sowie ein Chromium unter dem in `lernplan_to_pdf.mjs` gesetzten Pfad.
+| Datei | Aufgabe |
+|---|---|
+| `build_lernplan.py` | Steuert den Zwei-Pass-Build und füllt das Inhaltsverzeichnis |
+| `lernplan_to_html.py` | Markdown nach HTML, enthält das Druck-Stylesheet |
+| `lernplan_to_pdf.mjs` | HTML nach PDF über Chromium, setzt die Fußzeile |
+
+Chromium wird unter dem in `lernplan_to_pdf.mjs` gesetzten Pfad erwartet.
+
+## Konventionen in der Markdown-Datei
+
+- `# 4 · Titel` beginnt ein Kapitel und damit eine neue Seite. Die Ziffer vor
+  dem `·` wird für die Seitenzahlen im Inhaltsverzeichnis ausgewertet.
+- `<p class="lesson">Stunde vom 4. September</p>` setzt die Stundenmarke.
+- `- [ ] Aufgabe` wird zu einem Kästchen zum Abhaken.
+- Vor jeder Liste muss eine Leerzeile stehen, sonst erkennt Python-Markdown
+  sie nicht als Liste.
