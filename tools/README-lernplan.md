@@ -1,6 +1,14 @@
-# Lernzettel als PDF bauen
+# Dokumente als PDF bauen
 
-Quelle ist `Lernplan-Geschichte-LK.md`. Der Build läuft in zwei Durchgängen:
+Drei Dokumente teilen sich denselben Build:
+
+| Markdown | PDF | Inhalt |
+|---|---|---|
+| `Lernplan-Geschichte-LK.md` | Lernzettel | Wochenplan, Methodik, Unterrichtsstoff |
+| `Probeklausur.md` | Übungsklausur | Material mit Zeilenzählung und drei Aufgaben |
+| `Probeklausur-Loesungen.md` | Erwartungshorizont | Musterlösung, Punkteraster, Checkliste |
+
+Der Build läuft in zwei Durchgängen:
 Der erste ermittelt, auf welcher Seite jedes Kapitel beginnt, der zweite trägt
 diese Seitenzahlen ins Inhaltsverzeichnis ein.
 
@@ -9,8 +17,12 @@ npm install                       # einmalig, zieht playwright-core
 pip install markdown pymupdf      # einmalig
 
 cd tools
-python3 build_lernplan.py ../Lernplan-Geschichte-LK.md ../Lernplan-Geschichte-LK.pdf /tmp
+for f in Lernplan-Geschichte-LK Probeklausur Probeklausur-Loesungen; do
+  python3 build_lernplan.py "../$f.md" "../$f.pdf" /tmp
+done
 ```
+
+Der Dokumenttitel für die Fußzeile wird aus der ersten Überschrift abgeleitet.
 
 | Datei | Aufgabe |
 |---|---|
@@ -28,3 +40,8 @@ Chromium wird unter dem in `lernplan_to_pdf.mjs` gesetzten Pfad erwartet.
 - `- [ ] Aufgabe` wird zu einem Kästchen zum Abhaken.
 - Vor jeder Liste muss eine Leerzeile stehen, sonst erkennt Python-Markdown
   sie nicht als Liste.
+- Ein Quellentext steht in `<ol class="src">`; jedes `<li>` ist eine Zeile, jede
+  fünfte wird nummeriert. `class="para"` setzt einen Absatzabstand davor —
+  Leerzeilen als eigene Einträge würden die Zählung verschieben.
+- `<div class="task-box">` setzt einen Aufgabenblock, `<div class="pagebreak">`
+  erzwingt einen Seitenumbruch.

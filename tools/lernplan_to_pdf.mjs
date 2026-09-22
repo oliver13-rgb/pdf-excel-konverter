@@ -11,10 +11,12 @@ const page = await browser.newPage();
 await page.goto('file://' + path.resolve(src), { waitUntil: 'networkidle' });
 await page.emulateMedia({ media: 'print' });
 
+const title = await page.title();
+
 const foot = `
 <div style="width:100%;font-family:Liberation Sans,sans-serif;font-size:7pt;color:#5b6b7c;
             padding:0 15mm;display:flex;justify-content:space-between;align-items:center;">
-  <span>Lernzettel Geschichte &middot; Europ&auml;ische Expansion</span>
+  <span>${title}</span>
   <span>Klausur: Freitag, 25.09.2026</span>
   <span>Seite <span class="pageNumber"></span>/<span class="totalPages"></span></span>
 </div>`;

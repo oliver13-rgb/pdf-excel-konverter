@@ -151,6 +151,62 @@ pre {
 code { font-family: "Liberation Mono", "DejaVu Sans Mono", monospace; font-size: 9pt; }
 p code, li code, td code { background: #eef3f8; padding: .08em .3em; border-radius: 2pt; }
 
+
+/* ---------- Klausur ---------- */
+.pagebreak { page-break-before: always; }
+
+.exam-meta {
+  border: .75pt solid var(--rule-d); border-radius: 3pt;
+  padding: .8em 1em; margin: 0 0 1.4em; font-size: 9.6pt;
+}
+.exam-meta table { margin: 0; font-size: 9.6pt; }
+.exam-meta td { border: none; padding: .18em .5em .18em 0; }
+.exam-meta td:first-child { font-weight: bold; color: var(--navy-d); width: 9em; }
+
+/* Quellentext mit Zeilenzaehlung */
+ol.src {
+  counter-reset: ln; list-style: none; margin: .8em 0 1.2em 2.8em; padding: 0;
+  border-left: .75pt solid var(--rule); font-size: 10pt; line-height: 1.75;
+}
+ol.src li {
+  counter-increment: ln; position: relative; margin: 0; padding-left: .9em;
+  page-break-inside: avoid;
+}
+ol.src li::before {
+  content: counter(ln); position: absolute; left: -2.6em; width: 2em;
+  text-align: right; font-size: 8pt; color: var(--muted);
+  font-family: "Liberation Mono", monospace;
+}
+ol.src li:not(:nth-child(5n))::before { content: ""; }
+ol.src li.para { margin-top: .85em; }
+
+.srcref { font-size: 8.8pt; color: var(--muted); margin: .4em 0 0 2.8em; }
+
+/* Aufgabenblock */
+.task-box {
+  border: .75pt solid var(--rule-d); border-radius: 3pt;
+  padding: .85em 1em; margin: 0 0 1em; page-break-inside: avoid;
+}
+.task-box .no {
+  font-size: 10.5pt; font-weight: bold; color: var(--navy);
+  display: flex; justify-content: space-between; margin-bottom: .45em;
+  border-bottom: .5pt solid var(--rule); padding-bottom: .3em;
+}
+.task-box .no .be { color: var(--muted); font-weight: bold; }
+.task-box p { margin: 0 0 .4em; }
+.task-box p:last-child { margin-bottom: 0; }
+.task-box .op { font-weight: bold; color: var(--navy-d); }
+
+/* Bewertungsraster */
+table.grid td:last-child, table.grid th:last-child { text-align: right; width: 4.5em; }
+table.grid tfoot td { font-weight: bold; border-top: 1.2pt solid var(--navy); }
+
+.warnbox {
+  border: 1.2pt solid #b45309; background: #fdf6ec; border-radius: 3pt;
+  padding: 1em 1.2em; margin: 1.5em 0; text-align: center;
+}
+.warnbox strong { color: #8a3d05; font-size: 12pt; }
+
 h2 + p, h2 + table, h2 + ul, h3 + ul, h3 + p, p.lesson + p, p.lesson + table {
   page-break-before: avoid;
 }
@@ -174,10 +230,13 @@ def build(src, dst):
         html,
     )
 
+    m = re.search(r"<h1[^>]*>(.*?)</h1>", html, re.S)
+    title = re.sub(r"<[^>]+>", "", m.group(1)).strip() if m else u"Dokument"
+
     page = (
         u'<!DOCTYPE html>\n<html lang="de">\n<head>\n<meta charset="utf-8">\n'
-        u"<title>Lernzettel Geschichte — Klausur 25.09.2026</title>\n"
-        u"<style>%s</style>\n</head>\n<body>\n%s\n</body>\n</html>\n" % (CSS, html)
+        u"<title>%s</title>\n"
+        u"<style>%s</style>\n</head>\n<body>\n%s\n</body>\n</html>\n" % (title, CSS, html)
     )
     io.open(dst, "w", encoding="utf-8").write(page)
     return page
