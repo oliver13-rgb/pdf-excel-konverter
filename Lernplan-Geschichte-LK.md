@@ -12,7 +12,7 @@ europäischen Expansion" · Stand: Sonntag, 20. September 2026
 <li data-ch="3"><span class="t">Der Gang des Unterrichts</span><span class="p"></span></li>
 <li data-ch="4"><span class="t">Das Weltbild und der Aufbruch</span><span class="p"></span></li>
 <li data-ch="5"><span class="t">Kultur, Begegnung und Cortés</span><span class="p"></span></li>
-<li data-ch="6"><span class="t">Huntington und die Streitfrage</span><span class="p"></span></li>
+<li data-ch="6"><span class="t">Huntington, Las Casas und die Streitfrage</span><span class="p"></span></li>
 <li data-ch="7"><span class="t">Zusatzwissen für die Spitzennote</span><span class="p"></span></li>
 <li data-ch="8"><span class="t">Selbsttest</span><span class="p"></span></li>
 <li data-ch="9"><span class="t">Am Klausurtag</span><span class="p"></span></li>
@@ -32,9 +32,10 @@ Stunde beschriftet, aus der es stammt — so findest du die passende Folie sofor
 nur, was auf deinem Klausurzettel steht und im Unterricht behandelt wurde; alle Fachbegriffe
 stehen in der Formulierung deines Lehrers.
 
-> **Eine offene Stelle.** Auf deinem Klausurzettel steht „Mönch". In deinen vier Foliensätzen
-> (bis 11.09.) kommt kein Mönch vor — sie enden mit Huntington. Er stammt aus einer späteren
-> Stunde, deren Folien mir fehlen. Such diese Unterlagen heute heraus; mehr dazu in Kapitel 6.3.
+> **„Der Mönch" ist geklärt.** Es ist **Bartolomé de las Casas**, und die Quelle stammt aus dem
+> **Disput von Valladolid**. Das Arbeitsblatt dazu kam im Seminarfach am 11.09. und stand auf
+> keiner Folie — Kapitel 6.3 ist deshalb neu. **Offen bleibt „Quelle 1"** auf demselben Blatt,
+> mit hoher Wahrscheinlichkeit die Gegenposition Sepúlvedas. Such sie heraus.
 
 ---
 
@@ -83,7 +84,8 @@ Nur Lesen bringt in einer Oberstufenklausur fast nichts.
 
 - [ ] Kapitel 6.1 (Huntington) — Zitat, Kernthese, und der Kritikpunkt deines Lehrers
 - [ ] Kapitel 6.2 (Vergleich) — die drei Grenzen-Argumente in eigenen Worten erklären können
-- [ ] Kapitel 6.3 (der Mönch) — mit deinen eigenen Unterlagen
+- [ ] Kapitel 6.3 (**Las Casas und Valladolid**) — die sieben Argumentationsschritte,
+      besonders die Umkehrung mit der „Göttin Habsucht"
 - [ ] **Übung zu Aufgabe 1**, 30 Minuten, handschriftlich, Uhr stellen: Zusammenfassung der
       Mönchs-Quelle. Danach prüfen: Präsens? Konjunktiv I durchgehend? Keine Wertung? Kein Fazit?
       Einleitungssatz vollständig?
@@ -286,6 +288,7 @@ die Klausur hinausläuft. Die folgenden Kapitel sind genau in dieser Reihenfolge
 | **2. September** | Reconquista · die Entdeckungsfahrten · *Inter Caetera* · „Neue Welt" als kritischer Begriff · Vertrag von Santa Fe · Überleitung zu Kulturbegegnungen (*Shogun*) | 4.3 bis 4.5 |
 | **4. September** | Der Kulturbegriff · Ethnozentrismus, Alterität, Barbarentopos · **Bitterlis Kulturtheorie** · Akkulturation, Assimilation, Koexistenz · **Cortés' Eroberung** | 5.1 bis 5.4 |
 | **11. September** | Wiederholung Kulturbegriff und Bitterli · Definition von Kultur · *Dune* · **Huntingtons Kampf der Kulturen** · Abschlussdiskussion Chance oder Bedrohung | 6.1 und 6.2 |
+| **11. September**, Seminarfach | Arbeitsblatt mit zwei Quellen zum **Disput von Valladolid**: Las Casas' Stellungnahme (Quelle 2) und vermutlich Sepúlveda (Quelle 1) | 6.3 |
 
 **Drei Dinge verrät dieser Aufbau:**
 
@@ -565,7 +568,7 @@ Quellen — sehr wahrscheinlich das Format der Klausurquelle. Sieh dir beide Que
 
 ---
 
-# 6 · Huntington und die Streitfrage
+# 6 · Huntington, Las Casas und die Streitfrage
 
 ## 6.1 Huntingtons „Kampf der Kulturen"
 
@@ -629,21 +632,73 @@ Das Zitat, mit dem dein Lehrer eingestiegen ist:
 > Abwägend lässt sich daher festhalten, dass Bitterlis Stufenmodell der Begegnung deutlich eher
 > gerecht wird, weil es sie als Prozess mit offenem Ausgang beschreibt."*
 
-## 6.3 Der „Mönch" — die offene Stelle
+## 6.3 ⭐ Las Casas und der Disput von Valladolid
 
-<p class="lesson">aus einer Stunde nach dem 11. September — Folien fehlen</p>
+<p class="lesson">Arbeitsblatt Seminarfach, 11. September</p>
 
-In den vorliegenden Folien kommt kein Mönch vor. Zwei Kandidaten sind gut begründbar:
+**Das ist „der Mönch" von deinem Klausurzettel.**
 
-| Kandidat | Wer | Warum er passen könnte |
+**Bartolomé de las Casas** war **Dominikaner** und zunächst selbst Kolonist in Amerika, bevor er
+zum schärfsten Kritiker der Conquista wurde. Im **Disput von Valladolid 1550/51** trat er vor
+einer Gelehrtenkommission gegen **Juan Ginés de Sepúlveda** an — er ist „der Doktor", von dem die
+Quelle sagt, er habe sich verrechnet.
+
+**Die Streitfrage:** Darf Spanien die indigene Bevölkerung mit Gewalt unterwerfen? Sepúlveda
+bejahte das mit dem Argument, die Indios seien Barbaren, die Menschenopfer brächten und daher von
+Natur aus zur Unterordnung bestimmt seien. Las Casas widersprach.
+
+### Wie Las Casas argumentiert — die Struktur der Quelle
+
+| Schritt | Aussage | Zeilen |
 |---|---|---|
-| Bernardino de Sahagún | Franziskaner, verfasste mit indigenen Informanten den *Codex Florentinus* | Er ist die Standardquelle für die Perspektive Moctezumas — genau die war Gegenstand eurer Hausaufgabe |
-| Bartolomé de Las Casas | Dominikaner, *Kurzgefasster Bericht von der Verwüstung der Westindischen Länder*, 1542/1552 | Der klassische Ankläger der Conquista; liefert die Gegenstimme zu *Inter Caetera* |
+| 1 | Die Indios besitzen **Fassungskraft, scharfsinnigen Geist, Auffassungsgabe** und sind gelehrig für moralische Wissenschaft | 1–3 |
+| 2 | Ihr **Gemeinwesen ist wohlgeordnet**, sie besitzen **viele überaus gerechte Gesetze** | 3 f. |
+| 3 | Sie nehmen **Glauben und christliche Religion** an, wo Ordensleute sie unterrichten | 5–8 |
+| 4 | Die **Opferzahlen** — 20.000, 100 oder 50 jährlich — **entsprechen nicht der Wahrheit** | 9 f. |
+| 5 | Aus dem Vorwurf spricht die **Stimme der Tyrannen**: Er dient dazu, die eigene Gewalt zu **entschuldigen und zu rechtfertigen** | 10–13 |
+| 6 | **Die Umkehrung:** Die Spanier hätten ihrer „geliebten und hochverehrten **Göttin Habsucht**" mehr Menschenopfer dargebracht als die Indios all ihren Göttern **in hundert Jahren** | 14–18 |
+| 7 | Das Land, **größer als Europa samt einem Teil Asiens**, sei in 45 bis 48 Jahren **beraubt, entvölkert, unfruchtbar gemacht und verwüstet** worden — **seiner Güter und Schätze wegen** | 18–22 |
 
-**Was in jedem Fall gilt.** Frag dich: Wer schreibt, an wen, mit welcher Absicht? Ein Ordensmann
-schreibt weder neutral noch privat — er schreibt im Auftrag oder als Appell. Deshalb gehört in den
-Einleitungssatz deiner Zusammenfassung immer der Adressat. Und für Aufgabe 2 und 3: Die Quelle ist
-kein Abbild der Ereignisse, sondern eine Deutung.
+> ⭐ **Schritt 6 ist der rhetorische Kern.** Las Casas nimmt den Vorwurf der Menschenopfer und
+> **dreht ihn um**: Die Spanier betreiben selbst einen Kult, nur heißt ihr Gott **Habsucht** — und
+> er fordert mehr Opfer. Damit schlägt er Sepúlveda mit dessen eigener Waffe: Wer ist hier der
+> Barbar?
+
+### Warum diese Quelle genau zu eurem Kurs passt
+
+**Sie ist das Musterbeispiel für den Barbarentopos (5.2).** Sepúlvedas Argument ist der
+Barbarentopos in Reinform — die Anderen als roh und gesetzlos. Las Casas widerlegt ihn nicht,
+indem er die Menschenopfer bestreitet, sondern indem er **die Maßstäbe anwendet, die die
+Gegenseite selbst aufstellt**: Vernunft, Gesetze, geordnetes Gemeinwesen. Das ist die klügere
+Widerlegung.
+
+**Sie belegt den wertenden Kulturbegriff (5.1).** „Kultur als Gegenbegriff zu Barbarei —
+historisch das gefährlichste Verständnis", sagt die Folie deines Lehrers. Valladolid ist der Fall,
+in dem genau dieses Verständnis über Krieg und Frieden entscheidet.
+
+**Und sie belegt Huntingtons Schwachstelle wörtlich (6.2).** Der Konflikt wird **kulturell und
+religiös** begründet — Menschenopfer, Heidentum, Missionsauftrag. Die Quelle nennt aber selbst das
+wirkliche Motiv: Das Land sei **„seiner Güter und Schätze wegen"** beraubt worden (Z. 19). Genau
+das ist der Kritikpunkt deines Lehrers — **Kultur als Deckmantel** für ökonomische Beweggründe.
+
+> **Wenn du eine einzige Stelle für Aufgabe 3 auswendig lernst, dann diese.** Sie ist ein
+> zeitgenössischer Beleg dafür, dass schon die Zeitgenossen die kulturelle Begründung als
+> vorgeschoben durchschauten.
+
+### Für die Quellenarbeit
+
+Las Casas schreibt **nicht neutral**. Er führt einen Streit und will ihn gewinnen. Das heißt:
+
+- Seine Schilderung der Indios ist **durchweg positiv** — auch das ist eine Zuschreibung von
+  außen, nur eine wohlwollende. Auch Idealisierung ist **Alterität** (5.2).
+- Seine Zahlen und Zuspitzungen sind **rhetorisch**, nicht statistisch.
+- In den Einleitungssatz gehört deshalb: Textsorte **Stellungnahme in einem Streitgespräch**,
+  Jahr **1550/51**, Adressat **die Gelehrtenkommission**.
+
+> **Noch offen: Quelle 1.** Auf dem Arbeitsblatt steht „Quelle 2", und unten heißt es „Beide
+> Quellen". Es gibt also eine erste Quelle — sehr wahrscheinlich **Sepúlvedas Gegenposition**.
+> Besorg sie dir: Der Disput lebt von der Gegenüberstellung, und ohne sie fehlt dir die Position,
+> gegen die Las Casas anschreibt.
 
 ## 6.4 Begriffsliste
 
@@ -654,6 +709,9 @@ Vertrag von Santa Fe · „Neue Welt" · klerikal · Eurozentrismus
 **Kultur und Begegnung.** enger, weiter und wertender Kulturbegriff · Ethnozentrismus · Alterität ·
 Barbarentopos · Kulturberührung · Kulturkontakt · Kulturzusammenstoß · Kulturverflechtung ·
 Akkulturation · Assimilation · Koexistenz · Kulturkreis · *Clash of Civilisations*
+
+**Disput von Valladolid.** Bartolomé de las Casas · Juan Ginés de Sepúlveda · Dominikaner ·
+Gelehrtenkommission 1550/51 · „Göttin Habsucht" · Barbarei als Rechtfertigung
 
 **Methode.** Quellenkritik · Multiperspektivität · Sachurteil und Werturteil · Anachronismus
 
