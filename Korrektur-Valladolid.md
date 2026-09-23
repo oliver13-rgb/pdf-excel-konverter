@@ -5,9 +5,9 @@
 
 <div class="exam-meta">
 <table>
-<tr><td>Geschätzt</td><td>etwa 16 von 30 BE — ungefähr 7 bis 8 Punkte</td></tr>
+<tr><td>Geschätzt</td><td>etwa 18,5 von 30 BE — ungefähr 8 bis 9 Punkte</td></tr>
 <tr><td>Besser geworden</td><td>Konjunktiv, Zeilenangaben, Textsortenbestimmung</td></tr>
-<tr><td>Schlechter geworden</td><td>Vollständigkeit — es fehlt deutlich mehr als beim ersten Mal</td></tr>
+<tr><td>Offen</td><td>zwei ausgelassene Kernaussagen, Konjunktiv, Genauigkeit im Detail</td></tr>
 </table>
 </div>
 
@@ -33,16 +33,21 @@ Das ist sauberes Handwerk.
 
 ---
 
-# 2 · Der Einleitungssatz — 2 von 4 BE
+# 2 · Der Einleitungssatz — 3 von 4 BE
 
-Hier hast du gegenüber dem ersten Versuch verloren. Es fehlen zwei Pflichtangaben:
+**Das Wesentliche ist drin.** Textsorte, Werk und Autor benennst du korrekt, und mit
+„Stellungnahme im Disput von Valladolid" ist die Quelle präzise verortet.
 
-- [ ] **Das Jahr.** Der Disput von Valladolid fand **1550/51** statt. Ohne Datierung fehlt die
-      historische Einordnung.
-- [ ] **Der Adressat.** Eine Stellungnahme im Disput richtet sich an die **Gelehrtenkommission**,
-      vor der Las Casas und sein Gegner Sepúlveda ihre Positionen vortrugen.
+> **Korrektur meinerseits.** Ich hatte hier Jahr und Adressat als fehlende Pflichtangaben
+> gezählt. Das war nicht haltbar: Auf deinem Arbeitsblatt steht **keine Entstehungszeit** — die
+> Jahreszahl 1994 unten gehört zur Werkausgabe von Delgado, nicht zur Quelle — und **kein
+> Adressat**. Was nicht auf dem Blatt steht, kann auch nicht verlangt werden.
+>
+> **Ein Bonus wäre es trotzdem:** Dass der Disput **1550/51** stattfand, gehört zum Wissen der
+> Reihe. Ein eingeschobenes „1550/51" kostet vier Zeichen und zeigt Einordnung. Fehlt es, ist
+> das aber kein Fehler.
 
-**Und der Satz ist grammatisch entgleist.** Du hattest „dass" geschrieben, durchgestrichen und
+**Was tatsächlich Punkte kostet: Der Satz ist grammatisch entgleist.** Du hattest „dass" geschrieben, durchgestrichen und
 durch „um" ersetzt — das war genau die falsche Richtung:
 
 > Deine Fassung: „…handelt es sich in (Z. 1–5) **um** die Indianos einen scharfsinnigen Geist
@@ -54,8 +59,11 @@ durch „um" ersetzt — das war genau die falsche Richtung:
 **So könnte der Einleitungssatz aussehen:**
 
 > *In der vorliegenden Quelle, einem Auszug aus einer Stellungnahme im Disput von Valladolid
-> **1550/51**, verteidigt der Dominikaner Bartholomé de las Casas **vor der Gelehtenkommission**
-> die indigene Bevölkerung Amerikas gegen den Vorwurf der Barbarei.*
+> (1550/51), verteidigt der Dominikaner Bartholomé de las Casas die indigene Bevölkerung
+> Amerikas gegen den Vorwurf der Barbarei.*
+
+Die Jahreszahl steht hier in Klammern, weil sie aus dem Kontextwissen stammt und nicht aus der
+Quelle.
 
 ---
 
@@ -94,31 +102,61 @@ allgemeine Aussage über Gelehrte. Schreib mit, was dasteht.
 
 ---
 
-# 4 · Was fehlt — acht Stellen
+# 4 · Was fehlt — und was du zu Recht gekürzt hast
 
-Die Quelle ist eine Aufzählung. Las Casas häuft Argumente, und genau diese Häufung ist sein Stil.
-Wer kürzt, verliert.
+> **Korrektur meinerseits.** Ich hatte hier acht Auslassungen aufgezählt. Dein Einwand ist
+> berechtigt: Eine Zusammenfassung soll **verdichten**, nicht abschreiben. Drei der acht Punkte
+> waren zu streng — du hast dort richtig gebündelt. Bleiben **fünf**, davon zwei schwerwiegende.
 
-**Aus dem ersten Abschnitt (Z. 1–8):**
+## Die Regel: Was darf man bündeln, was nicht?
 
-- [ ] **1. Gute Fassungskraft und große Auffassungsgabe** (Z. 1 f.) — du nennst nur den
-      „scharfsinnigen Geist".
-- [ ] **2. „Gelehrig für jedwede moralische Wissenschaft und spekulative Lehre"** (Z. 2 f.).
-      Deine Wiedergabe „viele Informationen einnehmen" trifft das nicht — es geht um
-      **Lernfähigkeit**, nicht um Informationsaufnahme.
-- [ ] **3. Wohlgeordnetes Gemeinwesen** (Z. 3 f.): „so wohl geordnet, ausgestattet und vernünftig
-      in der Führung ihres Gemeinwesens".
-- [ ] **4. „Viele überaus gerechte Gesetze"** (Z. 4). **Das ist Las Casas' Hauptargument!** Wer
-      gerechte Gesetze hat, ist kein Barbar — genau das war die Streitfrage in Valladolid.
-- [ ] **5. Gute Sitten und die Berichtigung der Laster** (Z. 6).
+**Bündeln darf man Varianten desselben Gedankens.** Las Casas nennt in Z. 1–3 vier Ausdrücke für
+dieselbe Sache — Fassungskraft, scharfsinniger Geist, Auffassungsgabe, Gelehrigkeit. Das ist
+Rhetorik, nicht Argumentation. Ein Satz genügt: *„Er beschreibt die Indios als geistig
+hochbegabt und lernfähig."*
 
-**Aus dem zweiten Abschnitt (Z. 9–22):**
+**Nicht bündeln darf man eigenständige Argumente.** Der Test: **Könnte der Punkt allein stehen
+und für sich etwas beweisen?** Dann gehört er hinein.
 
-- [ ] **6. „Die nach der reichen Ernte als Sklaven blieben"** (Z. 13).
-- [ ] **7. Der Zeitraum: fünfundvierzig oder achtundvierzig Jahre** (Z. 20).
-- [ ] **8. Die vier Verben am Schluss** (Z. 21 f.): beraubt, widerrechtlich angeeignet,
-      **entvölkert, unfruchtbar gemacht und verwüstet**. Du schreibst nur „alles genommen".
-      Auch das Motiv fehlt: **„seiner Güter und Schätze wegen"** (Z. 19).
+Las Casas argumentiert in **drei Stufen**, und jede beweist etwas anderes:
+
+| Stufe | Argument | Was es widerlegt |
+|---|---|---|
+| 1 | Sie sind **vernunftbegabt** (Z. 1–3) | „Die Indios sind geistig unterlegen" |
+| 2 | Sie haben eine **gerechte Rechts- und Gemeinwesensordnung** (Z. 3 f.) | „Sie sind gesetzlose Barbaren" |
+| 3 | Sie sind **glaubensfähig** (Z. 5–8) | „Sie sind unbekehrbare Heiden" |
+
+Wer eine Stufe weglässt, verliert ein Drittel der Beweisführung. Bei dir fehlt **Stufe 2**
+vollständig — und das war in Valladolid die entscheidende Frage.
+
+## Die zwei schwerwiegenden Lücken
+
+- [ ] **1. Das wohlgeordnete Gemeinwesen und die „überaus gerechten Gesetze"** (Z. 3 f.).
+      Das ist Stufe 2 der Beweisführung. Ein Satz reicht: *„Zudem seien ihr Gemeinwesen
+      wohlgeordnet und ihre Gesetze gerecht."* Zwölf Wörter, kein Abschreiben.
+
+- [ ] **2. Das Motiv „seiner Güter und Schätze wegen"** (Z. 19). Das ist kein Detail, sondern
+      die **Begründung** für den Landraub — und für Aufgabe 3 die wertvollste Stelle der ganzen
+      Quelle. Ohne sie bleibt unklar, **warum** die Spanier so handelten.
+
+## Drei kleinere Lücken
+
+- [ ] **3. „Die nach der reichen Ernte als Sklaven blieben"** (Z. 13).
+- [ ] **4. Der Zeitraum von fünfundvierzig oder achtundvierzig Jahren** (Z. 20) — Zahlen gehören
+      in eine Zusammenfassung, sie sind knapp und präzise.
+- [ ] **5. Die Wucht des Schlusses** (Z. 21 f.): beraubt, angeeignet, **entvölkert, unfruchtbar
+      gemacht, verwüstet**. Hier darfst du bündeln — aber „alles genommen" ist zu wenig.
+      *„Das Land sei beraubt und verwüstet worden"* hält die Wucht und bleibt kurz.
+
+## Was du zu Recht gekürzt hast
+
+Diese drei hatte ich zu Unrecht als Lücken gezählt:
+
+- **Fassungskraft und Auffassungsgabe** — durch deinen „scharfsinnigen Geist" abgedeckt.
+- **Gute Sitten und Berichtigung der Laster** (Z. 6) — gehört zu Stufe 3 und ist durch deine
+  Wiedergabe der Glaubensannahme mit abgedeckt.
+- **„Gelehrig für moralische Wissenschaft"** — du hast es wiedergegeben, wenn auch ungenau.
+  „Informationen einnehmen" trifft **Lernfähigkeit** nicht ganz, aber der Gedanke steht da.
 
 ---
 
