@@ -59,7 +59,7 @@ durch „um" ersetzt — das war genau die falsche Richtung:
 
 ---
 
-# 3 · Drei inhaltliche Fehler
+# 3 · Zwei inhaltliche Fehler
 
 - [ ] **1. Der entscheidende Vergleich fehlt.** Du schreibst: „die Spanier brachten mehr
       Menschenopfer **als man es sich denken könnte**". Im Text steht etwas anderes und viel
@@ -73,15 +73,24 @@ durch „um" ersetzt — das war genau die falsche Richtung:
       und wirft ihnen damit genau das vor, was sie den Indios vorwerfen. Ohne dieses Bild ist die
       Zusammenfassung um ihren Kern gebracht.
 
-- [ ] **3. „Der Doktor" ist Singular — und eine bestimmte Person.** Du schreibst „verrechneten
-      sich die **Doktoren**". Im Text steht „**Der Doktor** hat sich verrechnet" (Z. 13). Gemeint
-      ist **Juan Ginés de Sepúlveda**, Las Casas' Gegner im Disput. Wenn du das weißt, kannst du
-      es benennen — das zeigt Kontextwissen.
-
 **Und eine Wortwahl, die nicht geht:** „die Tyrannen, die für **Unfug** sorgen". Im Text ist von
 „tyrannischen **Gewaltanwendungen**" die Rede (Z. 11). „Unfug" verharmlost das ins Kindische. In
 einer Zusammenfassung musst du die Schärfe der Vorlage halten — nicht steigern, aber auch nicht
 abschwächen.
+
+### Eine Ungenauigkeit — und eine Klarstellung meinerseits
+
+Im Text steht „Der Doktor hat sich verrechnet" (Z. 13, Singular, bestimmter Artikel), bei dir
+„verrechneten sich die Doktoren" (Plural). Das ist kein Verständnisfehler, sondern eine
+Ungenauigkeit: Aus Las Casas' Erwiderung an **einen bestimmten** Gegner wird bei dir eine
+allgemeine Aussage über Gelehrte. Schreib mit, was dasteht.
+
+> **Hier korrigiere ich mich.** In einer früheren Fassung hatte ich empfohlen, den Namen
+> **Sepúlveda** zu ergänzen. Das war falsch. Der Name steht **nicht in der Quelle** und gehört
+> auch **nicht in die Zusammenfassung**: Aufgabe 1 gibt ausschließlich wieder, was im Text steht
+> — Kontextwissen ist erst in Aufgabe 2 gefragt. Einen Namen zu ergänzen, der in der Quelle nicht
+> vorkommt, wäre ein **Operatorverstoß**. Für Aufgabe 2 und 3 ist das Wissen dagegen sehr
+> wertvoll (Kapitel 6.3 im Lernzettel).
 
 ---
 
