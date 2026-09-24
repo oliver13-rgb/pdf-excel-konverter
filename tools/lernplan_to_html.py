@@ -137,8 +137,10 @@ table.plain th { background: none; border-color: transparent; padding: 0; height
 blockquote {
   margin: .8em 0; padding: .65em .9em;
   background: var(--tint); border-left: 3pt solid var(--navy);
-  page-break-inside: avoid; font-size: 9.8pt;
+  font-size: 9.8pt; orphans: 3; widows: 3;
 }
+/* Kurze Merkkaesten zusammenhalten, lange duerfen umbrechen:
+   kein CSS-Selektor kennt die Hoehe, daher generell umbrechbar. */
 blockquote p:last-child { margin-bottom: 0; }
 
 /* ---------- Codeblock ---------- */
