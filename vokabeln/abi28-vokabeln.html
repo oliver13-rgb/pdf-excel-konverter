@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#150c12">
+<title>Abi 28 Vokabel-Blockbuster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Figtree:wght@400;500;600;700;800&family=DM+Mono:wght@500&display=swap">
+<style>
+/* Layout: one-column cinema "app" — marquee header, ticket-shaped mode cards, full-height game stage. Deliberately single dark theme (cinema at night). */
+:root {
+  --bg: #150c12;          /* plum-black cinema hall */
+  --panel: #231620;       /* seat velvet */
+  --panel-2: #2e1d29;
+  --line: #45303f;
+  --gold: #f5c04a;        /* marquee bulbs */
+  --gold-dim: #8a6a2a;
+  --red: #e0435c;         /* velvet curtain */
+  --ok: #3fcf8e;
+  --text: #f7eee6;
+  --muted: #b09ca6;
+  --display: "Bungee", "Impact", "Arial Black", sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 16px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image: radial-gradient(120% 60% at 50% -10%, #3a1a2a 0%, transparent 60%);
+  background-attachment: fixed;
+  color: var(--text);
+  font: 16px/1.45 var(--body);
+  -webkit-tap-highlight-color: transparent;
+  padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.app { max-width: 520px; margin: 0 auto; padding-inline: 16px; padding-block: 16px 32px; min-height: 100%; display: flex; flex-direction: column; gap: 20px; }
+.screen { display: flex; flex-direction: column; gap: 18px; }
+
+/* ---------- Marquee ---------- */
+.marquee {
+  position: relative; border-radius: 20px; padding: 22px 18px 18px; text-align: center;
+  background: linear-gradient(180deg, #2a1422, #1c0f18);
+  border: 2px solid var(--gold-dim);
+}
+.marquee::before {
+  content: ""; position: absolute; inset: 6px; border-radius: 15px; pointer-events: none;
+  background:
+    radial-gradient(circle, var(--gold) 2.2px, transparent 3px) top left / 16px 16px repeat-x,
+    radial-gradient(circle, var(--gold) 2.2px, transparent 3px) bottom left / 16px 16px repeat-x;
+  background-size: 16px 8px; background-repeat: repeat-x; background-position: 0 0, 0 100%;
+  animation: bulbs 1.2s steps(2) infinite;
+  opacity: .9;
+}
+@keyframes bulbs { 50% { opacity: .45; } }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--gold); }
+.marquee h1 {
+  font: 400 clamp(30px, 9vw, 44px)/1 var(--display); margin: 10px 0 6px; color: var(--text);
+  text-shadow: 0 0 18px rgba(245,192,74,.35); text-wrap: balance;
+}
+.marquee h1 span { color: var(--gold); }
+.marquee p { margin: 0; color: var(--muted); font-size: 14px; }
+
+/* ---------- Stats ---------- */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.stat { background: var(--panel); border-radius: 12px; padding: 10px 12px; }
+.stat b { display: block; font: 500 20px/1.1 var(--mono); font-variant-numeric: tabular-nums; }
+.stat small { color: var(--muted); font-size: 12px; }
+.meter { height: 8px; border-radius: 99px; background: var(--panel-2); overflow: hidden; display: flex; }
+.meter i { display: block; height: 100%; }
+
+/* ---------- Settings chips ---------- */
+.group { display: flex; flex-direction: column; gap: 8px; }
+.label { font: 500 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  border: 1.5px solid var(--line); background: transparent; border-radius: 99px; padding: 8px 14px; font-size: 14px; font-weight: 600; color: var(--muted);
+}
+.chip[aria-pressed="true"] { border-color: var(--gold); color: var(--bg); background: var(--gold); }
+
+/* ---------- Ticket mode cards ---------- */
+.modes { display: flex; flex-direction: column; gap: 12px; }
+.ticket {
+  position: relative; display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 14px; text-align: left;
+  background: var(--panel); border: 0; border-radius: var(--r); padding: 16px 16px 16px 14px;
+  --notch: radial-gradient(circle at 76px 0, transparent 9px, #000 9.5px) top / 100% 51% no-repeat,
+           radial-gradient(circle at 76px 100%, transparent 9px, #000 9.5px) bottom / 100% 51% no-repeat;
+  -webkit-mask: var(--notch); mask: var(--notch);
+  transition: transform .15s, background .15s;
+}
+.ticket::after { content: ""; position: absolute; left: 76px; top: 14px; bottom: 14px; border-left: 2px dashed var(--line); }
+.ticket:hover { background: var(--panel-2); }
+.ticket:active { transform: scale(.98); }
+.ticket .ic { font: 400 26px/1 var(--display); color: var(--gold); text-align: center; }
+.ticket h3 { margin: 0 0 2px; font-size: 18px; font-weight: 800; padding-left: 8px; }
+.ticket p { margin: 0; font-size: 14px; color: var(--muted); padding-left: 8px; }
+.ticket.hot .ic { color: var(--red); }
+
+.linkrow { display: flex; gap: 10px; flex-wrap: wrap; }
+.ghost { background: transparent; border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 14px; font-weight: 600; font-size: 14px; color: var(--text); flex: 1; }
+
+/* ---------- Game stage ---------- */
+.topbar { display: flex; align-items: center; gap: 12px; }
+.x { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--line); background: transparent; font-size: 20px; line-height: 1; flex: none; }
+.progress { flex: 1; height: 10px; border-radius: 99px; background: var(--panel-2); overflow: hidden; }
+.progress i { display: block; height: 100%; width: 0; background: var(--gold); border-radius: 99px; transition: width .3s; }
+.score { font: 500 16px/1 var(--mono); font-variant-numeric: tabular-nums; color: var(--gold); min-width: 56px; text-align: right; }
+.hud { display: flex; justify-content: space-between; align-items: center; min-height: 28px; }
+.combo { font: 400 15px/1 var(--display); color: var(--red); letter-spacing: .02em; }
+.combo.pop { animation: pop .35s; }
+@keyframes pop { 40% { transform: scale(1.35); } }
+.dir { font: 500 12px/1 var(--mono); color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+
+.timer { height: 6px; border-radius: 99px; background: var(--panel-2); overflow: hidden; }
+.timer i { display: block; height: 100%; width: 100%; background: var(--ok); transform-origin: left; }
+
+.prompt {
+  background: var(--panel); border-radius: 20px; padding: 28px 20px; min-height: 170px; text-align: center;
+  display: flex; flex-direction: column; justify-content: center; gap: 10px;
+  border: 2px solid transparent; transition: border-color .2s;
+}
+.prompt .q { font-size: clamp(22px, 6.4vw, 30px); font-weight: 800; line-height: 1.2; text-wrap: balance; overflow-wrap: anywhere; }
+.prompt .note { font-size: 13px; color: var(--muted); }
+.prompt.ok { border-color: var(--ok); }
+.prompt.bad { border-color: var(--red); animation: shake .35s; }
+@keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+.options { display: grid; gap: 10px; }
+.opt {
+  text-align: left; background: var(--panel); border: 2px solid var(--line); border-radius: 14px; padding: 14px 16px; font-size: 16px; font-weight: 600;
+  display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: center; transition: transform .1s;
+}
+.opt span:first-child { font: 500 13px/1 var(--mono); color: var(--muted); }
+.opt:active { transform: scale(.98); }
+.opt.right { border-color: var(--ok); background: rgba(63,207,142,.14); }
+.opt.wrong { border-color: var(--red); background: rgba(224,67,92,.14); }
+.opt:disabled { cursor: default; }
+
+.field { display: flex; flex-direction: column; gap: 10px; }
+.field input {
+  width: 100%; font: 600 18px/1.3 var(--body); color: var(--text); background: var(--panel); border: 2px solid var(--line); border-radius: 14px; padding: 14px 16px;
+}
+.field input.ok { border-color: var(--ok); }
+.field input.bad { border-color: var(--red); }
+.row { display: flex; gap: 10px; }
+.btn { flex: 1; border: 0; border-radius: 14px; padding: 15px 16px; font-weight: 800; font-size: 16px; background: var(--gold); color: var(--bg); }
+.btn.sec { background: var(--panel-2); color: var(--text); }
+.btn.red { background: var(--red); color: #fff; }
+.btn.green { background: var(--ok); color: var(--bg); }
+.feedback { min-height: 22px; font-size: 15px; text-align: center; }
+.feedback b { color: var(--gold); }
+.feedback .good { color: var(--ok); font-weight: 700; }
+.feedback .miss { color: var(--red); font-weight: 700; }
+
+/* Flashcard */
+.card-wrap { perspective: 1000px; }
+.flip { position: relative; min-height: 240px; transform-style: preserve-3d; transition: transform .45s; cursor: pointer; }
+.flip.on { transform: rotateY(180deg); }
+.face {
+  position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 20px; padding: 24px 20px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 10px; background: var(--panel);
+}
+.face.back { transform: rotateY(180deg); background: var(--panel-2); border: 2px solid var(--gold-dim); }
+.face .q { font-size: clamp(22px, 6.4vw, 30px); font-weight: 800; line-height: 1.2; overflow-wrap: anywhere; text-wrap: balance; }
+.face .hint { font: 500 11px/1 var(--mono); color: var(--muted); letter-spacing: .14em; text-transform: uppercase; }
+.speak { border: 1.5px solid var(--line); background: transparent; border-radius: 99px; padding: 6px 12px; font-size: 13px; color: var(--muted); }
+
+/* Result */
+.big { font: 400 clamp(44px, 14vw, 64px)/1 var(--display); color: var(--gold); text-align: center; font-variant-numeric: tabular-nums; }
+.stars { text-align: center; font-size: 30px; letter-spacing: 6px; color: var(--gold); }
+.stars .off { color: var(--line); }
+.center { text-align: center; color: var(--muted); margin: 0; }
+.misslist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.misslist li { background: var(--panel); border-radius: 12px; padding: 10px 14px; display: grid; gap: 2px; }
+.misslist li span { color: var(--muted); font-size: 14px; }
+
+/* Word list */
+.wl { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.wl li { display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: center; padding: 12px 2px; border-bottom: 1px solid var(--line); }
+.wl .n { font: 500 12px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.wl .de { font-weight: 700; overflow-wrap: anywhere; }
+.wl .en { color: var(--muted); font-size: 14px; overflow-wrap: anywhere; }
+.pips { display: flex; gap: 3px; }
+.pips i { width: 7px; height: 14px; border-radius: 2px; background: var(--line); }
+.pips i.on { background: var(--gold); }
+textarea { width: 100%; min-height: 220px; resize: vertical; background: var(--panel); color: var(--text); border: 2px solid var(--line); border-radius: 14px; padding: 12px; font: 14px/1.5 var(--mono); }
+.small { font-size: 13px; color: var(--muted); margin: 0; }
+h2 { font: 400 22px/1.1 var(--display); margin: 0; color: var(--gold); }
+
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<canvas class="confetti" id="confetti"></canvas>
+<main class="app">
+
+  <!-- ================= HOME ================= -->
+  <section class="screen" id="home">
+    <header class="marquee">
+      <div class="eyebrow">Englisch · Abi 28</div>
+      <h1>Vokabel<br><span>Blockbuster</span></h1>
+      <p id="wordcount">27 Vokabeln aus deiner Liste</p>
+    </header>
+
+    <div class="group">
+      <div class="stats">
+        <div class="stat"><b id="stSure">0</b><small>sitzen sicher</small></div>
+        <div class="stat"><b id="stWeak">0</b><small>noch wackelig</small></div>
+        <div class="stat"><b id="stBest">0</b><small>Blitz-Rekord</small></div>
+      </div>
+      <div class="meter" id="meter" aria-label="Lernfortschritt"></div>
+    </div>
+
+    <div class="group">
+      <div class="label">Richtung</div>
+      <div class="chips" id="dirChips">
+        <button class="chip" data-dir="de-en" aria-pressed="true">Deutsch → Englisch</button>
+        <button class="chip" data-dir="en-de" aria-pressed="false">Englisch → Deutsch</button>
+        <button class="chip" data-dir="mix" aria-pressed="false">Gemischt</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="label">Welche Wörter</div>
+      <div class="chips" id="poolChips">
+        <button class="chip" data-pool="all" aria-pressed="true">Alle</button>
+        <button class="chip" data-pool="weak" aria-pressed="false">Nur wackelige</button>
+      </div>
+    </div>
+
+    <div class="modes">
+      <button class="ticket hot" data-mode="blitz">
+        <div class="ic">10s</div>
+        <div><h3>Blitz-Runde</h3><p>4 Antworten, 10 Sekunden, Combo-Punkte. Für Tempo.</p></div>
+      </button>
+      <button class="ticket" data-mode="type">
+        <div class="ic">Aa</div>
+        <div><h3>Präzisions-Modus</h3><p>Du tippst die Vokabel selbst. Jeder Buchstabe zählt.</p></div>
+      </button>
+      <button class="ticket" data-mode="cards">
+        <div class="ic">⇄</div>
+        <div><h3>Karteikarten</h3><p>Umdrehen, ehrlich bewerten, wiederholen.</p></div>
+      </button>
+    </div>
+
+    <div class="linkrow">
+      <button class="ghost" id="openList">Alle Vokabeln ansehen</button>
+      <button class="ghost" id="soundBtn" aria-pressed="true">Ton: an</button>
+    </div>
+  </section>
+
+  <!-- ================= GAME ================= -->
+  <section class="screen" id="game" hidden>
+    <div class="topbar">
+      <button class="x" id="quit" aria-label="Runde beenden">×</button>
+      <div class="progress"><i id="prog"></i></div>
+      <div class="score" id="score">0</div>
+    </div>
+    <div class="hud"><span class="dir" id="dirLabel">DE → EN</span><span class="combo" id="combo"></span></div>
+    <div class="timer" id="timerWrap" hidden><i id="timer"></i></div>
+
+    <!-- blitz + type prompt -->
+    <div class="prompt" id="prompt"><div class="q" id="q"></div><div class="note" id="qnote"></div></div>
+
+    <div class="options" id="options" hidden></div>
+
+    <div class="field" id="typeBox" hidden>
+      <label class="label" for="answer">Deine Antwort</label>
+      <input id="answer" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done">
+      <div class="row">
+        <button class="btn sec" id="hintBtn">Tipp</button>
+        <button class="btn" id="checkBtn">Prüfen</button>
+      </div>
+    </div>
+
+    <!-- flashcards -->
+    <div class="card-wrap" id="cardBox" hidden>
+      <div class="flip" id="flip" tabindex="0" role="button" aria-label="Karte umdrehen">
+        <div class="face front"><span class="hint">Tippen zum Umdrehen</span><div class="q" id="cFront"></div><div class="note" id="cFrontNote"></div></div>
+        <div class="face back"><span class="hint">Lösung</span><div class="q" id="cBack"></div><div class="note" id="cBackNote"></div><button class="speak" id="speak">Aussprache anhören</button></div>
+      </div>
+    </div>
+    <div class="row" id="cardBtns" hidden>
+      <button class="btn red" id="cardNo">Wusste ich nicht</button>
+      <button class="btn green" id="cardYes">Wusste ich</button>
+    </div>
+
+    <div class="feedback" id="feedback" aria-live="polite"></div>
+    <button class="btn" id="nextBtn" hidden>Weiter</button>
+  </section>
+
+  <!-- ================= RESULT ================= -->
+  <section class="screen" id="result" hidden>
+    <header class="marquee">
+      <div class="eyebrow" id="resMode">Blitz-Runde</div>
+      <h1 id="resTitle">Premiere!</h1>
+      <p id="resSub"></p>
+    </header>
+    <div class="big" id="resScore">0</div>
+    <div class="stars" id="resStars"></div>
+    <p class="center" id="resLine"></p>
+    <div class="group" id="missGroup">
+      <div class="label">Diese Wörter üben</div>
+      <ul class="misslist" id="missList"></ul>
+    </div>
+    <div class="row">
+      <button class="btn sec" id="homeBtn">Menü</button>
+      <button class="btn" id="againBtn">Nochmal</button>
+    </div>
+  </section>
+
+  <!-- ================= LIST ================= -->
+  <section class="screen" id="list" hidden>
+    <div class="topbar">
+      <button class="x" id="listBack" aria-label="Zurück">←</button>
+      <h2>Deine Vokabeln</h2>
+    </div>
+    <ul class="wl" id="wordList"></ul>
+    <div class="group">
+      <div class="label">Liste erweitern</div>
+      <p class="small">Neue Vokabeln einfach aus Excel kopieren und hier einfügen: pro Zeile <b>Deutsch</b>, dann Tab oder <b>;</b>, dann <b>Englisch</b>. Die Nummer vorne darf mit dabei sein.</p>
+      <textarea id="editor" spellcheck="false" aria-label="Vokabelliste bearbeiten"></textarea>
+      <div class="row">
+        <button class="btn sec" id="resetList">Originalliste</button>
+        <button class="btn" id="saveList">Liste speichern</button>
+      </div>
+      <p class="small" id="saveMsg" aria-live="polite"></p>
+      <button class="ghost" id="resetProgress">Lernfortschritt zurücksetzen</button>
+      <p class="small" id="resetMsg" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ============================================================
+   Vokabeln (aus "Abi 28 Vokabeln.xlsx", Tabelle1)
+   de, en, note (Zusatzinfo), alt (weitere akzeptierte Antworten)
+   ============================================================ */
+const DEFAULT_WORDS = [
+  { de: "etw. vermuten", en: "to assume" },
+  { de: "die Vermutung", en: "assumption" },
+  { de: "die Wahrscheinlichkeit, dass …", en: "the likelihood that …" },
+  { de: "erneuerbare Energie", en: "renewable energy" },
+  { de: "wiederverwendbare Becher", en: "reusable cups" },
+  { de: "etw. spenden", en: "to donate sth." },
+  { de: "die Umfrage", en: "survey" },
+  { de: "wörtliche / sachliche Bedeutung", en: "denotation" },
+  { de: "positive / negative Nebenbedeutung", en: "positive / negative connotation", alt: ["connotation"] },
+  { de: "etw. abschaffen", en: "to abolish sth." },
+  { de: "etw. ausbeuten, ausnutzen", en: "to exploit sth." },
+  { de: "aus politischen / religiösen Gründen verfolgt werden", en: "to be persecuted for political / religious reasons" },
+  { de: "ein Mangel an Arbeitskräften", en: "a shortage of labor", alt: ["a shortage of labour"] },
+  { de: "etw. ändern, ergänzen", en: "to amend sth." },
+  { de: "Trennung, Absonderung", en: "segregation" },
+  { de: "eine Botschaft vermitteln", en: "to convey a message" },
+  { de: "ländliches / städtisches Leben", en: "a rural life / an urban life", alt: ["rural life / urban life", "a rural / an urban life"] },
+  { de: "Wohlstandsgesellschaft", en: "an affluent society" },
+  { de: "in den Vororten leben", en: "to live in the suburbs", note: "live mit V (Verb) – aber: a suburban life (Nomen, mit F)", strict: true },
+  { de: "einen gemeinsamen Nenner finden", en: "to find a common denominator" },
+  { de: "eine Richtlinie", en: "a policy", note: "Plural: policies" },
+  { de: "er wurde freigesprochen", en: "he was acquitted" },
+  { de: "eine Plantage", en: "a plantation", alt: ["plantation"] },
+  { de: "einen roten Faden beibehalten", en: "to maintain a common thread" },
+  { de: "ein weißer Lattenzaun", en: "a white picket fence" },
+  { de: "deine Kleidung", en: "your attire", note: "formal · neutral/alltäglich: your clothes", alt: ["your clothes"] },
+  { de: "eine Person mittleren Alters", en: "a middle-aged person" },
+];
+
+/* ---------------- Storage (fails soft) ---------------- */
+const KEY = "abi28-vokabel-blockbuster-v1";
+function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+const store = Object.assign({ words: null, prog: {}, best: 0, dir: "de-en", pool: "all", sound: true }, load());
+function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+
+const words = () => (store.words && store.words.length ? store.words : DEFAULT_WORDS);
+const idOf = w => w.de + "|" + w.en;
+const prog = w => store.prog[idOf(w)] || (store.prog[idOf(w)] = { box: 0, ok: 0, bad: 0 });
+const MAX_BOX = 5;
+
+/* ---------------- Answer checking ---------------- */
+const STRIP_WORDS = /\b(sth|sb|something|somebody|someone|etw|etwas|jdn|jdm|jmd)\b\.?/g;
+const ARTICLES = /^(to |a |an |the |der |die |das |ein |eine |einen |einem |einer )/;
+function norm(s) {
+  return s.toLowerCase()
+    .replace(/[’`´]/g, "'")
+    .replace(/\(.*?\)/g, " ")
+    .replace(/…|\.\.+/g, " ")
+    .replace(STRIP_WORDS, " ")
+    .replace(/\s*\/\s*/g, "/")
+    .replace(/[.,!?;:"]/g, " ")
+    .replace(/\s+/g, " ").trim();
+}
+function core(s) { let t = norm(s), p; do { p = t; t = t.replace(ARTICLES, ""); } while (t !== p); return t; }
+function accepted(w, side) {
+  const main = side === "en" ? w.en : w.de;
+  const list = [main, ...(side === "en" ? (w.alt || []) : (w.altDe || []))];
+  // "etw. ausbeuten, ausnutzen" → each comma part also counts
+  main.split(",").forEach(p => p.trim() && list.push(p));
+  return [...new Set(list.map(core).filter(Boolean))];
+}
+function lev(a, b) {
+  const m = a.length, n = b.length, d = Array.from({ length: n + 1 }, (_, j) => j);
+  for (let i = 1; i <= m; i++) {
+    let prev = d[0]; d[0] = i;
+    for (let j = 1; j <= n; j++) { const t = d[j]; d[j] = Math.min(d[j] + 1, d[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1)); prev = t; }
+  }
+  return d[n];
+}
+function grade(input, w, side) {
+  const u = core(input);
+  if (!u) return "empty";
+  const acc = accepted(w, side);
+  if (acc.includes(u)) return "exact";
+  const best = Math.min(...acc.map(a => lev(u, a)));
+  const longest = Math.max(...acc.map(a => a.length));
+  if (w.strict) return "wrong";
+  if ((best === 1 && longest >= 5) || (best === 2 && longest >= 12)) return "typo";
+  return "wrong";
+}
+
+/* ---------------- Picking words (weak ones more often) ---------------- */
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function pool() {
+  const all = words();
+  if (store.pool === "weak") { const w = all.filter(x => prog(x).box < 3); return w.length >= 4 ? w : all; }
+  return all;
+}
+function buildDeck(n) {
+  const src = pool();
+  const weighted = src.map(w => ({ w, k: Math.random() ** (1 / ((MAX_BOX + 1 - prog(w).box) ** 2)) }));
+  weighted.sort((a, b) => b.k - a.k);
+  return shuffle(weighted.slice(0, Math.min(n, src.length)).map(x => x.w));
+}
+function sideFor() { return store.dir === "mix" ? (Math.random() < .5 ? "de-en" : "en-de") : store.dir; }
+
+/* ---------------- Sound ---------------- */
+let actx;
+function beep(kind) {
+  if (!store.sound) return;
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const notes = { ok: [660, 880], bad: [220, 160], typo: [520, 600], win: [523, 659, 784, 1046], tick: [900] }[kind];
+    notes.forEach((f, i) => {
+      const o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime + i * .09;
+      o.type = kind === "bad" ? "sawtooth" : "triangle"; o.frequency.value = f;
+      g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(kind === "tick" ? .05 : .16, t + .01); g.gain.exponentialRampToValueAtTime(.0001, t + .16);
+      o.connect(g).connect(actx.destination); o.start(t); o.stop(t + .18);
+    });
+  } catch (e) {}
+}
+function say(text) {
+  try {
+    const u = new SpeechSynthesisUtterance(text.replace(/\bsth\.?/g, "something").replace(/…/g, ""));
+    u.lang = "en-GB"; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u);
+  } catch (e) {}
+}
+
+/* ---------------- DOM helpers ---------------- */
+const $ = id => document.getElementById(id);
+const show = id => ["home", "game", "result", "list"].forEach(s => $(s).hidden = s !== id);
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]); }
+
+/* ---------------- Home ---------------- */
+function renderHome() {
+  const all = words();
+  const sure = all.filter(w => prog(w).box >= 4).length;
+  const mid = all.filter(w => prog(w).box >= 1 && prog(w).box < 4).length;
+  const weak = all.length - sure;
+  $("wordcount").textContent = all.length + " Vokabeln aus deiner Liste";
+  $("stSure").textContent = sure;
+  $("stWeak").textContent = weak;
+  $("stBest").textContent = store.best;
+  const pct = n => (n / all.length * 100) + "%";
+  $("meter").innerHTML = `<i style="width:${pct(sure)};background:var(--ok)"></i><i style="width:${pct(mid)};background:var(--gold)"></i>`;
+  document.querySelectorAll("#dirChips .chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.dir === store.dir));
+  document.querySelectorAll("#poolChips .chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.pool === store.pool));
+  $("soundBtn").textContent = "Ton: " + (store.sound ? "an" : "aus");
+  show("home");
+}
+$("dirChips").addEventListener("click", e => { const c = e.target.closest(".chip"); if (!c) return; store.dir = c.dataset.dir; save(); renderHome(); });
+$("poolChips").addEventListener("click", e => { const c = e.target.closest(".chip"); if (!c) return; store.pool = c.dataset.pool; save(); renderHome(); });
+$("soundBtn").onclick = () => { store.sound = !store.sound; save(); renderHome(); };
+document.querySelectorAll(".ticket").forEach(t => t.onclick = () => start(t.dataset.mode));
+
+/* ---------------- Game state ---------------- */
+const MODE_NAMES = { blitz: "Blitz-Runde", type: "Präzisions-Modus", cards: "Karteikarten" };
+const ROUND = { blitz: 15, type: 12, cards: 20 };
+const BLITZ_TIME = 10000;
+let G = null, timerRAF = null;
+
+function start(mode) {
+  const deck = buildDeck(ROUND[mode]);
+  G = { mode, deck, i: 0, total: deck.length, score: 0, combo: 0, maxCombo: 0, right: 0, answered: 0, misses: new Map(), retried: new Set(), locked: false };
+  ["options", "typeBox", "cardBox", "cardBtns", "timerWrap", "nextBtn"].forEach(id => $(id).hidden = true);
+  $("prompt").hidden = mode === "cards";
+  $("score").hidden = mode === "cards";
+  if (mode === "blitz") { $("options").hidden = false; $("timerWrap").hidden = false; }
+  if (mode === "type") $("typeBox").hidden = false;
+  if (mode === "cards") { $("cardBox").hidden = false; $("cardBtns").hidden = false; }
+  show("game");
+  next();
+}
+
+function current() { return G.deck[G.i]; }
+function setProgress() { $("prog").style.width = (Math.min(G.i, G.total) / G.total * 100) + "%"; $("score").textContent = G.score; }
+function setCombo(pop) {
+  const c = $("combo");
+  c.textContent = G.combo >= 2 ? "Combo ×" + G.combo : "";
+  if (pop && G.combo >= 2) { c.classList.remove("pop"); void c.offsetWidth; c.classList.add("pop"); }
+}
+
+function next() {
+  cancelAnimationFrame(timerRAF);
+  if (G.i >= G.deck.length) return finish();
+  G.locked = false;
+  const w = current();
+  G.side = sideFor();
+  const [from, to] = G.side === "de-en" ? ["de", "en"] : ["en", "de"];
+  G.from = from; G.to = to;
+  $("dirLabel").textContent = from.toUpperCase() + " → " + to.toUpperCase();
+  $("feedback").innerHTML = ""; $("nextBtn").hidden = true;
+  $("prompt").className = "prompt";
+  $("q").textContent = w[from];
+  $("qnote").textContent = "";
+  setProgress(); setCombo(false);
+  if (G.mode === "blitz") blitzQuestion(w);
+  if (G.mode === "type") typeQuestion(w);
+  if (G.mode === "cards") cardQuestion(w);
+}
+
+function reward(w, correct, half) {
+  const p = prog(w);
+  if (correct) { p.ok++; if (!half) p.box = Math.min(MAX_BOX, p.box + 1); }
+  else { p.bad++; p.box = Math.max(0, p.box - 2); G.misses.set(idOf(w), w); }
+  save();
+  G.answered++;
+  if (correct) G.right++;
+  // Falsches Wort kommt in dieser Runde noch einmal (einmalig)
+  if (!correct && !G.retried.has(idOf(w))) {
+    G.retried.add(idOf(w));
+    const pos = Math.min(G.deck.length, G.i + 3);
+    G.deck.splice(pos, 0, w); G.total = G.deck.length;
+  }
+}
+
+/* ---- Blitz ---- */
+function blitzQuestion(w) {
+  const all = words().filter(x => idOf(x) !== idOf(w));
+  // Ablenker: bevorzugt ähnlich lange Antworten, damit man nicht an der Länge rät
+  const target = w[G.to].length;
+  const distract = shuffle(all.slice()).sort((a, b) => Math.abs(a[G.to].length - target) - Math.abs(b[G.to].length - target) + (Math.random() - .5) * 12).slice(0, 3);
+  const opts = shuffle([w, ...distract]);
+  const box = $("options");
+  box.innerHTML = opts.map((o, k) => `<button class="opt" data-k="${k}"><span>${"ABCD"[k]}</span><span>${esc(o[G.to])}</span></button>`).join("");
+  box.querySelectorAll(".opt").forEach((b, k) => b.onclick = () => blitzAnswer(opts[k] === w, b, w, opts));
+  const t0 = performance.now();
+  G.t0 = t0;
+  const bar = $("timer");
+  const tick = now => {
+    const left = Math.max(0, 1 - (now - t0) / BLITZ_TIME);
+    bar.style.transform = `scaleX(${left})`;
+    bar.style.background = left > .5 ? "var(--ok)" : left > .2 ? "var(--gold)" : "var(--red)";
+    if (left <= 0) return blitzAnswer(false, null, w, opts, true);
+    timerRAF = requestAnimationFrame(tick);
+  };
+  timerRAF = requestAnimationFrame(tick);
+}
+function blitzAnswer(ok, btn, w, opts, timeout) {
+  if (G.locked) return; G.locked = true;
+  cancelAnimationFrame(timerRAF);
+  const btns = [...$("options").querySelectorAll(".opt")];
+  btns.forEach((b, k) => { b.disabled = true; if (opts[k] === w) b.classList.add("right"); });
+  if (ok) {
+    const left = Math.max(0, 1 - (performance.now() - G.t0) / BLITZ_TIME);
+    G.combo++; G.maxCombo = Math.max(G.maxCombo, G.combo);
+    const pts = Math.round((100 + left * 100) * (1 + Math.min(G.combo - 1, 5) * .2));
+    G.score += pts;
+    $("prompt").classList.add("ok");
+    $("feedback").innerHTML = `<span class="good">+${pts}</span>`;
+    beep("ok");
+  } else {
+    if (btn) btn.classList.add("wrong");
+    G.combo = 0;
+    $("prompt").classList.add("bad");
+    $("feedback").innerHTML = (timeout ? '<span class="miss">Zeit um!</span> ' : "") + `Richtig: <b>${esc(w[G.to])}</b>`;
+    beep("bad");
+  }
+  reward(w, ok);
+  setProgress(); setCombo(ok);
+  G.i++;
+  setTimeout(next, ok ? 750 : 1900);
+}
+
+/* ---- Tippen ---- */
+function typeQuestion(w) {
+  const inp = $("answer");
+  inp.value = ""; inp.className = ""; inp.disabled = false;
+  inp.placeholder = G.to === "en" ? "auf Englisch …" : "auf Deutsch …";
+  G.hints = 0;
+  $("checkBtn").textContent = "Prüfen";
+  $("hintBtn").disabled = false;
+  setTimeout(() => inp.focus(), 50);
+}
+function typeCheck() {
+  if (G.locked) return next();
+  const w = current(), inp = $("answer");
+  const g = grade(inp.value, w, G.to);
+  if (g === "empty") { inp.focus(); return; }
+  G.locked = true; inp.disabled = true;
+  const sol = esc(w[G.to]);
+  const note = w.note ? `<br><span style="color:var(--muted);font-size:13px">${esc(w.note)}</span>` : "";
+  if (g === "exact") {
+    G.combo++; G.maxCombo = Math.max(G.maxCombo, G.combo);
+    const pts = Math.max(40, 150 - G.hints * 40) + Math.min(G.combo - 1, 5) * 20;
+    G.score += pts;
+    inp.className = "ok"; $("prompt").classList.add("ok");
+    $("feedback").innerHTML = `<span class="good">Perfekt! +${pts}</span><br>${sol}${note}`;
+    beep("ok"); reward(w, true);
+  } else if (g === "typo") {
+    G.combo = 0; G.score += 40;
+    inp.className = "ok"; $("prompt").classList.add("ok");
+    $("feedback").innerHTML = `<span class="good">Fast! Achte auf die Schreibweise:</span><br><b>${sol}</b>${note}`;
+    beep("typo"); reward(w, true, true);
+  } else {
+    G.combo = 0;
+    inp.className = "bad"; $("prompt").classList.add("bad");
+    $("feedback").innerHTML = `<span class="miss">Leider falsch.</span> Richtig: <b>${sol}</b>${note}`;
+    beep("bad"); reward(w, false);
+  }
+  setCombo(g === "exact");
+  $("hintBtn").disabled = true;
+  $("checkBtn").textContent = "Weiter";
+  G.i++; setProgress();
+  $("checkBtn").focus();
+}
+$("checkBtn").onclick = typeCheck;
+$("answer").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); typeCheck(); } });
+document.addEventListener("keydown", e => { if (e.key === "Enter" && G && G.mode === "type" && G.locked && !$("game").hidden && document.activeElement !== $("checkBtn")) next(); });
+$("hintBtn").onclick = () => {
+  const w = current(), sol = w[G.to];
+  G.hints++;
+  const shown = sol.slice(0, Math.min(sol.length, G.hints * 2 + 1));
+  $("answer").value = shown; $("answer").focus();
+  $("feedback").innerHTML = `Tipp ${G.hints}: fängt mit <b>${esc(shown)}</b> an`;
+};
+
+/* ---- Karteikarten ---- */
+function cardQuestion(w) {
+  const flip = $("flip");
+  flip.classList.remove("on");
+  $("cFront").textContent = w[G.from];
+  $("cFrontNote").textContent = "";
+  $("cBack").textContent = w[G.to];
+  $("cBackNote").textContent = w.note || "";
+  $("speak").hidden = !("speechSynthesis" in window);
+  $("speak").dataset.text = w.en;
+  G.locked = false;
+}
+$("flip").onclick = e => { if (e.target.closest(".speak")) return; $("flip").classList.toggle("on"); };
+$("flip").onkeydown = e => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); $("flip").classList.toggle("on"); } };
+$("speak").onclick = e => { e.stopPropagation(); say(e.currentTarget.dataset.text); };
+function cardAnswer(ok) {
+  if (G.locked) return; G.locked = true;
+  const w = current();
+  if (ok) { G.combo++; G.maxCombo = Math.max(G.maxCombo, G.combo); beep("ok"); } else { G.combo = 0; beep("bad"); }
+  reward(w, ok);
+  G.i++; setProgress(); setCombo(ok);
+  $("flip").classList.remove("on");
+  setTimeout(next, 220);
+}
+$("cardYes").onclick = () => cardAnswer(true);
+$("cardNo").onclick = () => cardAnswer(false);
+// Wischen: rechts = gewusst, links = nicht gewusst
+let sx = null;
+$("flip").addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive: true });
+$("flip").addEventListener("touchend", e => {
+  if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; sx = null;
+  if (Math.abs(dx) > 70 && $("flip").classList.contains("on")) cardAnswer(dx > 0);
+});
+
+/* ---------------- Ende ---------------- */
+$("quit").onclick = () => { cancelAnimationFrame(timerRAF); renderHome(); };
+function finish() {
+  cancelAnimationFrame(timerRAF);
+  const pct = G.answered ? G.right / G.answered : 0;
+  const stars = pct >= .95 ? 3 : pct >= .75 ? 2 : pct >= .5 ? 1 : 0;
+  let record = false;
+  if (G.mode === "blitz" && G.score > store.best) { store.best = G.score; record = true; save(); }
+  $("resMode").textContent = MODE_NAMES[G.mode];
+  $("resTitle").textContent = record ? "Neuer Rekord!" : ["Nochmal proben", "Solide Vorstellung", "Starker Auftritt", "Oscar-reif!"][stars];
+  $("resSub").textContent = `${G.right} von ${G.answered} richtig · beste Combo ×${G.maxCombo}`;
+  $("resScore").textContent = G.mode === "cards" ? Math.round(pct * 100) + "%" : G.score;
+  $("resStars").innerHTML = [0, 1, 2].map(i => `<span class="${i < stars ? "" : "off"}">★</span>`).join("");
+  $("resLine").textContent = G.mode === "blitz" ? `Rekord: ${store.best} Punkte` : "";
+  const miss = [...G.misses.values()];
+  $("missGroup").hidden = !miss.length;
+  $("missList").innerHTML = miss.map(w => `<li><b>${esc(w.de)}</b><span>${esc(w.en)}${w.note ? " · " + esc(w.note) : ""}</span></li>`).join("");
+  show("result");
+  if (stars >= 2 || record) { beep("win"); confetti(); }
+}
+$("homeBtn").onclick = renderHome;
+$("againBtn").onclick = () => start(G.mode);
+
+/* ---------------- Konfetti ---------------- */
+function confetti() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const c = $("confetti"), x = c.getContext("2d");
+  c.width = innerWidth * devicePixelRatio; c.height = innerHeight * devicePixelRatio; x.scale(devicePixelRatio, devicePixelRatio);
+  const cols = ["#f5c04a", "#e0435c", "#3fcf8e", "#f7eee6"];
+  const ps = Array.from({ length: 140 }, () => ({ x: innerWidth / 2, y: innerHeight * .3, vx: (Math.random() - .5) * 12, vy: -Math.random() * 12 - 3, r: Math.random() * 6 + 3, c: cols[Math.random() * 4 | 0], a: Math.random() * 6 }));
+  let f = 0;
+  (function draw() {
+    x.clearRect(0, 0, innerWidth, innerHeight);
+    ps.forEach(p => { p.vy += .35; p.x += p.vx; p.y += p.vy; p.a += .2; x.fillStyle = p.c; x.save(); x.translate(p.x, p.y); x.rotate(p.a); x.fillRect(-p.r / 2, -p.r / 4, p.r, p.r / 2); x.restore(); });
+    if (++f < 110) requestAnimationFrame(draw); else x.clearRect(0, 0, innerWidth, innerHeight);
+  })();
+}
+
+/* ---------------- Wortliste / Editor ---------------- */
+function renderList() {
+  $("wordList").innerHTML = words().map((w, i) => {
+    const b = prog(w).box;
+    return `<li><span class="n">${i + 1}</span><div><div class="de">${esc(w.de)}</div><div class="en">${esc(w.en)}${w.note ? " · " + esc(w.note) : ""}</div></div>
+      <div class="pips" title="Lernstand ${b}/${MAX_BOX}">${[1, 2, 3, 4, 5].map(k => `<i class="${k <= b ? "on" : ""}"></i>`).join("")}</div></li>`;
+  }).join("");
+  $("editor").value = words().map(w => w.de + " ; " + w.en).join("\n");
+  $("saveMsg").textContent = ""; $("resetMsg").textContent = "";
+  show("list");
+}
+function parseList(text) {
+  return text.split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(l => {
+    let parts = l.includes("\t") ? l.split("\t") : l.split(";");
+    parts = parts.map(s => s.trim()).filter(Boolean);
+    if (parts.length > 2 && /^\d+$/.test(parts[0])) parts.shift();
+    if (parts.length < 2) return null;
+    const de = parts[0].replace(/^\d+[.)]?\s+/, ""), en = parts.slice(1).join(" ");
+    const old = DEFAULT_WORDS.find(w => w.de === de && w.en === en);
+    return old || { de, en };
+  }).filter(Boolean);
+}
+$("openList").onclick = renderList;
+$("listBack").onclick = renderHome;
+$("saveList").onclick = () => {
+  const list = parseList($("editor").value);
+  if (list.length < 4) { $("saveMsg").textContent = "Mindestens 4 Vokabeln nötig, jeweils „Deutsch ; Englisch“ pro Zeile."; return; }
+  store.words = list; save(); renderList();
+  $("saveMsg").textContent = `Gespeichert: ${list.length} Vokabeln.`;
+};
+$("resetList").onclick = () => { store.words = null; save(); renderList(); $("saveMsg").textContent = "Originalliste wiederhergestellt."; };
+let resetArmed = false;
+$("resetProgress").onclick = () => {
+  if (!resetArmed) { resetArmed = true; $("resetProgress").textContent = "Wirklich zurücksetzen? Nochmal tippen"; setTimeout(() => { resetArmed = false; $("resetProgress").textContent = "Lernfortschritt zurücksetzen"; }, 3000); return; }
+  resetArmed = false; store.prog = {}; store.best = 0; save(); renderList(); $("resetMsg").textContent = "Fortschritt zurückgesetzt.";
+  $("resetProgress").textContent = "Lernfortschritt zurücksetzen";
+};
+
+renderHome();
+</script>
+</body>
+</html>
