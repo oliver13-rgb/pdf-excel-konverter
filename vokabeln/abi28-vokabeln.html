@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#150c12">
+<meta name="theme-color" content="#0b0b2e">
 <title>Abi 28 Vokabel Blast</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,25 +11,28 @@
 <style>
 /* Layout: one-column cinema "app" — marquee header, ticket-shaped mode cards, full-height game stage. Deliberately single dark theme (cinema at night). */
 :root {
-  --bg: #150c12;          /* plum-black cinema hall */
-  --panel: #231620;       /* seat velvet */
-  --panel-2: #2e1d29;
-  --line: #45303f;
-  --gold: #f5c04a;        /* marquee bulbs */
-  --gold-dim: #8a6a2a;
-  --red: #e0435c;         /* velvet curtain */
-  --ok: #3fcf8e;
-  --text: #f7eee6;
-  --muted: #b09ca6;
+  --bg: #0b0b2e;          /* deep space */
+  --panel: #16164a;
+  --panel-2: #20206a;
+  --line: #31318a;
+  --gold: #ffd24a;        /* star gold */
+  --gold-dim: #6a64c8;
+  --red: #ff5a7a;
+  --ok: #43e6a6;
+  --text: #f0f1ff;
+  --muted: #a4a8e0;
   --display: "Bungee", "Impact", "Arial Black", sans-serif;
   --body: "Figtree", "Segoe UI", system-ui, sans-serif;
   --mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --r: 16px;
-  /* Block Blast */
-  --board: #1b0f1a;
-  --slot: #2a1b27;
-  --b1: #ff5a6e; --b2: #ff9f3a; --b3: #ffd447; --b4: #3fd28a; --b5: #3fa2ff; --b6: #a97dff;
-  --stone: #6b5a64;
+  /* Blast */
+  --banner: #23238f;
+  --rock: #4b4bc9;
+  --rock-hi: #8c8cf2;
+  --rock-lo: #2c2c8a;
+  --cannon: #5fe3b0;
+  --cannon-dk: #2fa97c;
+  --laser: #7dfcff;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -37,7 +40,7 @@ html, body { height: 100%; }
 body {
   margin: 0;
   background: var(--bg);
-  background-image: radial-gradient(120% 60% at 50% -10%, #3a1a2a 0%, transparent 60%);
+  background-image: radial-gradient(120% 60% at 50% -10%, #23236e 0%, transparent 60%);
   background-attachment: fixed;
   color: var(--text);
   font: 16px/1.45 var(--body);
@@ -52,7 +55,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px
 /* ---------- Marquee ---------- */
 .marquee {
   position: relative; border-radius: 20px; padding: 22px 18px 18px; text-align: center;
-  background: linear-gradient(180deg, #2a1422, #1c0f18);
+  background: linear-gradient(180deg, #1c1c62, #10103c);
   border: 2px solid var(--gold-dim);
 }
 .marquee::before {
@@ -201,51 +204,60 @@ h2 { font: 400 22px/1.1 var(--display); margin: 0; color: var(--gold); }
 
 .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 
-/* ---------- Block Blast ---------- */
-.ticket.blast { grid-template-columns: 64px 1fr; padding-block: 20px; background: linear-gradient(135deg, #3a1630, #26162a); }
+/* ---------- Vokabel Blast (Weltraum) ---------- */
+.ticket.blast { padding-block: 20px; background: linear-gradient(135deg, #2a2a9a, #1a1a5c); }
 .ticket.blast h3 { font-size: 20px; }
-.ticon { display: grid; grid-template-columns: repeat(3, 13px); gap: 2px; justify-content: center; }
-.ticon i { width: 13px; height: 13px; border-radius: 3px; background: var(--c); box-shadow: inset 0 -2px 0 rgba(0,0,0,.25); }
-.ticon i.o { background: transparent; box-shadow: none; }
-.bbar { display: flex; align-items: center; gap: 12px; }
-.bnum { flex: 1; display: flex; flex-direction: column; align-items: center; line-height: 1; }
-.bnum small { font: 500 10px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-.bnum b { font: 400 30px/1.1 var(--display); color: var(--gold); font-variant-numeric: tabular-nums; }
-.bside { display: flex; flex-direction: column; align-items: flex-end; min-width: 64px; line-height: 1.1; }
-.bside small { font: 500 10px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-.bside b { font: 500 16px/1.2 var(--mono); font-variant-numeric: tabular-nums; }
-.board { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; padding: 6px; background: var(--board); border: 2px solid var(--line); border-radius: 14px; touch-action: none; user-select: none; -webkit-user-select: none; }
-.cell { aspect-ratio: 1; border-radius: 5px; background: var(--slot); }
-.blk, .ghost { background: var(--c); box-shadow: inset 0 -3px 0 rgba(0,0,0,.28), inset 0 2px 0 rgba(255,255,255,.35); }
-.cell.junk { --c: var(--stone); background-image: radial-gradient(circle at 30% 35%, rgba(255,255,255,.18) 1.5px, transparent 2px), radial-gradient(circle at 70% 65%, rgba(0,0,0,.25) 2px, transparent 2.5px); }
-.cell.ghost { opacity: .45; }
-.cell.hint { filter: brightness(1.45) saturate(1.2); }
-.cell.boom { animation: boom .28s ease-in forwards; }
-.cell.drop { animation: drop .35s ease-out; }
-@keyframes boom { to { transform: scale(.15) rotate(25deg); opacity: 0; } }
-@keyframes drop { from { transform: translateY(-30px) scale(.6); opacity: 0; } }
-.tray { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.slot { position: relative; min-height: 118px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: var(--panel); border: 2px solid transparent; border-radius: 14px; padding: 10px 6px; touch-action: none; user-select: none; -webkit-user-select: none; }
-.slot.locked { border-color: var(--gold-dim); border-style: dashed; }
-.slot.locked .mini { filter: grayscale(.8) brightness(.5); }
-.slot.ready .mini { animation: wiggle 2.4s ease-in-out infinite; }
-@keyframes wiggle { 0%, 88%, 100% { transform: none; } 92% { transform: rotate(-4deg); } 96% { transform: rotate(4deg); } }
-.slot.used .mini, .slot.dragging .mini { visibility: hidden; }
-.slot .tag { font: 500 10px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
-.slot.used .tag, .slot.ready .tag { visibility: hidden; }
-.mini { display: grid; gap: 2px; }
-.mini i { width: 15px; height: 15px; border-radius: 3px; }
-.float { position: fixed; left: 0; top: 0; z-index: 10; display: grid; gap: 3px; pointer-events: none; filter: drop-shadow(0 8px 14px rgba(0,0,0,.5)); }
-.float i { border-radius: 5px; }
-.binfo { min-height: 20px; text-align: center; font-size: 14px; color: var(--muted); }
-.binfo b { color: var(--gold); }
-.qback { position: fixed; inset: 0; z-index: 20; background: rgba(10,4,10,.62); display: flex; align-items: flex-end; justify-content: center; }
-.qsheet { width: 100%; max-width: 520px; background: var(--panel); border-top: 2px solid var(--gold-dim); border-radius: 22px 22px 0 0; padding: 18px 16px calc(20px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 12px; animation: up .22s ease-out; max-height: 92%; overflow-y: auto; }
-@keyframes up { from { transform: translateY(40px); opacity: 0; } }
-.qsheet .q { font-size: clamp(22px, 6.4vw, 28px); font-weight: 800; line-height: 1.2; text-align: center; text-wrap: balance; overflow-wrap: anywhere; }
-.qsheet .qsub { text-align: center; font-size: 13px; color: var(--muted); margin-top: -6px; }
-.qsheet .opt { background: var(--panel-2); }
-.link { background: none; border: 0; color: var(--muted); font-size: 14px; text-decoration: underline; padding: 4px; align-self: center; }
+.ticket.blast .mini-rock { width: 46px; height: 46px; margin: 0 auto; border-radius: 48% 52% 45% 55% / 52% 46% 54% 48%; background: radial-gradient(circle at 35% 30%, var(--rock-hi), var(--rock) 55%, var(--rock-lo)); box-shadow: inset -4px -5px 0 rgba(0,0,0,.18); }
+#blast { position: fixed; inset: 0; z-index: 15; gap: 0; background: var(--bg);
+  background-image: radial-gradient(1.5px 1.5px at 20% 30%, #fff8, transparent), radial-gradient(1px 1px at 70% 15%, #fffa, transparent), radial-gradient(1.5px 1.5px at 85% 60%, #fff6, transparent), radial-gradient(1px 1px at 35% 75%, #fff8, transparent), radial-gradient(1px 1px at 55% 45%, #fff5, transparent), radial-gradient(140% 50% at -20% 100%, #1a1a55 0%, transparent 60%);
+  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); user-select: none; -webkit-user-select: none; }
+.sbar { display: flex; align-items: center; gap: 10px; padding: 10px 16px; }
+.sbar .logo { width: 34px; height: 34px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--rock-hi), var(--rock) 60%, var(--rock-lo)); flex: none; }
+.sbar .title { flex: 1; font: 400 16px/1 var(--display); color: var(--text); letter-spacing: .02em; }
+.sbar button { background: none; border: 0; color: var(--text); padding: 8px; font-size: 14px; font-weight: 700; }
+.sbar .x { width: 40px; height: 40px; border: 1.5px solid var(--line); border-radius: 50%; font-size: 20px; padding: 0; }
+.sprompt { background: var(--banner); padding: 18px 16px 16px; text-align: center; }
+.sprompt #sq { font-size: clamp(24px, 7.5vw, 34px); font-weight: 800; line-height: 1.15; text-wrap: balance; overflow-wrap: anywhere; min-height: 1.15em; }
+.sprompt #sq.flash { animation: qin .3s ease-out; }
+@keyframes qin { from { opacity: 0; transform: translateY(-8px); } }
+.stimebar { height: 6px; background: #3a3a7a; }
+.stimebar i { display: block; height: 100%; background: var(--rock-hi); transform-origin: left; }
+#sky { position: relative; flex: 1; overflow: hidden; touch-action: manipulation; }
+.sclock { position: absolute; left: 0; right: 0; top: 12px; text-align: center; font: 800 34px/1 var(--body); color: #3d3d8f; font-variant-numeric: tabular-nums; pointer-events: none; }
+.sclock.low { color: var(--red); animation: bulbs .8s steps(2) infinite; }
+.rock { position: absolute; left: 0; top: 0; border: 0; padding: 10px; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; cursor: pointer;
+  background: radial-gradient(circle at 26% 30%, rgba(255,255,255,.14) 0 7%, transparent 8%), radial-gradient(circle at 70% 24%, rgba(0,0,0,.16) 0 6%, transparent 7%), radial-gradient(circle at 78% 70%, rgba(0,0,0,.16) 0 8%, transparent 9%), radial-gradient(circle at 30% 78%, rgba(0,0,0,.12) 0 5%, transparent 6%), radial-gradient(circle at 40% 35%, var(--rock-hi), var(--rock) 55%, var(--rock-lo));
+  box-shadow: inset -6px -8px 0 rgba(0,0,0,.18), 0 0 0 3px rgba(140,140,242,.25); will-change: transform; }
+.rock span { font-weight: 600; line-height: 1.15; overflow-wrap: normal; word-break: normal; text-shadow: 0 1px 2px rgba(0,0,0,.35); pointer-events: none; }
+.rock:focus-visible { outline: 3px solid var(--laser); }
+.rock.hit { animation: explode .35s ease-out forwards; }
+.rock.wrongrock { --rock: #a13456; --rock-hi: #ff6b8e; --rock-lo: #5e1530; animation: dud .5s ease-out forwards; }
+@keyframes explode { to { scale: 1.5; opacity: 0; } }
+@keyframes dud { 30% { scale: 1.08; } to { scale: .3; opacity: 0; } }
+.laser { position: absolute; left: 0; top: 0; height: 5px; margin-top: -2.5px; transform-origin: 0 50%; border-radius: 3px; background: linear-gradient(90deg, transparent, var(--lc) 30%, #fff); box-shadow: 0 0 12px var(--lc); animation: zap .26s ease-out forwards; pointer-events: none; }
+@keyframes zap { to { opacity: 0; } }
+.shard { position: absolute; width: 9px; height: 9px; border-radius: 3px; pointer-events: none; animation: shard .6s ease-out forwards; }
+@keyframes shard { to { transform: translate(var(--dx), var(--dy)) rotate(200deg); opacity: 0; } }
+.poptext { position: absolute; transform: translate(-50%, -50%); font: 400 22px/1 var(--display); pointer-events: none; animation: rise .8s ease-out forwards; }
+@keyframes rise { to { transform: translate(-50%, -140%); opacity: 0; } }
+.ssolve { position: absolute; left: 16px; right: 16px; top: 40%; background: var(--panel); border: 2px solid var(--red); border-radius: 16px; padding: 14px; text-align: center; font-size: 16px; }
+.ssolve b { color: var(--gold); }
+.slevel { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; pointer-events: none; }
+.slevel b { font: 400 clamp(40px, 13vw, 60px)/1 var(--display); color: var(--gold); text-shadow: 0 0 24px rgba(255,210,74,.5); animation: pop .5s; }
+.slevel span { color: var(--muted); font-weight: 600; }
+.sfoot { display: grid; grid-template-columns: 1fr 120px 1fr; align-items: end; gap: 8px; padding: 0 16px 10px; }
+.shud { display: flex; flex-direction: column; gap: 6px; padding-bottom: 8px; min-width: 0; }
+.shud .top { display: flex; justify-content: space-between; font: 700 15px/1 var(--body); color: var(--gold); font-variant-numeric: tabular-nums; }
+.shud.right .top { color: var(--rock-hi); font-size: 13px; }
+.sbarbg { height: 12px; border-radius: 99px; background: #3a3a6a; overflow: hidden; }
+.sbarbg i { display: block; height: 100%; width: 0; background: var(--gold); border-radius: 99px; transition: width .3s; }
+.streak { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; height: 12px; padding: 2px; border-radius: 99px; background: #3a2a7a; }
+.streak i { border-radius: 2px; background: #5a4aa8; }
+.streak i.on { background: var(--rock-hi); box-shadow: 0 0 6px var(--rock-hi); }
+.cannon { position: relative; height: 92px; display: flex; justify-content: center; }
+.cannon .base { position: absolute; bottom: -38px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle at 50% 30%, var(--cannon), var(--cannon-dk)); box-shadow: inset 0 6px 0 rgba(255,255,255,.25); }
+.cannon .eye { position: absolute; bottom: 22px; width: 40px; height: 40px; border-radius: 50%; background: var(--bg); border: 5px solid #e7fff5; box-shadow: inset 0 0 0 6px var(--laser); z-index: 2; }
+.barrel { position: absolute; bottom: 40px; width: 22px; height: 58px; margin-left: -11px; left: 50%; border-radius: 8px 8px 4px 4px; background: linear-gradient(90deg, var(--cannon-dk), #b8ffe2, var(--cannon-dk)); transform-origin: 50% 100%; transition: transform .08s; z-index: 1; }
 [hidden] { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -274,12 +286,8 @@ h2 { font: 400 22px/1.1 var(--display); margin: 0; color: var(--gold); }
     </div>
 
     <button class="ticket blast" data-mode="blast">
-      <div class="ticon" aria-hidden="true">
-        <i style="--c:var(--b1)"></i><i style="--c:var(--b1)"></i><i class="o"></i>
-        <i style="--c:var(--b5)"></i><i style="--c:var(--b3)"></i><i style="--c:var(--b3)"></i>
-        <i style="--c:var(--b5)"></i><i style="--c:var(--b4)"></i><i style="--c:var(--b3)"></i>
-      </div>
-      <div><h3>Block Blast</h3><p id="blastSub">Vokabel richtig = Block frei. Reihen füllen, abräumen, Rekord knacken.</p></div>
+      <div class="mini-rock" aria-hidden="true"></div>
+      <div><h3>Vokabel Blast</h3><p>Asteroiden mit Antworten fliegen heran. Schieß den richtigen ab, bevor die Zeit abläuft.</p></div>
     </button>
 
     <div class="group">
@@ -296,14 +304,6 @@ h2 { font: 400 22px/1.1 var(--display); margin: 0; color: var(--gold); }
       <div class="chips" id="poolChips">
         <button class="chip" data-pool="all" aria-pressed="true">Alle</button>
         <button class="chip" data-pool="weak" aria-pressed="false">Nur wackelige</button>
-      </div>
-    </div>
-
-    <div class="group">
-      <div class="label">Antworten</div>
-      <div class="chips" id="ansChips">
-        <button class="chip" data-ans="choice" aria-pressed="true">Auswählen (schnell)</button>
-        <button class="chip" data-ans="type" aria-pressed="false">Eintippen (präzise)</button>
       </div>
     </div>
 
@@ -389,34 +389,27 @@ h2 { font: 400 22px/1.1 var(--display); margin: 0; color: var(--gold); }
     </div>
   </section>
 
-  <!-- ================= BLOCK BLAST ================= -->
+  <!-- ================= VOKABEL BLAST ================= -->
   <section class="screen" id="blast" hidden>
-    <div class="bbar">
-      <button class="x" id="blastQuit" aria-label="Zurück zum Menü (Spiel wird gespeichert)">×</button>
-      <div class="bnum"><small>Punkte</small><b id="bScore">0</b></div>
-      <div class="bside"><small>Rekord</small><b id="bBest">0</b></div>
+    <div class="sbar">
+      <div class="logo" aria-hidden="true"></div>
+      <div class="title">Vokabel Blast</div>
+      <button id="sMute">Ton an</button>
+      <button class="x" id="sQuit" aria-label="Spiel beenden">×</button>
     </div>
-    <div class="board" id="board" aria-label="Spielfeld 8 mal 8"></div>
-    <div class="binfo" id="bInfo" aria-live="polite"></div>
-    <div class="tray" id="tray"></div>
-    <button class="link" id="blastNew">Neues Spiel starten</button>
+    <div class="sprompt"><div id="sq" aria-live="polite"></div></div>
+    <div class="stimebar"><i id="sTime"></i></div>
+    <div id="sky">
+      <div class="sclock" id="sClock">60</div>
+      <div class="ssolve" id="sSolve" hidden></div>
+      <div class="slevel" id="sLevelUp" hidden><b>Level <span id="sLevelNum" style="color:inherit;font:inherit">2</span></b><span>Neue 60 Sekunden · schneller!</span></div>
+    </div>
+    <div class="sfoot">
+      <div class="shud"><div class="top"><span id="sLevel">1</span><span id="sPts">0/50</span></div><div class="sbarbg"><i id="sPtsBar"></i></div></div>
+      <div class="cannon" id="cannon" aria-hidden="true"><div class="barrel" id="barrel"></div><div class="base"></div><div class="eye"></div></div>
+      <div class="shud right"><div class="top"><span>Treffer in Folge</span><span id="sMult"></span></div><div class="streak" id="sStreak"></div></div>
+    </div>
   </section>
-
-  <div class="qback" id="qback" hidden>
-    <div class="qsheet" role="dialog" aria-modal="true" aria-labelledby="bq">
-      <div class="label" id="bqLabel" style="text-align:center">Block freischalten</div>
-      <div class="q" id="bq"></div>
-      <div class="qsub" id="bqSub"></div>
-      <div class="options" id="bOpts"></div>
-      <div class="field" id="bType">
-        <input id="bAnswer" aria-label="Deine Antwort" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done">
-        <button class="btn" id="bCheck">Prüfen</button>
-      </div>
-      <div class="feedback" id="bFeedback" aria-live="polite"></div>
-      <button class="btn" id="bNext" hidden>Weiter</button>
-      <button class="link" id="bSkip">Weiß ich nicht</button>
-    </div>
-  </div>
 
   <!-- ================= LIST ================= -->
   <section class="screen" id="list" hidden>
@@ -478,7 +471,7 @@ const DEFAULT_WORDS = [
 /* ---------------- Storage (fails soft) ---------------- */
 const KEY = "abi28-vokabel-blockbuster-v1";
 function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
-const store = Object.assign({ words: null, prog: {}, best: 0, blastBest: 0, blastSave: null, ans: "choice", dir: "de-en", pool: "all", sound: true }, load());
+const store = Object.assign({ words: null, prog: {}, best: 0, blastBest: 0, dir: "de-en", pool: "all", sound: true }, load());
 function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
 
 const words = () => (store.words && store.words.length ? store.words : DEFAULT_WORDS);
@@ -579,8 +572,6 @@ function renderHome() {
   $("stSure").textContent = sure;
   $("stWeak").textContent = weak;
   $("stBest").textContent = store.blastBest;
-  $("blastSub").textContent = store.blastSave ? `Weiterspielen · ${store.blastSave.score} Punkte` : "Vokabel richtig = Block frei. Reihen füllen, abräumen, Rekord knacken.";
-  document.querySelectorAll("#ansChips .chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.ans === store.ans));
   const pct = n => (n / all.length * 100) + "%";
   $("meter").innerHTML = `<i style="width:${pct(sure)};background:var(--ok)"></i><i style="width:${pct(mid)};background:var(--gold)"></i>`;
   document.querySelectorAll("#dirChips .chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.dir === store.dir));
@@ -591,8 +582,7 @@ function renderHome() {
 $("dirChips").addEventListener("click", e => { const c = e.target.closest(".chip"); if (!c) return; store.dir = c.dataset.dir; save(); renderHome(); });
 $("poolChips").addEventListener("click", e => { const c = e.target.closest(".chip"); if (!c) return; store.pool = c.dataset.pool; save(); renderHome(); });
 $("soundBtn").onclick = () => { store.sound = !store.sound; save(); renderHome(); };
-$("ansChips").addEventListener("click", e => { const c = e.target.closest(".chip"); if (!c) return; store.ans = c.dataset.ans; save(); renderHome(); });
-document.querySelectorAll(".ticket").forEach(t => t.onclick = () => t.dataset.mode === "blast" ? startBlast(false) : start(t.dataset.mode));
+document.querySelectorAll(".ticket").forEach(t => t.onclick = () => t.dataset.mode === "blast" ? startBlast() : start(t.dataset.mode));
 let lastMode = "blitz";
 
 /* ---------------- Game state ---------------- */
@@ -813,7 +803,7 @@ function finish() {
   if (stars >= 2 || record) { beep("win"); confetti(); }
 }
 $("homeBtn").onclick = renderHome;
-$("againBtn").onclick = () => lastMode === "blast" ? startBlast(true) : start(G.mode);
+$("againBtn").onclick = () => lastMode === "blast" ? startBlast() : start(G.mode);
 
 /* ---------------- Konfetti ---------------- */
 function confetti() {
@@ -864,343 +854,282 @@ $("resetList").onclick = () => { store.words = null; save(); renderList(); $("sa
 let resetArmed = false;
 $("resetProgress").onclick = () => {
   if (!resetArmed) { resetArmed = true; $("resetProgress").textContent = "Wirklich zurücksetzen? Nochmal tippen"; setTimeout(() => { resetArmed = false; $("resetProgress").textContent = "Lernfortschritt zurücksetzen"; }, 3000); return; }
-  resetArmed = false; store.prog = {}; store.best = 0; store.blastBest = 0; store.blastSave = null; save(); renderList(); $("resetMsg").textContent = "Fortschritt zurückgesetzt.";
+  resetArmed = false; store.prog = {}; store.best = 0; store.blastBest = 0; save(); renderList(); $("resetMsg").textContent = "Fortschritt zurückgesetzt.";
   $("resetProgress").textContent = "Lernfortschritt zurücksetzen";
 };
 
 /* ============================================================
-   BLOCK BLAST mit Vokabeln
-   Jeder Block im Vorrat ist gesperrt. Antippen → Vokabel beantworten.
-   Richtig: Block frei + Bonuspunkte. Falsch: Block trotzdem frei,
-   aber 2 Steinblöcke fallen aufs Feld und das Wort kommt bald wieder.
+   VOKABEL BLAST (wie Quizlet Blast)
+   Oben steht die Vokabel, Asteroiden mit Antworten treiben durchs All.
+   Den richtigen antippen → Kanone schießt ihn ab.
+   Pro Level 60 Sekunden, um das Punkteziel zu schaffen.
    ============================================================ */
-const N = 8;
-const COLORS = ["var(--b1)", "var(--b2)", "var(--b3)", "var(--b4)", "var(--b5)", "var(--b6)"];
-const SHAPES = [
-  [[0,0]],
-  [[0,0],[0,1]], [[0,0],[1,0]],
-  [[0,0],[0,1],[0,2]], [[0,0],[1,0],[2,0]],
-  [[0,0],[0,1],[0,2],[0,3]], [[0,0],[1,0],[2,0],[3,0]],
-  [[0,0],[0,1],[0,2],[0,3],[0,4]], [[0,0],[1,0],[2,0],[3,0],[4,0]],
-  [[0,0],[0,1],[1,0],[1,1]],
-  [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2]], [[0,0],[0,1],[1,0],[1,1],[2,0],[2,1]],
-  [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]],
-  [[0,0],[1,0],[1,1]], [[0,0],[0,1],[1,0]], [[0,0],[0,1],[1,1]], [[0,1],[1,0],[1,1]],
-  [[0,0],[1,0],[2,0],[2,1]], [[0,0],[0,1],[0,2],[1,0]], [[0,0],[0,1],[1,1],[2,1]], [[0,2],[1,0],[1,1],[1,2]],
-  [[0,1],[1,1],[2,0],[2,1]], [[0,0],[1,0],[1,1],[1,2]], [[0,0],[0,1],[1,0],[2,0]], [[0,0],[0,1],[0,2],[1,2]],
-  [[0,0],[1,0],[2,0],[2,1],[2,2]], [[0,0],[0,1],[0,2],[1,0],[2,0]], [[0,0],[0,1],[0,2],[1,2],[2,2]], [[0,2],[1,2],[2,0],[2,1],[2,2]],
-  [[0,0],[0,1],[0,2],[1,1]], [[0,1],[1,0],[1,1],[1,2]], [[0,0],[1,0],[2,0],[1,1]], [[0,1],[1,0],[1,1],[2,1]],
-  [[0,1],[0,2],[1,0],[1,1]], [[0,0],[0,1],[1,1],[1,2]], [[0,0],[1,0],[1,1],[2,1]], [[0,1],[1,0],[1,1],[2,0]],
-];
-let B = null, drag = null;
+const LEVEL_TIME = 60;
+const HIT_PTS = 10;
+let S = null, sRAF = null;
 const rnd = n => Math.floor(Math.random() * n);
 
-function newPiece() { return { s: SHAPES[rnd(SHAPES.length)], c: rnd(COLORS.length), locked: true, used: false }; }
-function fits(grid, s, r, c) {
-  return s.every(([dr, dc]) => { const rr = r + dr, cc = c + dc; return rr >= 0 && rr < N && cc >= 0 && cc < N && grid[rr * N + cc] === null; });
-}
-function fitsAnywhere(grid, s) { for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) if (fits(grid, s, r, c)) return true; return false; }
-function newSet() {
-  let set;
-  for (let t = 0; t < 40; t++) { set = [newPiece(), newPiece(), newPiece()]; if (set.every(p => fitsAnywhere(B.grid, p.s))) break; }
-  B.pieces = set;
-}
-function fullLines(grid) {
-  const rows = [], cols = [];
-  for (let r = 0; r < N; r++) { let f = true; for (let c = 0; c < N; c++) if (grid[r * N + c] === null) { f = false; break; } if (f) rows.push(r); }
-  for (let c = 0; c < N; c++) { let f = true; for (let r = 0; r < N; r++) if (grid[r * N + c] === null) { f = false; break; } if (f) cols.push(c); }
-  const cells = new Set();
-  rows.forEach(r => { for (let c = 0; c < N; c++) cells.add(r * N + c); });
-  cols.forEach(c => { for (let r = 0; r < N; r++) cells.add(r * N + c); });
-  return { n: rows.length + cols.length, cells };
-}
-
-function startBlast(fresh) {
-  if (!fresh && store.blastSave && store.blastSave.grid && store.blastSave.grid.length === N * N) B = store.blastSave;
-  else B = { grid: Array(N * N).fill(null), pieces: [], score: 0, combo: 0, since: 0, streak: 0, asked: 0, right: 0, misses: [], retry: [], recent: [] };
-  B.busy = false;
-  if (!B.pieces.length || B.pieces.every(p => p.used)) newSet();
-  buildBoard();
-  show("blast");
-  renderBlast();
-  info(B.score ? "Weiter geht's!" : "Tippe einen Block an, beantworte die Vokabel, dann zieh ihn aufs Feld.");
-  saveBlast();
-  setTimeout(checkOver, 300);
-}
-function saveBlast() { const { busy, ...rest } = B; store.blastSave = rest; save(); }
-function info(html) { $("bInfo").innerHTML = html; }
-
-function buildBoard() {
-  const b = $("board");
-  if (b.children.length === N * N) return;
-  b.innerHTML = Array.from({ length: N * N }, () => '<div class="cell"></div>').join("");
-}
-function renderBlast() {
-  const cells = $("board").children;
-  B.grid.forEach((v, i) => {
-    const el = cells[i];
-    el.className = "cell" + (v === null ? "" : v === "j" ? " blk junk" : " blk");
-    el.style.setProperty("--c", typeof v === "number" ? COLORS[v] : "");
-  });
-  $("tray").innerHTML = B.pieces.map((p, k) => {
-    const rows = Math.max(...p.s.map(x => x[0])) + 1, cols = Math.max(...p.s.map(x => x[1])) + 1;
-    const mini = p.s.map(([r, c]) => `<i class="blk" style="--c:${COLORS[p.c]};grid-row:${r + 1};grid-column:${c + 1}"></i>`).join("");
-    const cls = p.used ? "used" : p.locked ? "locked" : "ready";
-    const label = p.used ? "" : p.locked ? "Antippen" : "";
-    return `<div class="slot ${cls}" data-k="${k}" role="button" tabindex="0" aria-label="${p.used ? "Block gesetzt" : p.locked ? "Gesperrter Block: Vokabel beantworten" : "Block bereit: aufs Feld ziehen"}">
-      <div class="mini" style="grid-template-rows:repeat(${rows},15px);grid-template-columns:repeat(${cols},15px)">${mini}</div><span class="tag">${label}</span></div>`;
-  }).join("");
-  $("bScore").textContent = B.score;
-  $("bBest").textContent = Math.max(store.blastBest, B.score);
-}
-
-/* ---------- Ziehen & Ablegen ---------- */
-function geometry() {
-  const cells = $("board").children, a = cells[0].getBoundingClientRect(), b = cells[1].getBoundingClientRect();
-  return { ox: a.left, oy: a.top, pitch: b.left - a.left, size: a.width };
-}
-$("tray").addEventListener("pointerdown", e => {
-  const slot = e.target.closest(".slot"); if (!slot || !B || B.busy) return;
-  const k = +slot.dataset.k, p = B.pieces[k];
-  if (!p || p.used) return;
-  if (p.locked) return; // Öffnen per click, sonst trifft der Finger sofort eine Antwort
-  e.preventDefault();
-  const g = geometry();
-  const rows = Math.max(...p.s.map(x => x[0])) + 1, cols = Math.max(...p.s.map(x => x[1])) + 1;
-  const el = document.createElement("div");
-  el.className = "float";
-  el.style.gridTemplateRows = `repeat(${rows},${g.size}px)`;
-  el.style.gridTemplateColumns = `repeat(${cols},${g.size}px)`;
-  el.style.gap = (g.pitch - g.size) + "px";
-  el.innerHTML = p.s.map(([r, c]) => `<i class="blk" style="--c:${COLORS[p.c]};grid-row:${r + 1};grid-column:${c + 1}"></i>`).join("");
-  document.body.appendChild(el);
-  const w = cols * g.pitch, h = rows * g.pitch;
-  // Auf dem Handy schwebt der Block über dem Finger, damit man sieht, wo er landet
-  const lift = e.pointerType === "mouse" ? h / 2 : h + 36;
-  drag = { k, p, el, g, w, h, lift, target: null, slot };
-  slot.classList.add("dragging");
-  moveDrag(e);
-});
-$("tray").addEventListener("click", e => {
-  const slot = e.target.closest(".slot"); if (!slot || !B || B.busy) return;
-  const p = B.pieces[+slot.dataset.k];
-  if (p && !p.used && p.locked) openQ(+slot.dataset.k);
-});
-$("tray").addEventListener("keydown", e => {
-  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.target.closest(".slot")?.click(); }
-});
-function moveDrag(e) {
-  if (!drag) return;
-  const left = e.clientX - drag.w / 2, top = e.clientY - drag.lift;
-  drag.el.style.transform = `translate(${left}px, ${top}px)`;
-  const c = Math.round((left - drag.g.ox) / drag.g.pitch), r = Math.round((top - drag.g.oy) / drag.g.pitch);
-  const t = fits(B.grid, drag.p.s, r, c) ? { r, c } : null;
-  if (JSON.stringify(t) !== JSON.stringify(drag.target)) { drag.target = t; preview(); }
-}
-function preview() {
-  const cells = $("board").children;
-  [...cells].forEach(el => el.classList.remove("ghost", "hint"));
-  if (!drag || !drag.target) return;
-  const g = B.grid.slice();
-  drag.p.s.forEach(([dr, dc]) => {
-    const i = (drag.target.r + dr) * N + drag.target.c + dc;
-    g[i] = drag.p.c; cells[i].classList.add("ghost"); cells[i].style.setProperty("--c", COLORS[drag.p.c]);
-  });
-  fullLines(g).cells.forEach(i => cells[i].classList.add("hint"));
-}
-function endDrag(drop) {
-  if (!drag) return;
-  const d = drag; drag = null;
-  d.el.remove(); d.slot.classList.remove("dragging");
-  [...$("board").children].forEach(el => el.classList.remove("ghost", "hint"));
-  if (drop && d.target) place(d.k, d.target.r, d.target.c); else renderBlast();
-}
-window.addEventListener("pointermove", e => { if (drag) { e.preventDefault(); moveDrag(e); } }, { passive: false });
-window.addEventListener("pointerup", () => endDrag(true));
-window.addEventListener("pointercancel", () => endDrag(false));
-
-function place(k, r, c) {
-  const p = B.pieces[k];
-  p.s.forEach(([dr, dc]) => { B.grid[(r + dr) * N + c + dc] = p.c; });
-  p.used = true;
-  B.score += p.s.length;
-  const { n, cells } = fullLines(B.grid);
-  renderBlast();
-  const els = $("board").children;
-  if (n) {
-    B.combo++; B.since = 0;
-    const pts = 10 * n * n + 10 * (B.combo - 1) * n;
-    B.score += pts;
-    cells.forEach(i => els[i].classList.add("boom"));
-    beep("win");
-    info(`<b>${n > 1 ? n + " Reihen" : "Reihe"} weg! +${pts}</b>${B.combo > 1 ? ` · Combo ×${B.combo}` : ""}`);
-    B.busy = true;
-    setTimeout(() => { cells.forEach(i => { B.grid[i] = null; }); B.busy = false; afterMove(); }, 300);
-  } else {
-    if (++B.since >= 3) B.combo = 0;
-    beep("tick");
-    afterMove();
-  }
-}
-function afterMove() {
-  if (B.pieces.every(p => p.used)) newSet();
-  renderBlast(); saveBlast();
-  setTimeout(checkOver, 150);
-}
-function checkOver() {
-  if (!B || $("blast").hidden) return;
-  const alive = B.pieces.some(p => !p.used && fitsAnywhere(B.grid, p.s));
-  if (alive) return;
-  B.busy = true;
-  info("<b>Kein Platz mehr!</b>");
-  beep("bad");
-  setTimeout(blastResult, 1100);
-}
-
-/* ---------- Vokabel-Fragen ---------- */
 function findWord(id) { return words().find(w => idOf(w) === id); }
+function goalFor(level) { return 40 + level * 10; }   // Level 1: 50, Level 2: 60 …
+
+function startBlast() {
+  S = { level: 1, lvlPts: 0, total: 0, streak: 0, best: 0, time: LEVEL_TIME, asked: 0, answered: 0, right: 0,
+        misses: [], retry: [], recent: [], rocks: [], q: null, busy: false, last: 0, over: false };
+  show("blast");
+  $("sLevelUp").hidden = true;
+  layoutSky();
+  renderHud();
+  nextQuestion();
+  S.last = performance.now();
+  cancelAnimationFrame(sRAF);
+  sRAF = requestAnimationFrame(loop);
+}
+
 function nextWord() {
-  B.asked++;
-  const di = B.retry.findIndex(x => x.due <= B.asked && findWord(x.id));
-  if (di >= 0) return findWord(B.retry.splice(di, 1)[0].id);
+  S.asked++;
+  const di = S.retry.findIndex(x => x.due <= S.asked && findWord(x.id));
+  if (di >= 0) return findWord(S.retry.splice(di, 1)[0].id);
   const src = pool();
-  let cand = src.filter(w => !B.recent.includes(idOf(w)));
+  let cand = src.filter(w => !S.recent.includes(idOf(w)));
   if (!cand.length) cand = src;
   const weights = cand.map(w => (MAX_BOX + 1 - prog(w).box) ** 2);
   let x = Math.random() * weights.reduce((a, b) => a + b, 0), k = 0;
   while ((x -= weights[k]) > 0 && k < cand.length - 1) k++;
   return cand[k];
 }
-let Q = null;
-function openQ(k) {
-  B.busy = true;
+
+/* ---------- Asteroiden ---------- */
+let SKY = { w: 360, h: 500, size: 112 };
+function layoutSky() {
+  const r = $("sky").getBoundingClientRect();
+  SKY.w = r.width; SKY.h = r.height;
+  SKY.size = Math.max(92, Math.min(128, r.width * 0.3));
+}
+window.addEventListener("resize", () => { if (S && !$("blast").hidden) layoutSky(); });
+
+const BLOBS = ["48% 52% 45% 55% / 52% 46% 54% 48%", "55% 45% 52% 48% / 46% 54% 47% 53%", "50% 50% 44% 56% / 55% 47% 53% 45%", "46% 54% 56% 44% / 50% 52% 48% 50%"];
+function nextQuestion() {
+  $("sky").querySelectorAll(".rock").forEach(el => el.remove());
   const w = nextWord();
-  B.recent.push(idOf(w)); B.recent = B.recent.slice(-Math.min(6, Math.max(1, pool().length - 4)));
+  S.recent.push(idOf(w)); S.recent = S.recent.slice(-Math.min(6, Math.max(1, pool().length - 4)));
   const side = sideFor(), [from, to] = side === "de-en" ? ["de", "en"] : ["en", "de"];
-  Q = { k, w, from, to, t0: performance.now(), done: false };
-  $("bqLabel").textContent = "Block freischalten · " + (to === "en" ? "auf Englisch" : "auf Deutsch");
-  $("bq").textContent = w[from];
-  $("bqSub").textContent = "";
-  $("bFeedback").innerHTML = "";
-  $("bNext").hidden = true; $("bSkip").hidden = false;
-  const choice = store.ans === "choice";
-  $("bOpts").hidden = !choice; $("bType").hidden = choice;
-  if (choice) {
-    const target = w[to].length;
-    const others = shuffle(words().filter(x => idOf(x) !== idOf(w) && x[to] !== w[to]))
-      .sort((a, b) => Math.abs(a[to].length - target) - Math.abs(b[to].length - target) + (Math.random() - .5) * 12).slice(0, 3);
-    const opts = shuffle([w, ...others]);
-    $("bOpts").innerHTML = opts.map((o, i) => `<button class="opt"><span>${"ABCD"[i]}</span><span>${esc(o[to])}</span></button>`).join("");
-    [...$("bOpts").children].forEach((b, i) => b.onclick = () => {
-      if (Q.done) return;
-      [...$("bOpts").children].forEach((x, j) => { x.disabled = true; if (opts[j] === w) x.classList.add("right"); });
-      if (opts[i] !== w) b.classList.add("wrong");
-      resolveQ(opts[i] === w ? "exact" : "wrong");
-    });
-  } else {
-    const inp = $("bAnswer");
-    inp.value = ""; inp.className = ""; inp.disabled = false;
-    inp.placeholder = to === "en" ? "auf Englisch …" : "auf Deutsch …";
-    $("bCheck").hidden = false;
-    setTimeout(() => inp.focus(), 60);
-  }
-  $("qback").hidden = false;
+  S.q = { w, from, to, t0: performance.now(), wrong: false };
+  $("sq").textContent = w[from];
+  $("sq").classList.remove("flash"); void $("sq").offsetWidth; $("sq").classList.add("flash");
+  // Ablenker: ähnlich lange Antworten, damit die Länge nichts verrät
+  const target = w[to].length;
+  const others = shuffle(words().filter(x => idOf(x) !== idOf(w) && x[to] !== w[to]))
+    .sort((a, b) => Math.abs(a[to].length - target) - Math.abs(b[to].length - target) + (Math.random() - .5) * 14).slice(0, 3);
+  const opts = shuffle([w, ...others]);
+  const lanes = shuffle([0, 1, 2, 3]);
+  const speed = (SKY.h + SKY.size) / Math.max(7, 15 - S.level * 1.3); // px pro Sekunde
+  S.rocks = opts.map((o, i) => {
+    const el = document.createElement("button");
+    el.className = "rock";
+    el.style.width = el.style.height = SKY.size + "px";
+    el.style.borderRadius = BLOBS[rnd(BLOBS.length)];
+    el.style.setProperty("--rot", rnd(360) + "deg");
+    const txt = o[to];
+    // Schriftgröße so wählen, dass das längste Wort nicht umbricht
+    const longest = Math.max(...txt.split(/\s+/).map(x => x.length));
+    const fs = Math.max(11, Math.min(18, Math.floor((SKY.size - 26) / (longest * 0.6)), txt.length > 28 ? 13 : txt.length > 18 ? 15 : 18));
+    el.innerHTML = `<span style="font-size:${fs}px">${esc(txt)}</span>`;
+    $("sky").appendChild(el);
+    const laneW = (SKY.w - SKY.size) / 3;
+    const rock = {
+      el, ok: o === w, word: o, dead: false,
+      x: Math.max(0, Math.min(SKY.w - SKY.size, lanes[i] * laneW + (Math.random() - .5) * laneW * .5)),
+      y: -SKY.size - i * SKY.size * 0.6 - Math.random() * 20,
+      vx: (Math.random() - .5) * 26,
+      vy: speed * (0.85 + Math.random() * 0.3),
+    };
+    el.onclick = () => shoot(rock);
+    return rock;
+  });
+  place();
 }
-function typeSubmit() {
-  if (!Q || Q.done) return;
-  const g = grade($("bAnswer").value, Q.w, Q.to);
-  if (g === "empty") { $("bAnswer").focus(); return; }
-  $("bAnswer").disabled = true;
-  $("bAnswer").className = g === "wrong" ? "bad" : "ok";
-  resolveQ(g);
-}
-$("bCheck").onclick = typeSubmit;
-$("bAnswer").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); Q && Q.done ? closeQ() : typeSubmit(); } });
-$("bSkip").onclick = () => { if (Q && !Q.done) { if (store.ans === "type") { $("bAnswer").disabled = true; $("bAnswer").className = "bad"; } [...$("bOpts").children].forEach(x => { x.disabled = true; if (x.lastChild.textContent === Q.w[Q.to]) x.classList.add("right"); }); resolveQ("wrong"); } };
-$("bNext").onclick = () => closeQ();
+function place() { S.rocks.forEach(r => { r.el.style.transform = `translate(${r.x}px, ${r.y}px)`; }); }
 
-function resolveQ(g) {
-  Q.done = true;
-  const w = Q.w, p = prog(w), ok = g !== "wrong", fast = performance.now() - Q.t0 < 5000;
-  $("bSkip").hidden = true; $("bCheck").hidden = true;
-  B.pieces[Q.k].locked = false;
-  const sol = esc(w[Q.to]), note = w.note ? `<br><span style="color:var(--muted);font-size:13px">${esc(w.note)}</span>` : "";
-  if (ok) {
-    p.ok++; if (g === "exact") p.box = Math.min(MAX_BOX, p.box + 1);
-    B.right++; B.streak++;
-    const bonus = g === "exact" ? 15 + Math.min(B.streak - 1, 5) * 5 + (fast ? 10 : 0) : 5;
-    B.score += bonus;
-    $("bFeedback").innerHTML = g === "exact"
-      ? `<span class="good">Richtig! +${bonus}${fast ? " · schnell" : ""}${B.streak > 1 ? " · Serie " + B.streak : ""}</span>${store.ans === "type" ? "" : note}`
-      : `<span class="good">Fast! Block frei, aber achte auf die Schreibweise:</span><br><b>${sol}</b>${note}`;
-    beep(g === "exact" ? "ok" : "typo");
-    Q.junk = 0;
+/* ---------- Hauptschleife ---------- */
+function loop(now) {
+  const dt = Math.min(0.05, (now - S.last) / 1000); S.last = now;
+  if (!S.over && !S.paused) {
+    if (!S.levelUp) {
+      S.time -= dt;
+      if (S.time <= 0) { S.time = 0; renderHud(); return gameOver(); }
+    }
+    if (!S.busy && !S.levelUp) {
+      S.rocks.forEach(r => {
+        if (r.dead) return;
+        r.x += r.vx * dt; r.y += r.vy * dt;
+        if (r.x < 0) { r.x = 0; r.vx *= -1; }
+        if (r.x > SKY.w - SKY.size) { r.x = SKY.w - SKY.size; r.vx *= -1; }
+      });
+      separate();
+      place();
+      const target = S.rocks.find(r => r.ok);
+      if (target && target.y > SKY.h) escaped();
+    }
+    renderClock();
+  }
+  sRAF = requestAnimationFrame(loop);
+}
+
+// Asteroiden stoßen sich ab, statt sich zu überdecken
+function separate() {
+  const min = SKY.size * 0.94, live = S.rocks.filter(r => !r.dead);
+  for (let i = 0; i < live.length; i++) for (let j = i + 1; j < live.length; j++) {
+    const a = live[i], b = live[j], dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 0.01;
+    if (d >= min) continue;
+    const push = (min - d) / 2, nx = dx / d, ny = dy / d;
+    a.x -= nx * push; a.y -= ny * push; b.x += nx * push; b.y += ny * push;
+    [a.vx, b.vx] = [b.vx, a.vx];
+    if (Math.abs(a.vx) < 8) a.vx = -nx * 14;
+    if (Math.abs(b.vx) < 8) b.vx = nx * 14;
+  }
+  live.forEach(r => { r.x = Math.max(0, Math.min(SKY.w - SKY.size, r.x)); });
+}
+
+/* ---------- Schießen ---------- */
+function cannonPoint() {
+  const sky = $("sky").getBoundingClientRect(), c = $("cannon").getBoundingClientRect();
+  return { x: c.left + c.width / 2 - sky.left, y: c.top + c.height * 0.35 - sky.top };
+}
+function laser(r, color) {
+  const p = cannonPoint(), tx = r.x + SKY.size / 2, ty = r.y + SKY.size / 2;
+  const dx = tx - p.x, dy = ty - p.y, len = Math.hypot(dx, dy), ang = Math.atan2(dy, dx);
+  $("barrel").style.transform = `rotate(${ang * 180 / Math.PI + 90}deg)`;
+  const l = document.createElement("div");
+  l.className = "laser"; l.style.setProperty("--lc", color);
+  l.style.width = len + "px";
+  l.style.transform = `translate(${p.x}px, ${p.y}px) rotate(${ang}rad)`;
+  $("sky").appendChild(l);
+  setTimeout(() => l.remove(), 260);
+}
+function boom(r, color) {
+  const cx = r.x + SKY.size / 2, cy = r.y + SKY.size / 2;
+  for (let i = 0; i < 14; i++) {
+    const d = document.createElement("i");
+    d.className = "shard";
+    const a = Math.random() * Math.PI * 2, dist = 40 + Math.random() * 70;
+    d.style.cssText = `left:${cx}px;top:${cy}px;--dx:${Math.cos(a) * dist}px;--dy:${Math.sin(a) * dist}px;background:${color}`;
+    $("sky").appendChild(d);
+    setTimeout(() => d.remove(), 600);
+  }
+}
+function shoot(r) {
+  if (!S || S.busy || S.over || S.levelUp || r.dead) return;
+  const w = S.q.w, p = prog(w);
+  if (r.ok) {
+    S.busy = true;
+    laser(r, "var(--laser)");
+    r.dead = true;
+    setTimeout(() => { r.el.classList.add("hit"); boom(r, "var(--rock-hi)"); }, 90);
+    if (!S.q.wrong) S.answered++;
+    if (!S.q.wrong) { p.ok++; p.box = Math.min(MAX_BOX, p.box + 1); S.right++; S.streak++; S.best = Math.max(S.best, S.streak); }
+    const mult = S.streak >= 10 ? 2 : S.streak >= 5 ? 1.5 : 1;
+    const pts = S.q.wrong ? 5 : Math.round(HIT_PTS * mult);
+    S.lvlPts += pts; S.total += pts;
+    popText(r, "+" + pts, "var(--ok)");
+    beep("ok");
+    save(); renderHud();
+    setTimeout(() => {
+      S.busy = false;
+      if (S.lvlPts >= goalFor(S.level)) levelUp(); else nextQuestion();
+    }, 520);
   } else {
-    p.bad++; p.box = Math.max(0, p.box - 2);
-    B.streak = 0;
-    if (!B.misses.includes(idOf(w))) B.misses.push(idOf(w));
-    B.retry.push({ id: idOf(w), due: B.asked + 2 });
-    $("bFeedback").innerHTML = `<span class="miss">Leider falsch.</span> Richtig: <b>${sol}</b>${note}<br><span style="color:var(--muted);font-size:13px">Zur Strafe fallen 2 Steine aufs Feld.</span>`;
+    laser(r, "var(--red)");
+    r.dead = true;
+    r.el.classList.add("wrongrock");
+    boom(r, "var(--red)");
+    popText(r, "−3 s", "var(--red)");
+    S.time = Math.max(0, S.time - 3);
     beep("bad");
-    Q.junk = 2;
+    if (!S.q.wrong) {
+      S.answered++;
+      S.q.wrong = true;
+      p.bad++; p.box = Math.max(0, p.box - 2);
+      S.streak = 0;
+      if (!S.misses.includes(idOf(w))) S.misses.push(idOf(w));
+      S.retry.push({ id: idOf(w), due: S.asked + 2 });
+      save();
+    }
+    renderHud();
   }
-  save();
-  // Richtig im Auswahl-Modus geht automatisch weiter, alles andere per „Weiter“
-  if (g === "exact" && store.ans === "choice") setTimeout(closeQ, 650);
-  else { $("bNext").hidden = false; $("bNext").focus(); }
 }
-function closeQ() {
-  if (!Q || $("qback").hidden) return;
-  $("qback").hidden = true;
-  const junk = Q.junk; Q = null;
-  B.busy = false;
-  if (junk) dropJunk(junk);
-  renderBlast(); saveBlast();
-  if (junk) [...$("board").children].forEach((el, i) => { if (B.lastJunk.includes(i)) el.classList.add("drop"); });
-  setTimeout(checkOver, 400);
-}
-function dropJunk(n) {
-  B.lastJunk = [];
-  for (let t = 0; t < n; t++) {
-    const empty = B.grid.map((v, i) => v === null ? i : -1).filter(i => i >= 0);
-    // Steine sollen keine Reihe vollmachen (sonst wären sie ein Geschenk)
-    const safe = empty.filter(i => { const g = B.grid.slice(); g[i] = "j"; return fullLines(g).n === 0; });
-    const list = safe.length ? safe : empty;
-    if (!list.length) return;
-    const i = list[rnd(list.length)];
-    B.grid[i] = "j"; B.lastJunk.push(i);
+function escaped() {
+  // Richtiger Asteroid ist entkommen: Lösung zeigen, dann neue Frage
+  const w = S.q.w, p = prog(w);
+  S.busy = true;
+  if (!S.q.wrong) {
+    S.answered++;
+    p.bad++; p.box = Math.max(0, p.box - 2); S.streak = 0;
+    if (!S.misses.includes(idOf(w))) S.misses.push(idOf(w));
+    S.retry.push({ id: idOf(w), due: S.asked + 2 });
+    save();
   }
+  beep("bad");
+  $("sSolve").innerHTML = `Verpasst! <b>${esc(w[S.q.from])}</b> = <b>${esc(w[S.q.to])}</b>`;
+  $("sSolve").hidden = false;
+  renderHud();
+  setTimeout(() => { $("sSolve").hidden = true; S.busy = false; if (!S.over) nextQuestion(); }, 1800);
+}
+function popText(r, text, color) {
+  const t = document.createElement("div");
+  t.className = "poptext"; t.textContent = text; t.style.color = color;
+  t.style.left = (r.x + SKY.size / 2) + "px"; t.style.top = (r.y + SKY.size / 2) + "px";
+  $("sky").appendChild(t);
+  setTimeout(() => t.remove(), 800);
 }
 
-/* ---------- Ende & Menü ---------- */
-function blastResult() {
+/* ---------- Level & HUD ---------- */
+function levelUp() {
+  S.levelUp = true;
+  S.level++; S.lvlPts = 0; S.time = LEVEL_TIME;
+  $("sky").querySelectorAll(".rock").forEach(el => el.remove());
+  $("sLevelNum").textContent = S.level;
+  $("sLevelUp").hidden = false;
+  beep("win");
+  renderHud();
+  setTimeout(() => { $("sLevelUp").hidden = true; S.levelUp = false; S.last = performance.now(); nextQuestion(); }, 1600);
+}
+function renderClock() { $("sClock").textContent = Math.ceil(S.time); $("sTime").style.transform = `scaleX(${S.time / LEVEL_TIME})`; $("sClock").classList.toggle("low", S.time <= 10); }
+function renderHud() {
+  const goal = goalFor(S.level);
+  $("sLevel").textContent = S.level;
+  $("sPts").textContent = `${Math.min(S.lvlPts, goal)}/${goal}`;
+  $("sPtsBar").style.width = Math.min(100, S.lvlPts / goal * 100) + "%";
+  $("sStreak").innerHTML = Array.from({ length: 10 }, (_, i) => `<i class="${i < Math.min(S.streak, 10) ? "on" : ""}"></i>`).join("");
+  $("sMult").textContent = S.streak >= 10 ? "×2" : S.streak >= 5 ? "×1,5" : "";
+  $("sMute").textContent = store.sound ? "Ton an" : "Ton aus";
+  renderClock();
+}
+
+/* ---------- Ende ---------- */
+function gameOver() {
+  S.over = true;
+  cancelAnimationFrame(sRAF);
   let record = false;
-  if (B.score > store.blastBest) { store.blastBest = B.score; record = true; }
-  store.blastSave = null; save();
+  if (S.total > store.blastBest) { store.blastBest = S.total; record = true; }
+  save();
   lastMode = "blast";
-  const pct = B.asked ? B.right / B.asked : 0;
-  const stars = pct >= .95 ? 3 : pct >= .75 ? 2 : pct >= .5 ? 1 : 0;
-  $("resMode").textContent = "Block Blast";
-  $("resTitle").textContent = record ? "Neuer Rekord!" : "Kein Platz mehr";
-  $("resSub").textContent = `${B.right} von ${B.asked} Vokabeln richtig`;
-  $("resScore").textContent = B.score;
+  const pct = S.right / Math.max(1, S.answered);
+  const stars = S.level >= 4 ? 3 : S.level >= 3 ? 2 : S.level >= 2 ? 1 : 0;
+  $("resMode").textContent = "Vokabel Blast";
+  $("resTitle").textContent = record ? "Neuer Rekord!" : "Zeit abgelaufen";
+  $("resSub").textContent = `Level ${S.level} erreicht · ${S.right} von ${S.answered} sofort richtig · längste Serie ${S.best}`;
+  $("resScore").textContent = S.total;
   $("resStars").innerHTML = [0, 1, 2].map(i => `<span class="${i < stars ? "" : "off"}">★</span>`).join("");
-  $("resLine").textContent = `Rekord: ${store.blastBest} Punkte`;
-  const miss = B.misses.map(findWord).filter(Boolean);
+  $("resLine").textContent = `Rekord: ${store.blastBest} Punkte · Trefferquote ${Math.round(pct * 100)} %`;
+  const miss = S.misses.map(findWord).filter(Boolean);
   $("missGroup").hidden = !miss.length;
   $("missList").innerHTML = miss.map(w => `<li><b>${esc(w.de)}</b><span>${esc(w.en)}${w.note ? " · " + esc(w.note) : ""}</span></li>`).join("");
   show("result");
   if (record || stars >= 2) { beep("win"); confetti(); }
 }
-$("blastQuit").onclick = () => { if (Q) return; saveBlast(); renderHome(); };
-let newArmed = false;
-$("blastNew").onclick = () => {
-  if (Q) return;
-  if (!newArmed) { newArmed = true; $("blastNew").textContent = "Wirklich neu starten? Nochmal tippen"; setTimeout(() => { newArmed = false; $("blastNew").textContent = "Neues Spiel starten"; }, 3000); return; }
-  newArmed = false; $("blastNew").textContent = "Neues Spiel starten";
-  if (B.score > store.blastBest) store.blastBest = B.score;
-  startBlast(true);
-};
+$("sQuit").onclick = () => { if (!S) return; S.over = true; cancelAnimationFrame(sRAF); renderHome(); };
+$("sMute").onclick = () => { store.sound = !store.sound; save(); renderHud(); };
+document.addEventListener("visibilitychange", () => { if (S) { S.paused = document.hidden; S.last = performance.now(); } });
 
 renderHome();
 </script>
