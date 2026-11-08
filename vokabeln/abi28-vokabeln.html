@@ -258,6 +258,48 @@ h2 { font: 400 22px/1.1 var(--display); margin: 0; color: var(--gold); }
 .cannon .base { position: absolute; bottom: -38px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle at 50% 30%, var(--cannon), var(--cannon-dk)); box-shadow: inset 0 6px 0 rgba(255,255,255,.25); }
 .cannon .eye { position: absolute; bottom: 22px; width: 40px; height: 40px; border-radius: 50%; background: var(--bg); border: 5px solid #e7fff5; box-shadow: inset 0 0 0 6px var(--laser); z-index: 2; }
 .barrel { position: absolute; bottom: 40px; width: 22px; height: 58px; margin-left: -11px; left: 50%; border-radius: 8px 8px 4px 4px; background: linear-gradient(90deg, var(--cannon-dk), #b8ffe2, var(--cannon-dk)); transform-origin: 50% 100%; transition: transform .08s; z-index: 1; }
+
+/* ---------- Startseite (aufgeräumt) ---------- */
+.hhead { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; padding-top: 6px; }
+.kicker { font: 700 12px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.htitle { font: 400 clamp(30px, 9vw, 38px)/1 var(--display); margin: 6px 0 0; color: var(--text); }
+.htitle span { color: var(--gold); }
+.iconbtn { white-space: nowrap; flex: none; background: var(--panel); border: 0; border-radius: 99px; padding: 9px 14px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.block { display: flex; flex-direction: column; gap: 10px; }
+h2.bh { font: 700 15px/1.2 var(--body); color: var(--text); margin: 0; display: flex; align-items: center; gap: 8px; }
+h2.bh .step { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); color: var(--bg); font-size: 12px; font-weight: 800; }
+.sets { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.setcard { text-align: left; background: var(--panel); border: 2px solid transparent; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.setcard[aria-pressed="true"] { border-color: var(--gold); background: var(--panel-2); }
+.setcard .sn { font-size: 20px; font-weight: 800; }
+.setcard .sr { font-size: 13px; color: var(--muted); }
+.setcard .sp { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.setbar { height: 6px; border-radius: 99px; background: var(--bg); overflow: hidden; margin-top: 4px; }
+.setbar i { display: block; height: 100%; background: var(--ok); border-radius: 99px; }
+.setcard.all { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: center; padding: 12px 14px; }
+.setcard.all .sn { font-size: 16px; }
+.menu { display: flex; flex-direction: column; background: var(--panel); border-radius: 16px; overflow: hidden; }
+.mrow { display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; padding: 13px 14px; background: none; border: 0; border-top: 1px solid var(--line); text-align: left; }
+.mrow:first-child { border-top: 0; }
+.mrow:active { background: var(--panel-2); }
+.mrow b { display: block; font-size: 17px; font-weight: 800; }
+.mrow small { display: block; color: var(--muted); font-size: 13px; line-height: 1.3; }
+.mi { width: 44px; height: 44px; border-radius: 12px; background: var(--panel-2); display: grid; place-items: center; font: 400 15px/1 var(--display); color: var(--gold); }
+.mrow.star { background: linear-gradient(135deg, #2a2a9a, #1d1d6c); }
+.mrow.star .mi { background: radial-gradient(circle at 35% 30%, var(--rock-hi), var(--rock) 55%, var(--rock-lo)); border-radius: 48% 52% 45% 55% / 52% 46% 54% 48%; }
+.chev { font-size: 26px; line-height: 1; color: var(--muted); }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--panel); border-radius: 12px; padding: 4px; gap: 4px; }
+.seg button { border: 0; background: none; border-radius: 9px; padding: 10px 4px; font-weight: 700; font-size: 14px; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--gold); color: var(--bg); }
+.toggle { display: flex; align-items: center; gap: 12px; background: var(--panel); border-radius: 12px; padding: 13px 14px; font-weight: 600; font-size: 15px; cursor: pointer; }
+.toggle input { width: 20px; height: 20px; accent-color: var(--gold); flex: none; }
+.lset { display: flex; flex-direction: column; gap: 4px; }
+.lset h3 { margin: 0; font-size: 18px; font-weight: 800; display: flex; justify-content: space-between; align-items: baseline; }
+.lset h3 small { font-size: 13px; color: var(--muted); font-weight: 600; }
+details.edit { background: var(--panel); border-radius: 14px; padding: 12px 14px; }
+details.edit summary { font-weight: 700; cursor: pointer; }
+details.edit[open] summary { margin-bottom: 10px; }
+details.edit .group { gap: 10px; }
 [hidden] { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -270,63 +312,37 @@ h2 { font: 400 22px/1.1 var(--display); margin: 0; color: var(--gold); }
 
   <!-- ================= HOME ================= -->
   <section class="screen" id="home">
-    <header class="marquee">
-      <div class="eyebrow">Englisch · Abi 28</div>
-      <h1>Vokabel<br><span>Blast</span></h1>
-      <p id="wordcount">38 Vokabeln aus deiner Liste</p>
+    <header class="hhead">
+      <div><div class="kicker">Englisch · Abi 28</div><h1 class="htitle">Vokabel <span>Blast</span></h1></div>
+      <button class="iconbtn" id="soundBtn">Ton an</button>
     </header>
 
-    <div class="group">
-      <div class="stats">
-        <div class="stat"><b id="stSure">0</b><small>sitzen sicher</small></div>
-        <div class="stat"><b id="stWeak">0</b><small>noch wackelig</small></div>
-        <div class="stat"><b id="stBest">0</b><small>Blast-Rekord</small></div>
+    <section class="block">
+      <h2 class="bh"><span class="step">1</span>Set wählen</h2>
+      <div class="sets" id="sets"></div>
+    </section>
+
+    <section class="block">
+      <h2 class="bh"><span class="step">2</span>Lernen</h2>
+      <div class="menu">
+        <button class="mrow star" data-mode="blast"><span class="mi" aria-hidden="true"></span><span><b>Vokabel Blast</b><small>Spiel: den richtigen Asteroiden abschießen</small></span><span class="chev" aria-hidden="true">›</span></button>
+        <button class="mrow" data-mode="cards"><span class="mi" aria-hidden="true">⇄</span><span><b>Karteikarten</b><small>Umdrehen und selbst bewerten</small></span><span class="chev" aria-hidden="true">›</span></button>
+        <button class="mrow" data-mode="type"><span class="mi" aria-hidden="true">Aa</span><span><b>Schreiben</b><small>Vokabel selbst eintippen</small></span><span class="chev" aria-hidden="true">›</span></button>
+        <button class="mrow" data-mode="blitz"><span class="mi" aria-hidden="true">10s</span><span><b>Schnelltest</b><small>4 Antworten, 10 Sekunden pro Frage</small></span><span class="chev" aria-hidden="true">›</span></button>
       </div>
-      <div class="meter" id="meter" aria-label="Lernfortschritt"></div>
-    </div>
+    </section>
 
-    <button class="ticket blast" data-mode="blast">
-      <div class="mini-rock" aria-hidden="true"></div>
-      <div><h3>Vokabel Blast</h3><p>Asteroiden mit Antworten fliegen heran. Schieß den richtigen ab, bevor die Zeit abläuft.</p></div>
-    </button>
-
-    <div class="group">
-      <div class="label">Richtung</div>
-      <div class="chips" id="dirChips">
-        <button class="chip" data-dir="de-en" aria-pressed="true">Deutsch → Englisch</button>
-        <button class="chip" data-dir="en-de" aria-pressed="false">Englisch → Deutsch</button>
-        <button class="chip" data-dir="mix" aria-pressed="false">Gemischt</button>
+    <section class="block">
+      <h2 class="bh">Abfragen</h2>
+      <div class="seg" id="dirChips">
+        <button data-dir="de-en" aria-pressed="true">DE → EN</button>
+        <button data-dir="en-de" aria-pressed="false">EN → DE</button>
+        <button data-dir="mix" aria-pressed="false">Gemischt</button>
       </div>
-    </div>
+      <label class="toggle"><input type="checkbox" id="weakToggle"> Nur Wörter, die noch nicht sitzen</label>
+    </section>
 
-    <div class="group">
-      <div class="label">Welche Wörter</div>
-      <div class="chips" id="poolChips">
-        <button class="chip" data-pool="all" aria-pressed="true">Alle</button>
-        <button class="chip" data-pool="weak" aria-pressed="false">Nur wackelige</button>
-      </div>
-    </div>
-
-    <div class="label">Training</div>
-    <div class="modes">
-      <button class="ticket hot" data-mode="blitz">
-        <div class="ic">10s</div>
-        <div><h3>Blitz-Runde</h3><p>4 Antworten, 10 Sekunden, Combo-Punkte.</p></div>
-      </button>
-      <button class="ticket" data-mode="type">
-        <div class="ic">Aa</div>
-        <div><h3>Präzisions-Modus</h3><p>Du tippst die Vokabel selbst. Jeder Buchstabe zählt.</p></div>
-      </button>
-      <button class="ticket" data-mode="cards">
-        <div class="ic">⇄</div>
-        <div><h3>Karteikarten</h3><p>Umdrehen, ehrlich bewerten, wiederholen.</p></div>
-      </button>
-    </div>
-
-    <div class="linkrow">
-      <button class="ghost" id="openList">Alle Vokabeln ansehen</button>
-      <button class="ghost" id="soundBtn" aria-pressed="true">Ton: an</button>
-    </div>
+    <button class="ghost" id="openList">Vokabelliste ansehen</button>
   </section>
 
   <!-- ================= GAME ================= -->
@@ -393,7 +409,7 @@ h2 { font: 400 22px/1.1 var(--display); margin: 0; color: var(--gold); }
   <section class="screen" id="blast" hidden>
     <div class="sbar">
       <div class="logo" aria-hidden="true"></div>
-      <div class="title">Vokabel Blast</div>
+      <div class="title" id="sTitle">Vokabel Blast</div>
       <button id="sMute">Ton an</button>
       <button class="x" id="sQuit" aria-label="Spiel beenden">×</button>
     </div>
@@ -415,21 +431,23 @@ h2 { font: 400 22px/1.1 var(--display); margin: 0; color: var(--gold); }
   <section class="screen" id="list" hidden>
     <div class="topbar">
       <button class="x" id="listBack" aria-label="Zurück">←</button>
-      <h2>Deine Vokabeln</h2>
+      <h2>Vokabelliste</h2>
     </div>
-    <ul class="wl" id="wordList"></ul>
-    <div class="group">
-      <div class="label">Liste erweitern</div>
-      <p class="small">Neue Vokabeln einfach aus Excel kopieren und hier einfügen: pro Zeile <b>Deutsch</b>, dann Tab oder <b>;</b>, dann <b>Englisch</b>. Die Nummer vorne darf mit dabei sein.</p>
-      <textarea id="editor" spellcheck="false" aria-label="Vokabelliste bearbeiten"></textarea>
-      <div class="row">
-        <button class="btn sec" id="resetList">Originalliste</button>
-        <button class="btn" id="saveList">Liste speichern</button>
+    <div id="wordList" class="block"></div>
+    <details class="edit">
+      <summary>Liste bearbeiten oder erweitern</summary>
+      <div class="group">
+        <p class="small">Aus Excel kopieren und einfügen: pro Zeile <b>Deutsch</b>, dann Tab oder <b>;</b>, dann <b>Englisch</b>. Eine Zeile <b># Set 3</b> beginnt ein neues Set.</p>
+        <textarea id="editor" spellcheck="false" aria-label="Vokabelliste bearbeiten"></textarea>
+        <div class="row">
+          <button class="btn sec" id="resetList">Originalliste</button>
+          <button class="btn" id="saveList">Speichern</button>
+        </div>
+        <p class="small" id="saveMsg" aria-live="polite"></p>
+        <button class="ghost" id="resetProgress">Lernfortschritt zurücksetzen</button>
+        <p class="small" id="resetMsg" aria-live="polite"></p>
       </div>
-      <p class="small" id="saveMsg" aria-live="polite"></p>
-      <button class="ghost" id="resetProgress">Lernfortschritt zurücksetzen</button>
-      <p class="small" id="resetMsg" aria-live="polite"></p>
-    </div>
+    </details>
   </section>
 </main>
 
@@ -478,11 +496,13 @@ const DEFAULT_WORDS = [
   { de: "oberflächlich", en: "shallow" },
   { de: "existentielle Bedrohung", en: "existential threat", alt: ["an existential threat"] },
 ];
+// Set 1 = erste Liste (Nr. 1–27), Set 2 = Nachtrag (Nr. 28–38)
+DEFAULT_WORDS.forEach((w, i) => { w.set = i < 27 ? 1 : 2; });
 
 /* ---------------- Storage (fails soft) ---------------- */
 const KEY = "abi28-vokabel-blockbuster-v1";
 function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
-const store = Object.assign({ words: null, prog: {}, best: 0, blastBest: 0, dir: "de-en", pool: "all", sound: true }, load());
+const store = Object.assign({ set: "1", words: null, prog: {}, best: 0, blastBest: 0, dir: "de-en", pool: "all", sound: true }, load());
 function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
 
 const words = () => (store.words && store.words.length ? store.words : DEFAULT_WORDS);
@@ -533,8 +553,14 @@ function grade(input, w, side) {
 
 /* ---------------- Picking words (weak ones more often) ---------------- */
 function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const setOf = w => String(w.set || 1);
+function setList() { return [...new Set(words().map(setOf))].sort((a, b) => a - b); }
+function setWords() { return store.set === "all" ? words() : words().filter(w => setOf(w) === store.set); }
+function setLabel() { return store.set === "all" ? "Alle Sets" : "Set " + store.set; }
+// Ablenker aus demselben Set, solange es genug Wörter hat
+function distractorPool() { const s = setWords(); return s.length >= 6 ? s : words(); }
 function pool() {
-  const all = words();
+  const all = setWords().length ? setWords() : words();
   if (store.pool === "weak") { const w = all.filter(x => prog(x).box < 3); return w.length >= 4 ? w : all; }
   return all;
 }
@@ -575,29 +601,33 @@ function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<":
 
 /* ---------------- Home ---------------- */
 function renderHome() {
+  if (store.set !== "all" && !setList().includes(store.set)) store.set = setList()[0] || "1";
   const all = words();
-  const sure = all.filter(w => prog(w).box >= 4).length;
-  const mid = all.filter(w => prog(w).box >= 1 && prog(w).box < 4).length;
-  const weak = all.length - sure;
-  $("wordcount").textContent = all.length + " Vokabeln aus deiner Liste";
-  $("stSure").textContent = sure;
-  $("stWeak").textContent = weak;
-  $("stBest").textContent = store.blastBest;
-  const pct = n => (n / all.length * 100) + "%";
-  $("meter").innerHTML = `<i style="width:${pct(sure)};background:var(--ok)"></i><i style="width:${pct(mid)};background:var(--gold)"></i>`;
-  document.querySelectorAll("#dirChips .chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.dir === store.dir));
-  document.querySelectorAll("#poolChips .chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.pool === store.pool));
-  $("soundBtn").textContent = "Ton: " + (store.sound ? "an" : "aus");
+  const card = (key, list) => {
+    const sure = list.filter(w => prog(w).box >= 4).length;
+    const first = all.indexOf(list[0]) + 1, last = all.indexOf(list[list.length - 1]) + 1;
+    const pressed = store.set === key;
+    if (key === "all") return `<button class="setcard all" data-set="all" aria-pressed="${pressed}"><span class="sn">Beide Sets zusammen</span><span class="sp">${sure} von ${list.length} sicher</span></button>`;
+    return `<button class="setcard" data-set="${key}" aria-pressed="${pressed}">
+      <span class="sn">Set ${key}</span><span class="sr">Nr. ${first}–${last} · ${list.length} Vokabeln</span>
+      <span class="setbar"><i style="width:${sure / list.length * 100}%"></i></span><span class="sp">${sure} von ${list.length} sicher</span></button>`;
+  };
+  const sets = setList();
+  $("sets").innerHTML = sets.map(k => card(k, all.filter(w => setOf(w) === k))).join("") + (sets.length > 1 ? card("all", all) : "");
+  document.querySelectorAll("#dirChips button").forEach(c => c.setAttribute("aria-pressed", c.dataset.dir === store.dir));
+  $("weakToggle").checked = store.pool === "weak";
+  $("soundBtn").textContent = "Ton " + (store.sound ? "an" : "aus");
   show("home");
 }
-$("dirChips").addEventListener("click", e => { const c = e.target.closest(".chip"); if (!c) return; store.dir = c.dataset.dir; save(); renderHome(); });
-$("poolChips").addEventListener("click", e => { const c = e.target.closest(".chip"); if (!c) return; store.pool = c.dataset.pool; save(); renderHome(); });
+$("sets").addEventListener("click", e => { const c = e.target.closest(".setcard"); if (!c) return; store.set = c.dataset.set; save(); renderHome(); });
+$("dirChips").addEventListener("click", e => { const c = e.target.closest("button"); if (!c) return; store.dir = c.dataset.dir; save(); renderHome(); });
+$("weakToggle").onchange = e => { store.pool = e.target.checked ? "weak" : "all"; save(); };
 $("soundBtn").onclick = () => { store.sound = !store.sound; save(); renderHome(); };
-document.querySelectorAll(".ticket").forEach(t => t.onclick = () => t.dataset.mode === "blast" ? startBlast() : start(t.dataset.mode));
+document.querySelectorAll(".mrow").forEach(t => t.onclick = () => t.dataset.mode === "blast" ? startBlast() : start(t.dataset.mode));
 let lastMode = "blitz";
 
 /* ---------------- Game state ---------------- */
-const MODE_NAMES = { blitz: "Blitz-Runde", type: "Präzisions-Modus", cards: "Karteikarten" };
+const MODE_NAMES = { blitz: "Schnelltest", type: "Schreiben", cards: "Karteikarten" };
 const ROUND = { blitz: 15, type: 12, cards: 20 };
 const BLITZ_TIME = 10000;
 let G = null, timerRAF = null;
@@ -631,7 +661,7 @@ function next() {
   G.side = sideFor();
   const [from, to] = G.side === "de-en" ? ["de", "en"] : ["en", "de"];
   G.from = from; G.to = to;
-  $("dirLabel").textContent = from.toUpperCase() + " → " + to.toUpperCase();
+  $("dirLabel").textContent = setLabel() + " · " + from.toUpperCase() + " → " + to.toUpperCase();
   $("feedback").innerHTML = ""; $("nextBtn").hidden = true;
   $("prompt").className = "prompt";
   $("q").textContent = w[from];
@@ -659,7 +689,7 @@ function reward(w, correct, half) {
 
 /* ---- Blitz ---- */
 function blitzQuestion(w) {
-  const all = words().filter(x => idOf(x) !== idOf(w));
+  const all = distractorPool().filter(x => idOf(x) !== idOf(w));
   // Ablenker: bevorzugt ähnlich lange Antworten, damit man nicht an der Länge rät
   const target = w[G.to].length;
   const distract = shuffle(all.slice()).sort((a, b) => Math.abs(a[G.to].length - target) - Math.abs(b[G.to].length - target) + (Math.random() - .5) * 12).slice(0, 3);
@@ -801,7 +831,7 @@ function finish() {
   let record = false;
   if (G.mode === "blitz" && G.score > store.best) { store.best = G.score; record = true; save(); }
   lastMode = G.mode;
-  $("resMode").textContent = MODE_NAMES[G.mode];
+  $("resMode").textContent = MODE_NAMES[G.mode] + " · " + setLabel();
   $("resTitle").textContent = record ? "Neuer Rekord!" : ["Nochmal proben", "Solide Vorstellung", "Starker Auftritt", "Oscar-reif!"][stars];
   $("resSub").textContent = `${G.right} von ${G.answered} richtig · beste Combo ×${G.maxCombo}`;
   $("resScore").textContent = G.mode === "cards" ? Math.round(pct * 100) + "%" : G.score;
@@ -833,24 +863,31 @@ function confetti() {
 
 /* ---------------- Wortliste / Editor ---------------- */
 function renderList() {
-  $("wordList").innerHTML = words().map((w, i) => {
-    const b = prog(w).box;
-    return `<li><span class="n">${i + 1}</span><div><div class="de">${esc(w.de)}</div><div class="en">${esc(w.en)}${w.note ? " · " + esc(w.note) : ""}</div></div>
-      <div class="pips" title="Lernstand ${b}/${MAX_BOX}">${[1, 2, 3, 4, 5].map(k => `<i class="${k <= b ? "on" : ""}"></i>`).join("")}</div></li>`;
+  const all = words();
+  $("wordList").innerHTML = setList().map(k => {
+    const list = all.filter(w => setOf(w) === k);
+    return `<section class="lset"><h3>Set ${k}<small>${list.length} Vokabeln</small></h3><ul class="wl">${list.map(w => {
+      const b = prog(w).box;
+      return `<li><span class="n">${all.indexOf(w) + 1}</span><div><div class="de">${esc(w.de)}</div><div class="en">${esc(w.en)}${w.note ? " · " + esc(w.note) : ""}</div></div>
+        <div class="pips" title="Lernstand ${b} von ${MAX_BOX}">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= b ? "on" : ""}"></i>`).join("")}</div></li>`;
+    }).join("")}</ul></section>`;
   }).join("");
-  $("editor").value = words().map(w => w.de + " ; " + w.en).join("\n");
+  $("editor").value = setList().map(k => "# Set " + k + "\n" + all.filter(w => setOf(w) === k).map(w => w.de + " ; " + w.en).join("\n")).join("\n");
   $("saveMsg").textContent = ""; $("resetMsg").textContent = "";
   show("list");
 }
 function parseList(text) {
+  let set = 1;
   return text.split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(l => {
+    const h = l.match(/^#\s*set\s*(\d+)/i);
+    if (h) { set = +h[1]; return null; }
     let parts = l.includes("\t") ? l.split("\t") : l.split(";");
     parts = parts.map(s => s.trim()).filter(Boolean);
     if (parts.length > 2 && /^\d+$/.test(parts[0])) parts.shift();
     if (parts.length < 2) return null;
     const de = parts[0].replace(/^\d+[.)]?\s+/, ""), en = parts.slice(1).join(" ");
     const old = DEFAULT_WORDS.find(w => w.de === de && w.en === en);
-    return old || { de, en };
+    return Object.assign({}, old || { de, en }, { set });
   }).filter(Boolean);
 }
 $("openList").onclick = renderList;
@@ -887,6 +924,7 @@ function startBlast() {
   S = { level: 1, lvlPts: 0, total: 0, streak: 0, best: 0, time: LEVEL_TIME, asked: 0, answered: 0, right: 0,
         misses: [], retry: [], recent: [], rocks: [], q: null, busy: false, last: 0, over: false };
   show("blast");
+  $("sTitle").textContent = "Blast · " + setLabel();
   $("sLevelUp").hidden = true;
   layoutSky();
   renderHud();
@@ -929,7 +967,7 @@ function nextQuestion() {
   $("sq").classList.remove("flash"); void $("sq").offsetWidth; $("sq").classList.add("flash");
   // Ablenker: ähnlich lange Antworten, damit die Länge nichts verrät
   const target = w[to].length;
-  const others = shuffle(words().filter(x => idOf(x) !== idOf(w) && x[to] !== w[to]))
+  const others = shuffle(distractorPool().filter(x => idOf(x) !== idOf(w) && x[to] !== w[to]))
     .sort((a, b) => Math.abs(a[to].length - target) - Math.abs(b[to].length - target) + (Math.random() - .5) * 14).slice(0, 3);
   const opts = shuffle([w, ...others]);
   const lanes = shuffle([0, 1, 2, 3]);
@@ -1126,7 +1164,7 @@ function gameOver() {
   lastMode = "blast";
   const pct = S.right / Math.max(1, S.answered);
   const stars = S.level >= 4 ? 3 : S.level >= 3 ? 2 : S.level >= 2 ? 1 : 0;
-  $("resMode").textContent = "Vokabel Blast";
+  $("resMode").textContent = "Vokabel Blast · " + setLabel();
   $("resTitle").textContent = record ? "Neuer Rekord!" : "Zeit abgelaufen";
   $("resSub").textContent = `Level ${S.level} erreicht · ${S.right} von ${S.answered} sofort richtig · längste Serie ${S.best}`;
   $("resScore").textContent = S.total;
