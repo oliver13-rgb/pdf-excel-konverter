@@ -300,6 +300,19 @@ details.edit { background: var(--panel); border-radius: 14px; padding: 12px 14px
 details.edit summary { font-weight: 700; cursor: pointer; }
 details.edit[open] summary { margin-bottom: 10px; }
 details.edit .group { gap: 10px; }
+/* ---------- Karteikarten-Runden ---------- */
+.roundbox { background: var(--panel); border-radius: 20px; padding: 24px 18px; display: flex; flex-direction: column; gap: 16px; text-align: center; }
+.rbtitle { font: 400 24px/1.1 var(--display); color: var(--gold); }
+.rbstats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rbstats div { background: var(--panel-2); border-radius: 14px; padding: 14px 8px; display: flex; flex-direction: column; gap: 4px; }
+.rbstats b { font: 800 30px/1 var(--body); font-variant-numeric: tabular-nums; }
+.rbstats .ok b { color: var(--ok); }
+.rbstats .bad b { color: var(--red); }
+.rbstats span { font-size: 13px; color: var(--muted); }
+.rbtext { margin: 0; color: var(--muted); }
+.cardcount { font: 700 14px/1 var(--body); font-variant-numeric: tabular-nums; }
+.cardcount .ok { color: var(--ok); }
+.cardcount .bad { color: var(--red); }
 [hidden] { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -379,6 +392,13 @@ details.edit .group { gap: 10px; }
     <div class="row" id="cardBtns" hidden>
       <button class="btn red" id="cardNo">Wusste ich nicht</button>
       <button class="btn green" id="cardYes">Wusste ich</button>
+    </div>
+
+    <div class="roundbox" id="roundBox" hidden>
+      <div class="rbtitle" id="rbTitle">Runde 1 geschafft</div>
+      <div class="rbstats"><div class="ok"><b id="rbOk">0</b><span>gewusst</span></div><div class="bad"><b id="rbBad">0</b><span>noch nicht</span></div></div>
+      <p class="rbtext" id="rbText"></p>
+      <button class="btn" id="rbNext">Weiter</button>
     </div>
 
     <div class="feedback" id="feedback" aria-live="polite"></div>
@@ -633,9 +653,11 @@ const BLITZ_TIME = 10000;
 let G = null, timerRAF = null;
 
 function start(mode) {
-  const deck = buildDeck(ROUND[mode]);
-  G = { mode, deck, i: 0, total: deck.length, score: 0, combo: 0, maxCombo: 0, right: 0, answered: 0, misses: new Map(), retried: new Set(), locked: false };
-  ["options", "typeBox", "cardBox", "cardBtns", "timerWrap", "nextBtn"].forEach(id => $(id).hidden = true);
+  // Karteikarten: immer das ganze Set, ohne Wiederholung mitten in der Runde
+  const deck = mode === "cards" ? shuffle(pool().slice()) : buildDeck(ROUND[mode]);
+  G = { mode, deck, i: 0, total: deck.length, score: 0, combo: 0, maxCombo: 0, right: 0, answered: 0, misses: new Map(), retried: new Set(), locked: false,
+        round: 1, roundOk: 0, roundWrong: [], cardsTotal: deck.length, firstOk: 0 };
+  ["options", "typeBox", "cardBox", "cardBtns", "timerWrap", "nextBtn", "roundBox"].forEach(id => $(id).hidden = true);
   $("prompt").hidden = mode === "cards";
   $("score").hidden = mode === "cards";
   if (mode === "blitz") { $("options").hidden = false; $("timerWrap").hidden = false; }
@@ -649,19 +671,21 @@ function current() { return G.deck[G.i]; }
 function setProgress() { $("prog").style.width = (Math.min(G.i, G.total) / G.total * 100) + "%"; $("score").textContent = G.score; }
 function setCombo(pop) {
   const c = $("combo");
+  if (G.mode === "cards") { c.className = "cardcount"; c.innerHTML = `<span class="ok">✓ ${G.roundOk}</span> · <span class="bad">✗ ${G.roundWrong.length}</span>`; return; }
+  c.className = "combo";
   c.textContent = G.combo >= 2 ? "Combo ×" + G.combo : "";
   if (pop && G.combo >= 2) { c.classList.remove("pop"); void c.offsetWidth; c.classList.add("pop"); }
 }
 
 function next() {
   cancelAnimationFrame(timerRAF);
-  if (G.i >= G.deck.length) return finish();
+  if (G.i >= G.deck.length) return G.mode === "cards" && G.roundWrong.length ? roundEnd() : finish();
   G.locked = false;
   const w = current();
   G.side = sideFor();
   const [from, to] = G.side === "de-en" ? ["de", "en"] : ["en", "de"];
   G.from = from; G.to = to;
-  $("dirLabel").textContent = setLabel() + " · " + from.toUpperCase() + " → " + to.toUpperCase();
+  $("dirLabel").textContent = setLabel() + " · " + (G.mode === "cards" ? "Runde " + G.round + " · " + (G.i + 1) + " / " + G.deck.length : from.toUpperCase() + " → " + to.toUpperCase());
   $("feedback").innerHTML = ""; $("nextBtn").hidden = true;
   $("prompt").className = "prompt";
   $("q").textContent = w[from];
@@ -679,6 +703,11 @@ function reward(w, correct, half) {
   save();
   G.answered++;
   if (correct) G.right++;
+  // Karteikarten: falsche Karten erst in der nächsten Runde wieder
+  if (G.mode === "cards") {
+    if (correct) { G.roundOk++; if (G.round === 1) G.firstOk++; } else G.roundWrong.push(w);
+    return;
+  }
   // Falsches Wort kommt in dieser Runde noch einmal (einmalig)
   if (!correct && !G.retried.has(idOf(w))) {
     G.retried.add(idOf(w));
@@ -822,6 +851,25 @@ $("flip").addEventListener("touchend", e => {
   if (Math.abs(dx) > 70 && $("flip").classList.contains("on")) cardAnswer(dx > 0);
 });
 
+function roundEnd() {
+  $("cardBox").hidden = true; $("cardBtns").hidden = true;
+  const n = G.roundWrong.length;
+  $("rbTitle").textContent = `Runde ${G.round} geschafft`;
+  $("rbOk").textContent = G.roundOk;
+  $("rbBad").textContent = n;
+  $("rbText").textContent = `In der nächsten Runde kommen nur die ${n === 1 ? "eine Karte" : n + " Karten"}, die du noch nicht wusstest.`;
+  $("rbNext").textContent = `Runde ${G.round + 1} starten`;
+  $("roundBox").hidden = false;
+  $("prog").style.width = "100%";
+  $("rbNext").focus();
+}
+$("rbNext").onclick = () => {
+  G.deck = shuffle(G.roundWrong.slice()); G.total = G.deck.length;
+  G.roundWrong = []; G.roundOk = 0; G.i = 0; G.round++;
+  $("roundBox").hidden = true; $("cardBox").hidden = false; $("cardBtns").hidden = false;
+  next();
+};
+
 /* ---------------- Ende ---------------- */
 $("quit").onclick = () => { cancelAnimationFrame(timerRAF); renderHome(); };
 function finish() {
@@ -837,11 +885,19 @@ function finish() {
   $("resScore").textContent = G.mode === "cards" ? Math.round(pct * 100) + "%" : G.score;
   $("resStars").innerHTML = [0, 1, 2].map(i => `<span class="${i < stars ? "" : "off"}">★</span>`).join("");
   $("resLine").textContent = G.mode === "blitz" ? `Rekord: ${store.best} Punkte` : "";
+  if (G.mode === "cards") {
+    const first = G.firstOk / Math.max(1, G.cardsTotal), st = first >= .95 ? 3 : first >= .75 ? 2 : first >= .5 ? 1 : 0;
+    $("resTitle").textContent = "Alle Karten gewusst!";
+    $("resSub").textContent = `${G.cardsTotal} Karten in ${G.round} ${G.round === 1 ? "Runde" : "Runden"} · beim ersten Durchgang ${G.firstOk} gewusst`;
+    $("resScore").textContent = Math.round(first * 100) + "%";
+    $("resStars").innerHTML = [0, 1, 2].map(i => `<span class="${i < st ? "" : "off"}">★</span>`).join("");
+    $("resLine").textContent = "Prozent: beim ersten Durchgang gewusst";
+  }
   const miss = [...G.misses.values()];
   $("missGroup").hidden = !miss.length;
   $("missList").innerHTML = miss.map(w => `<li><b>${esc(w.de)}</b><span>${esc(w.en)}${w.note ? " · " + esc(w.note) : ""}</span></li>`).join("");
   show("result");
-  if (stars >= 2 || record) { beep("win"); confetti(); }
+  if (stars >= 2 || record || G.mode === "cards") { beep("win"); confetti(); }
 }
 $("homeBtn").onclick = renderHome;
 $("againBtn").onclick = () => lastMode === "blast" ? startBlast() : start(G.mode);
