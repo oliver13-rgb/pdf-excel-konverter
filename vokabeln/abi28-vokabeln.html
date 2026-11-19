@@ -517,8 +517,13 @@ const DEFAULT_WORDS = [
   { de: "existentielle Bedrohung", en: "existential threat", alt: ["an existential threat"] },
   { de: "stark vereinfacht", en: "oversimplified" },
   { de: "eine Vorhersage", en: "a prediction", alt: ["prediction"] },
+  { de: "ein Auszug", en: "an excerpt", alt: ["excerpt"] },
+  { de: "die Berufsausbildung", en: "vocational training" },
+  { de: "eine sich selbst verstärkende Blase", en: "a self-reinforcing bubble", alt: ["self-reinforcing bubble"], altDe: ["sich selbst verstärkende Blase"] },
+  { de: "es ist abstoßend", en: "it's repellent", alt: ["it is repellent"] },
+  { de: "verletzlich / verwundbar sein", en: "to be vulnerable", altDe: ["verletzlich sein", "verwundbar sein"] },
 ];
-// Set 1 = erste Liste (Nr. 1–27), Set 2 = Nachtrag (Nr. 28–40)
+// Set 1 = erste Liste (Nr. 1–27), Set 2 = Nachtrag (Nr. 28–45)
 DEFAULT_WORDS.forEach((w, i) => { w.set = i < 27 ? 1 : 2; });
 
 /* ---------------- Storage (fails soft) ---------------- */
