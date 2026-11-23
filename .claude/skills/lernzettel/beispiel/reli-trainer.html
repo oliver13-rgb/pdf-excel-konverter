@@ -1,0 +1,682 @@
+<title>Reli-Arbeit Trainer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: Lernheft-App – schmale Leseachse, Reiter oben, Inhalte als Abschnitte mit Textmarker-Überschriften wie in deinen Notizen */
+:root{
+  --bg:#f3f4f8; --paper:#ffffff; --ink:#1d2233; --muted:#5b6175; --line:#dfe2ec;
+  --accent:#b02e6c; --accent-soft:#f7dceb; --teal:#1f7a80; --teal-soft:#d5eef0;
+  --ok:#1d7a46; --ok-soft:#dcf2e5; --bad:#b3261e; --bad-soft:#fbe1df;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141722; --paper:#1d2130; --ink:#e8eaf2; --muted:#a3a8bb; --line:#2f3447;
+  --accent:#f07ab2; --accent-soft:#4a2337; --teal:#6cc9cf; --teal-soft:#1d3a3e;
+  --ok:#6fd39b; --ok-soft:#1c3a2a; --bad:#f2847b; --bad-soft:#45221f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141722; --paper:#1d2130; --ink:#e8eaf2; --muted:#a3a8bb; --line:#2f3447;
+  --accent:#f07ab2; --accent-soft:#4a2337; --teal:#6cc9cf; --teal-soft:#1d3a3e;
+  --ok:#6fd39b; --ok-soft:#1c3a2a; --bad:#f2847b; --bad-soft:#45221f; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 60px}
+header h1{font-family:var(--f-display);font-size:clamp(28px,5vw,40px);line-height:1.1;margin:8px 0 6px;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:62ch}
+.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:12px 0;margin-top:14px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav a{flex:none;text-decoration:none;color:var(--ink);font-weight:600;font-size:15px;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:var(--paper)}
+nav a[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+nav a:focus-visible,button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+section.view{display:grid;gap:22px;margin-top:10px}
+h2{font-family:var(--f-display);font-size:24px;margin:6px 0 0;text-wrap:balance}
+h3{font-family:var(--f-display);font-size:19px;margin:0;text-wrap:balance}
+.mark{background:linear-gradient(transparent 35%,var(--accent-soft) 35%);padding:0 4px}
+.mark.t{background:linear-gradient(transparent 35%,var(--teal-soft) 35%)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;min-width:0}
+.card > *:first-child{margin-top:0}.card > *:last-child{margin-bottom:0}
+ul,ol{padding-left:1.25em;margin:8px 0}li{margin:3px 0}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:10px 14px;border-radius:0 8px 8px 0}
+.note.t{border-color:var(--teal);background:var(--teal-soft)}
+.muted{color:var(--muted)}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15.5px}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+button{font:inherit;cursor:pointer}
+.btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:8px 14px;border-radius:8px;font-weight:600}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+/* Plan */
+.plan{display:grid;gap:10px;counter-reset:b}
+.step{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:start}
+.step input{width:20px;height:20px;margin-top:4px;accent-color:var(--accent)}
+.step .time{font-size:13px;font-weight:700;color:var(--teal);letter-spacing:.04em;text-transform:uppercase}
+.step.done label{opacity:.55;text-decoration:line-through}
+/* Flashcards */
+.fc{perspective:1200px;min-height:230px}
+.fc-inner{position:relative;width:100%;min-height:230px;transition:transform .45s;transform-style:preserve-3d;cursor:pointer}
+.fc.flip .fc-inner{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:22px;border-radius:14px;border:1px solid var(--line);background:var(--paper);overflow:auto}
+.fc-face.back{transform:rotateY(180deg);background:var(--teal-soft)}
+.fc-face .q{font-family:var(--f-display);font-size:21px;line-height:1.3}
+.tag{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--accent)}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+select{font:inherit;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+/* Quiz */
+.opts{display:grid;gap:8px;margin-top:10px}
+.opt{text-align:left;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:10px 14px;border-radius:9px}
+.opt.right{background:var(--ok-soft);border-color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.fb{margin-top:10px;font-size:15.5px}
+.score{font-family:var(--f-display);font-size:20px;font-variant-numeric:tabular-nums}
+/* Zuordnen */
+.zrow{display:grid;gap:8px;padding:12px 0;border-bottom:1px solid var(--line)}
+.zrow:last-child{border-bottom:0}
+.zbtns{display:flex;flex-wrap:wrap;gap:6px}
+.zbtns button{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:8px;padding:5px 11px;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.zbtns button.right{background:var(--ok-soft);border-color:var(--ok)}
+.zbtns button.wrong{background:var(--bad-soft);border-color:var(--bad)}
+blockquote{margin:0;padding:14px 18px;background:var(--bg);border-radius:10px;font-style:italic}
+details{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--paper)}
+details summary{cursor:pointer;font-weight:700;color:var(--accent)}
+details[open] summary{margin-bottom:8px}
+textarea{width:100%;min-height:130px;font:inherit;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+@media (prefers-reduced-motion: reduce){.fc-inner{transition:none}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Religion · 1. Arbeit</div>
+  <h1>Gottesbilder, Exodus 3 &amp; Gottesname</h1>
+  <p>Alles aus deinen Notizen und dem Lernzettel, so aufbereitet, dass du es heute aktiv übst: lesen, abfragen, zuordnen, eine Probeklausur schreiben.</p>
+</header>
+
+<nav aria-label="Bereiche">
+  <a href="#plan">Tagesplan</a>
+  <a href="#wissen">Wissen</a>
+  <a href="#karten">Karteikarten</a>
+  <a href="#quiz">Quiz</a>
+  <a href="#zuordnen">Stufen zuordnen</a>
+  <a href="#klausur">Probeklausur</a>
+</nav>
+
+<!-- ============ PLAN ============ -->
+<section class="view" id="v-plan">
+  <div class="card">
+    <h2><span class="mark">So sieht die Arbeit aus</span></h2>
+    <p>Laut deinem Planer kommen <strong>ein Text</strong> und drei Aufgaben, wie in den drei Anforderungsbereichen:</p>
+    <div class="tbl"><table>
+      <tr><th>Aufgabe</th><th>Was du tun musst</th><th>Typische Operatoren</th></tr>
+      <tr><td><strong>1. Text zusammenfassen</strong></td><td>Inhalt in eigenen Worten, sachlich, Präsens, keine eigene Meinung. Autor, Titel, Thema im Einleitungssatz.</td><td>fasse zusammen, gib wieder, stelle dar</td></tr>
+      <tr><td><strong>2. Mit dem Thema verknüpfen</strong></td><td>Den Text mit dem Unterricht verbinden: Oser/Gmünder, Lebensphasen, Ex 3, Bilderverbot, Berger/Moser, Bultmann, Carretto, Rahner. Immer mit Begriff + Erklärung + Textbeleg.</td><td>ordne ein, erläutere, vergleiche, setze in Beziehung</td></tr>
+      <tr><td><strong>3. Bewerten / Diskutieren</strong></td><td>Pro und Contra, dann ein begründetes eigenes Urteil. Argumente aus dem Unterricht nutzen.</td><td>beurteile, erörtere, nimm Stellung, diskutiere</td></tr>
+    </table></div>
+    <p class="muted">Im Planer mit Ausrufezeichen markiert: <strong>Ex 3 (Gottesbegegnung des Mose)</strong>. Das ist der Schwerpunkt.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="mark t">Dein Lerntag</span></h2>
+    <p class="muted">Hake ab, was du geschafft hast. Der Fortschritt bleibt in diesem Browser gespeichert.</p>
+    <div class="plan" id="plan-list"></div>
+    <div class="row" style="margin-top:12px"><span class="score" id="plan-score"></span><button class="btn" id="plan-reset">Plan zurücksetzen</button></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="mark">Kurz-Check vor der Arbeit</span></h2>
+    <p>Wenn du jeden Punkt <strong>laut und ohne Spickzettel</strong> erklären kannst, bist du fertig.</p>
+    <ol>
+      <li>Ablauf von Ex 3 in 5–6 Schritten nacherzählen</li>
+      <li>Die Symbole deuten: Dornbusch, Feuer, verbrennt nicht, Horeb, Schuhe ausziehen</li>
+      <li>JHWH erklären und die 4 Bedeutungen des Namens nennen</li>
+      <li>Bilderverbot und Ex 3 verbinden: Name statt Bild, Gott offenbart sich, bleibt aber unverfügbar</li>
+      <li>Rahner, Bultmann, Carretto je in einem Satz erklären</li>
+      <li>Die 5 Stufen nach Oser/Gmünder mit Alter und Beispielsatz nennen, dazu die Lebensphasen aus deinen Notizen</li>
+      <li>Berger (Urvertrauen) und Moser (Gottesvergiftung) vergleichen und auf Ex 3 beziehen</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2><span class="mark t">Eselsbrücken</span></h2>
+    <ul>
+      <li><strong>Die 4 Bedeutungen des Namens: „Z-U-A-U“</strong> – <em>Zuverlässig, Unverfügbar, Allein (Ausschließlich), Unbegrenzt</em>. Satz zum Merken: „<strong>Z</strong>u <strong>U</strong>ns <strong>A</strong>llen <strong>U</strong>nterwegs.“</li>
+      <li><strong>Oser/Gmünder in Bildern:</strong> Zauberer → Händler → Abschied → Partner → Begegnung (Deus ex machina → Do ut des → Deismus → Korrelation → Intersubjektivität).</li>
+      <li><strong>Bultmann:</strong> objektivierend = Gott als <em>Objekt</em> (Gegenstand) – genau das kritisiert er.</li>
+      <li><strong>Carretto:</strong> Erfahrung = <em>ich</em> mache mir ein Bild. Offenbarung = <em>Gott</em> zeigt sich selbst.</li>
+      <li><strong>Berger vs. Moser:</strong> <em>B</em>erger = <em>B</em>ergend (Geborgenheit). <em>M</em>oser = <em>M</em>ahnend, strafend.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ WISSEN ============ -->
+<section class="view" id="v-wissen" hidden>
+  <div class="card">
+    <h2><span class="mark">1 · Exodus 3,1–15: Der brennende Dornbusch</span></h2>
+    <h3 style="margin-top:12px">Historischer Hintergrund</h3>
+    <ul>
+      <li>Die Israeliten leben in Ägypten und werden vom <strong>Pharao unterdrückt</strong>. Er hat Angst, dass sie zu mächtig werden.</li>
+      <li>Schwere Zwangsarbeit, unfrei. Das Volk leidet und sehnt sich nach Freiheit.</li>
+      <li>Gott nimmt das Leid wahr, wendet sich dem Volk zu und <strong>beruft Mose</strong>.</li>
+      <li>Datierung traditionell ca. 13. Jh. v. Chr. (Ramses II.), historisch nicht gesichert. Die Texte wurden Jahrhunderte später aufgeschrieben.</li>
+      <li>Mose verlangt die Freilassung → Pharao weigert sich → zehn Plagen → Pharao gibt nach.</li>
+      <li><strong>Auszug (Exodus)</strong> = Befreiung aus der Sklaverei, Beginn eines neuen Lebens in Freiheit.</li>
+    </ul>
+    <h3 style="margin-top:14px">Was passiert in Ex 3?</h3>
+    <ol>
+      <li>Mose hütet die Schafe seines Schwiegervaters <strong>Jitro</strong>.</li>
+      <li>Am <strong>Berg Horeb</strong> (Gottesberg) sieht er einen <strong>brennenden Dornbusch, der nicht verbrennt</strong>.</li>
+      <li>Gott spricht aus dem Dornbusch. Mose soll die <strong>Schuhe ausziehen</strong>, weil der Ort heilig ist.</li>
+      <li>Gott stellt sich als <strong>Gott der Väter</strong> vor (Abraham, Isaak, Jakob): Er hat das Elend seines Volkes gesehen.</li>
+      <li>Gott <strong>beauftragt Mose</strong>, Israel aus der Unterdrückung zu befreien.</li>
+      <li>Mose zweifelt („Wer bin ich?“). Gott antwortet: <strong>„Ich bin mit dir.“</strong></li>
+      <li>Mose fragt nach Gottes <strong>Namen</strong>.</li>
+      <li>Gott offenbart <strong>JHWH</strong>, in Ex 3,14 erklärt mit <strong>„Ich bin, der ich bin“</strong>.</li>
+    </ol>
+    <p class="note"><strong>Kernaussage:</strong> Gott ermöglicht eine <strong>persönliche Beziehung</strong> zu den Menschen, bleibt aber <strong>unverfügbar</strong>. Man kann ihn nicht vollständig verstehen oder kontrollieren.</p>
+    <p class="note t"><strong>Ergänzung aus dem Unterricht:</strong> Gott erscheint nicht als Person, hat aber trotzdem eine Art, bei der Menschen sich annähern und ihm vertrauen können. Es braucht kein Bildnis. <strong>Gott IST DA.</strong></p>
+  </div>
+
+  <div class="card">
+    <h2><span class="mark">2 · Die Symbole und ihre Bedeutung</span></h2>
+    <div class="tbl"><table>
+      <tr><th>Symbol</th><th>Bedeutung</th></tr>
+      <tr><td><strong>Brennender Dornbusch</strong></td><td>Zeichen für Gottes Gegenwart</td></tr>
+      <tr><td><strong>Feuer</strong></td><td>Göttliche Kraft und Heiligkeit · Unzugänglichkeit von außen (Feuer + Dornen) · Feuer spendet Wärme · keine verschlingende Totalität, sondern <strong>lebensspendende Gottheit</strong></td></tr>
+      <tr><td><strong>Dornbusch verbrennt nicht</strong></td><td>Gottes Gegenwart ist außergewöhnlich und <strong>nicht zerstörerisch</strong></td></tr>
+      <tr><td><strong>Berg Horeb</strong></td><td>Heiliger Ort der Gottesbegegnung</td></tr>
+      <tr><td><strong>Schuhe ausziehen</strong></td><td>Ehrfurcht vor dem Heiligen</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="mark">3 · Der Gottesname JHWH</span></h2>
+    <ul>
+      <li><strong>JHWH</strong> (Jahwe) = <strong>Tetragramm</strong>, vier Konsonanten.</li>
+      <li>Juden sprechen den Namen aus Ehrfurcht nicht aus und sagen <strong>„Adonai“</strong> (Herr). In deutschen Bibeln steht oft <strong>„HERR“</strong>.</li>
+      <li>Übersetzungen von Ex 3,14: „Ich bin, der ich bin“ / „Ich bin da“ / Buber-Rosenzweig: „Ich werde dasein, als der ich dasein werde“.</li>
+      <li>Der Name ist ein <strong>Versprechen</strong> („Ich bin für euch da“) und gleichzeitig eine <strong>Grenze</strong> (Gott lässt sich nicht festlegen).</li>
+    </ul>
+    <h3 style="margin-top:12px">Bedeutung des Gottesnamens (auswendig!)</h3>
+    <div class="tbl"><table>
+      <tr><th>Begriff</th><th>Bedeutung</th></tr>
+      <tr><td><strong>Zuverlässigkeit</strong></td><td>Man kann immer mit ihm rechnen.</td></tr>
+      <tr><td><strong>Unverfügbarkeit</strong></td><td>Er entscheidet, wann und wie er hilft (unabhängig).</td></tr>
+      <tr><td><strong>Ausschließlichkeit</strong></td><td>Er ist der Einzige, der uns Halt und Maß geben darf.</td></tr>
+      <tr><td><strong>Unbegrenzbarkeit</strong></td><td>Keine örtlichen, institutionellen und zeitlichen Grenzen.</td></tr>
+    </table></div>
+    <p class="note"><strong>Verbindung zum Bilderverbot:</strong> Gott gibt einen <strong>Namen</strong>, aber <strong>kein Bild</strong> von sich.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="mark">4 · Das Bilderverbot (Ex 20,4–5)</span></h2>
+    <p><strong>Gebot:</strong> „Du sollst dir kein Bildnis noch irgendein Gleichnis machen.“</p>
+    <ul>
+      <li>Gott darf nicht durch Bilder oder Statuen dargestellt werden.</li>
+      <li>Gott darf nicht mit anderen Göttern verwechselt werden.</li>
+      <li>Gott ist der Schöpfer von Welt und Mensch, nicht selbst Teil der geschaffenen Welt.</li>
+      <li>Gott lässt sich nicht auf ein bestimmtes Bild oder eine Vorstellung festlegen.</li>
+      <li>Er bleibt für Menschen unverfügbar, also nicht kontrollierbar.</li>
+    </ul>
+    <p class="note"><strong>Wichtig:</strong> Gott ist zwar nicht bildlich darstellbar, kann sich den Menschen aber trotzdem <strong>offenbaren</strong> (→ Ex 3!).</p>
+    <p class="note t">Gott ist weit mehr als ein reines Bildnis. Ein Bildnis macht ihn kleiner und stellt ihn nicht dar.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="mark">5 · Wie kann man von Gott reden?</span></h2>
+    <div class="grid2" style="margin-top:10px">
+      <div>
+        <h3>Karl Rahner – „Das Wort Gott“</h3>
+        <p>Was passiert, wenn das Wort „Gott“ verschwindet? Der Mensch würde nur noch einzelne Dinge betrachten und <strong>nicht mehr nach dem Sinn und dem Ganzen fragen</strong>.</p>
+        <ul>
+          <li>Gott steht für das <strong>Ganze der Wirklichkeit</strong>.</li>
+          <li>Gott lässt sich nicht vollständig in Worte fassen.</li>
+          <li>Das Wort „Gott“ bringt Menschen dazu, über das Leben und die Wirklichkeit nachzudenken. Bleibt das Wort, bleibt die offene Frage, auch für Nichtglaubende.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Rudolf Bultmann – objektivierend vs. nichtobjektivierend</h3>
+        <p class="note"><strong>Merksatz:</strong> Man kann Gott nicht wie einen Gegenstand von außen betrachten und beschreiben. Der Mensch steht selbst in Beziehung zu Gott.</p>
+        <p><strong>Objektivierend:</strong> Gott wird wie ein Gegenstand behandelt, z. B. ein Wesen, das im Himmel sitzt und auf die Erde schaut. <em>Kritik:</em> Gott wird auf menschliche Vorstellungen reduziert.</p>
+        <p><strong>Nichtobjektivierend:</strong> Der Mensch erkennt, dass er selbst in Beziehung zu Gott steht. Gott betrifft das ganze menschliche Leben.</p>
+      </div>
+      <div>
+        <h3>Carlo Carretto – Vom Gott der Erfahrung zum Gott der Offenbarung</h3>
+        <p><strong>Gott der Erfahrung:</strong> eigenes Bild aus Erlebnissen, Gefühlen, Erfahrungen. Subjektiv, jeder hat ein anderes. <em>Problem:</em> Man stellt sich Gott so vor, wie man ihn gern hätte → unvollständig oder falsch.</p>
+        <p><strong>Gott der Offenbarung:</strong> Gott zeigt sich selbst. Offenbarung heißt: Gott gibt sich den Menschen zu erkennen. Gott ist mehr als das, was Menschen sich vorstellen → offen dafür sein, wie Gott sich zeigt.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="mark t">6 · Entwicklung des Gottesbildes</span></h2>
+    <p><strong>Grundgedanke:</strong> Das Gottesbild entwickelt sich im Laufe des Lebens. Es wird durch Erziehung, persönliche Erfahrungen, Beziehungen und die eigene Entwicklung geprägt.</p>
+    <h3 style="margin-top:12px">a) Lebensphasen (deine Notizen)</h3>
+    <div class="tbl"><table>
+      <tr><th>Phase</th><th>Gottesbild</th></tr>
+      <tr><td><strong>1 · Frühe Kindheit</strong></td><td>Erste Gottesvorstellungen entstehen durch die Erfahrung mit den Eltern. Geborgenheit, Liebe, Vertrauen prägen positiv; Angst, Enttäuschung, Verlassenheit negativ. Ein Grundvertrauen entsteht, das die Beziehung zu Gott beeinflusst.</td></tr>
+      <tr><td><strong>2 · Mittlere und späte Kindheit</strong></td><td>Kind unterscheidet Eltern und Gott. Konkrete, menschliche Vorstellungen: <strong>anthropomorphes Gottesbild</strong> (Vater, Beschützer, Richter). Himmel und Hölle werden wörtlich verstanden. Orientierung an Eltern, Schule, Kirche. Prinzip: Gott belohnt Gutes und bestraft Schlechtes.</td></tr>
+      <tr><td><strong>3 · Jugendalter</strong></td><td>Das bisherige Gottesbild wird hinterfragt und unsicher. Einsamkeit und Suche nach Freundschaft und Nähe, auch zu Gott. Religiöse Zweifel, Suche nach Freiheit und Selbstständigkeit → <strong>Theodizeefrage</strong> (Frage nach dem Leid in der Welt). Orientierung: Freunde, Gemeinschaft, Menschheit. Gott weniger menschlich, eher als reiner Geist und reine Liebe. Beziehung zu Gott wird selbstständiger; sie zeigt sich darin, dass man Gutes will und sich für andere einsetzt.</td></tr>
+      <tr><td><strong>4 · Reifender Mensch (Erwachsenenalter)</strong></td><td>Orientierung an eigenen Idealen und Werten. Gott als <strong>Unverfügbares und Geheimnisvolles</strong>, nicht nur Ursprung und Ziel, sondern <strong>Begleiter des ganzen Lebens</strong>. Der Mensch erkennt, dass er Gott nie vollständig verstehen kann. Selbstständige, persönliche Beziehung → reiferes Gottesbild.</td></tr>
+    </table></div>
+    <p class="note"><strong>Wichtig:</strong> Die Entwicklung verläuft nicht bei jedem Menschen gleich. Jeder macht andere Erfahrungen, die sein Gottesbild beeinflussen.</p>
+    <h3 style="margin-top:14px">b) Stufen nach Oser/Gmünder</h3>
+    <p class="muted">Altersangaben sind Richtwerte. Nicht jeder erreicht jede Stufe, viele Erwachsene bleiben auf Stufe 2 oder 3.</p>
+    <div class="tbl"><table>
+      <tr><th>Stufe</th><th>Name</th><th>ca. Alter</th><th>Gottesbild</th><th>Typischer Satz</th></tr>
+      <tr><td>1</td><td><strong>Deus ex machina</strong></td><td>bis ca. 8–9</td><td>Gott greift direkt ein, lenkt alles, belohnt und bestraft. Mensch ist passiv.</td><td>„Gott bestraft mich, wenn ich lüge.“</td></tr>
+      <tr><td>2</td><td><strong>Do ut des</strong> („Ich gebe, damit du gibst“)</td><td>ca. 9–12</td><td>Gott ist durch Gebete und gute Taten beeinflussbar: Tauschgeschäft.</td><td>„Wenn ich bete, hilft Gott mir bei der Arbeit.“</td></tr>
+      <tr><td>3</td><td><strong>Deismus / Autonomie</strong></td><td>Jugend, ca. 14–20</td><td>Der Mensch ist selbst verantwortlich. Gott ist fern oder wird abgelehnt.</td><td>„Ich entscheide selbst, Gott hat damit nichts zu tun.“</td></tr>
+      <tr><td>4</td><td><strong>Korrelation / Heilsplan</strong></td><td>ab ca. 25</td><td>Gott ermöglicht die Freiheit des Menschen. Freiheit und Gott gehören zusammen.</td><td>„Ich bin frei, weil Gott mich trägt.“</td></tr>
+      <tr><td>5</td><td><strong>Religiöse Intersubjektivität</strong></td><td>selten, reifes Erwachsenenalter</td><td>Gott wird in jeder zwischenmenschlichen Beziehung erfahrbar.</td><td>„Gott begegnet mir im anderen Menschen.“</td></tr>
+    </table></div>
+    <p class="note t"><strong>Merke:</strong> Das Gottesbild wächst mit: vom eingreifenden „Zauberer-Gott“ über den Tauschpartner und die Ablösung bis zur reifen Beziehung.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="mark">7 · Urvertrauen vs. Gottesvergiftung</span></h2>
+    <div class="grid2" style="margin-top:10px">
+      <div>
+        <h3>Peter L. Berger: Urvertrauen als „Signal der Transzendenz“</h3>
+        <p class="muted">Soziologe (1929–2017), „Auf den Spuren der Engel“ (1969)</p>
+        <ul>
+          <li>Beispiel: Ein Kind wacht nachts aus einem Albtraum auf. Die Mutter tröstet: „Hab keine Angst, alles ist in Ordnung.“</li>
+          <li>Die Geste setzt <strong>Urvertrauen</strong> voraus: Die Welt ist letztlich gut und geordnet.</li>
+          <li>Bergers Frage: <strong>Lügt die Mutter?</strong> Wenn die Welt am Ende sinnlos ist (Leid, Tod), wäre ihr Trost eine Lüge.</li>
+          <li>Antwort: Das Urvertrauen ist nur berechtigt, wenn es eine Wirklichkeit gibt, die die Welt trägt → <strong>Hinweis auf Gott</strong> (Transzendenz).</li>
+          <li>Gottesbild: verlässlicher Grund, Ordnung, Geborgenheit.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Tilmann Moser: Gottesvergiftung</h3>
+        <p class="muted">Psychoanalytiker, „Gottesvergiftung“ (1976)</p>
+        <ul>
+          <li>Abrechnung mit dem Gott seiner Kindheit.</li>
+          <li>Gott wurde ihm als <strong>allsehender Aufpasser und strafender Richter</strong> vermittelt („Der liebe Gott sieht alles“) – Gott als Erziehungsmittel.</li>
+          <li>Folgen: Angst, ständige Schuldgefühle, kein Selbstwert, das Gefühl, Gott gefallen zu müssen → das Gottesbild hat ihn „vergiftet“.</li>
+          <li>Er rechnet mit diesem <strong>Zerrbild</strong> ab; später sucht er einen „erträglichen Gott“.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tbl" style="margin-top:12px"><table>
+      <tr><th></th><th>Berger</th><th>Moser</th></tr>
+      <tr><td><strong>Grundgefühl</strong></td><td>Urvertrauen, Geborgenheit</td><td>Angst, Misstrauen, Schuld</td></tr>
+      <tr><td><strong>Gottesbild</strong></td><td>tragender Grund, verlässliche Ordnung</td><td>Überwacher, strafender Richter</td></tr>
+      <tr><td><strong>Woher?</strong></td><td>Erfahrung verlässlicher Liebe (Mutter tröstet)</td><td>Erziehung mit Drohung und Angst</td></tr>
+      <tr><td><strong>Wirkung</strong></td><td>Hoffnung, Sinn, Lebensmut</td><td>Selbstzweifel, „Vergiftung“ der Seele</td></tr>
+      <tr><td><strong>Bezug zu Ex 3</strong></td><td>passt: „Ich bin da“, Gott ist zuverlässig</td><td>widerspricht: Gott befreit statt zu kontrollieren; selbstgemachtes Bild (→ Bilderverbot)</td></tr>
+      <tr><td><strong>Bezug zu Oser</strong></td><td>reifes, vertrauendes Gottesbild</td><td>bleibt beim strafenden Gott der Stufe 1 hängen</td></tr>
+    </table></div>
+    <p class="note"><strong>Gemeinsamkeit:</strong> Beide zeigen, dass Gottesbilder in der Kindheit durch Erfahrungen mit Bezugspersonen entstehen (vgl. Carretto: Gott der Erfahrung). Die Erziehung und besonders die Eltern spielen eine wichtige Rolle.</p>
+    <p class="note t"><strong>Fazit:</strong> Dieselbe Kindheitserfahrung kann zu Gott hinführen (Berger) oder ein krankmachendes Gottesbild erzeugen (Moser). Der biblische Gott aus Ex 3 steht auf Bergers Seite: Er ist da, er ist zuverlässig und er befreit.</p>
+  </div>
+</section>
+
+<!-- ============ KARTEIKARTEN ============ -->
+<section class="view" id="v-karten" hidden>
+  <div class="card">
+    <h2><span class="mark">Karteikarten</span></h2>
+    <p class="muted">Erst laut antworten, dann umdrehen (tippen oder Leertaste). Ehrlich bewerten: „Wusste ich“ fliegt raus, „Nochmal“ kommt später wieder.</p>
+    <div class="row" style="margin:10px 0 14px">
+      <label for="fc-topic">Thema</label>
+      <select id="fc-topic"></select>
+      <button class="btn" id="fc-restart">Neu mischen</button>
+    </div>
+    <div class="bar"><i id="fc-bar" style="width:0"></i></div>
+    <p class="muted" id="fc-count" style="margin:6px 0 12px;font-variant-numeric:tabular-nums"></p>
+    <div class="fc" id="fc">
+      <div class="fc-inner" id="fc-inner" tabindex="0" role="button" aria-label="Karte umdrehen">
+        <div class="fc-face front"><span class="tag" id="fc-tag"></span><div class="q" id="fc-q"></div><span class="muted" style="font-size:14px">Tippen zum Umdrehen</span></div>
+        <div class="fc-face back"><span class="tag">Antwort</span><div id="fc-a"></div></div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn" id="fc-again">Nochmal</button>
+      <button class="btn primary" id="fc-know">Wusste ich</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="view" id="v-quiz" hidden>
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <h2><span class="mark">Quiz</span></h2>
+      <span class="score" id="qz-score"></span>
+    </div>
+    <p class="muted" id="qz-pos" style="font-variant-numeric:tabular-nums"></p>
+    <h3 id="qz-q" style="font-size:21px"></h3>
+    <div class="opts" id="qz-opts"></div>
+    <div class="fb" id="qz-fb"></div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn primary" id="qz-next" hidden>Weiter</button>
+      <button class="btn" id="qz-restart">Neu starten</button>
+      <button class="btn" id="qz-wrong" hidden>Nur falsche wiederholen</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ZUORDNEN ============ -->
+<section class="view" id="v-zuordnen" hidden>
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <h2><span class="mark t">Welche Stufe nach Oser/Gmünder?</span></h2>
+      <span class="score" id="z-score"></span>
+    </div>
+    <p class="muted">Genau so eine Einordnung kommt oft in Aufgabe 2. Lies den Satz, tippe die Stufe. Danach steht die Begründung, die du in der Arbeit hinschreiben könntest.</p>
+    <p style="font-size:15px">1 Deus ex machina · 2 Do ut des · 3 Deismus/Autonomie · 4 Korrelation · 5 Intersubjektivität</p>
+    <div id="z-list"></div>
+    <button class="btn" id="z-reset" style="margin-top:10px">Zurücksetzen</button>
+  </div>
+  <div class="card">
+    <h2><span class="mark">Welche Lebensphase?</span></h2>
+    <p class="muted">Die Phasen aus deinen Notizen.</p>
+    <p style="font-size:15px">K1 frühe Kindheit · K2 mittlere/späte Kindheit · J Jugendalter · E reifender Mensch</p>
+    <div id="p-list"></div>
+  </div>
+</section>
+
+<!-- ============ KLAUSUR ============ -->
+<section class="view" id="v-klausur" hidden>
+  <div class="card">
+    <h2><span class="mark">Probeklausur</span></h2>
+    <p class="muted">Stell dir einen Timer auf 45 Minuten und schreib die Antworten auf Papier oder unten ins Feld. Erst danach den Erwartungshorizont aufklappen und Punkt für Punkt abhaken. Der Text ist ein Übungstext, nicht aus dem Unterricht.</p>
+    <h3 style="margin-top:12px">Material: „Der Gott meiner Kindheit“ (fiktiver Erfahrungsbericht, Jonas, 17)</h3>
+    <blockquote>
+      <p>Als Kind hatte ich ein Bild in meinem Kinderzimmer: ein großes Auge in einem Dreieck. Meine Oma sagte immer: „Der liebe Gott sieht alles, auch wenn du Kekse klaust.“ Ich habe mir Gott wie einen alten Mann mit Bart vorgestellt, der auf einer Wolke sitzt und eine Liste führt. Wenn ich krank wurde, dachte ich, das ist die Strafe für etwas, das ich falsch gemacht habe.</p>
+      <p>Mit elf habe ich angefangen, Gott Angebote zu machen: Wenn ich jeden Abend bete, schaffe ich bestimmt die Mathearbeit. Es hat nicht immer geklappt.</p>
+      <p>Als mein bester Freund mit fünfzehn schwer krank wurde, habe ich aufgehört zu beten. Warum sollte ein guter Gott so etwas zulassen? Eine Zeit lang dachte ich: Ich verlasse mich lieber auf mich selbst.</p>
+      <p>Heute glaube ich nicht mehr an den Mann auf der Wolke. Aber mein Freund hat mir etwas gesagt, das mich nicht loslässt: „Als du jeden Tag im Krankenhaus warst, da war für mich Gott im Raum.“ Vielleicht ist Gott gar nicht jemand, den man sich vorstellen kann. Vielleicht ist er eher einfach da.</p>
+    </blockquote>
+    <ol style="margin-top:14px">
+      <li><strong>Fasse</strong> den Text <strong>zusammen</strong>. <span class="muted">(AFB I)</span></li>
+      <li><strong>Ordne</strong> die Entwicklung von Jonas' Gottesbild in die Stufen nach Oser/Gmünder <strong>ein</strong> und <strong>erläutere</strong>, welche Rolle seine Kindheitserfahrungen spielen (Berger/Moser). <span class="muted">(AFB II)</span></li>
+      <li>Jonas sagt: „Vielleicht ist Gott gar nicht jemand, den man sich vorstellen kann. Vielleicht ist er eher einfach da.“ <strong>Erörtere</strong> diese Aussage unter Einbezug von Ex 3 und dem Bilderverbot und <strong>nimm Stellung</strong>. <span class="muted">(AFB III)</span></li>
+    </ol>
+    <label for="kl-text" class="muted" style="font-size:14px">Dein Entwurf (bleibt in diesem Browser gespeichert)</label>
+    <textarea id="kl-text" placeholder="Hier schreiben …"></textarea>
+  </div>
+
+  <details>
+    <summary>Erwartungshorizont Aufgabe 1 – Zusammenfassung</summary>
+    <p><strong>Einleitungssatz:</strong> Der fiktive Erfahrungsbericht „Der Gott meiner Kindheit“ des 17-jährigen Jonas handelt davon, wie sich sein Gottesbild von der Kindheit bis heute verändert hat.</p>
+    <ul>
+      <li>Als Kind stellt er sich Gott als alten Mann auf einer Wolke vor, der alles sieht und Fehler bestraft; geprägt durch die Oma.</li>
+      <li>Mit elf versucht er, Gott durch Gebete zu Hilfe zu bewegen.</li>
+      <li>Als sein Freund schwer erkrankt, zweifelt er an Gott und verlässt sich auf sich selbst.</li>
+      <li>Heute lehnt er das kindliche Bild ab. Durch die Aussage seines Freundes überlegt er, dass Gott nicht vorstellbar, sondern einfach da sein könnte.</li>
+    </ul>
+    <p class="muted">Achte auf: Präsens, eigene Worte, keine Wertung, indirekte Rede bei Zitaten („Er meint, Gott sei …“).</p>
+  </details>
+
+  <details>
+    <summary>Erwartungshorizont Aufgabe 2 – Einordnen</summary>
+    <ul>
+      <li><strong>Stufe 1 Deus ex machina:</strong> Gott als allsehender, strafender Mann auf der Wolke; Krankheit als Strafe („Gott greift direkt ein, belohnt und bestraft“). Zugleich <strong>anthropomorphes Gottesbild</strong> der Kindheit (Vater/Richter).</li>
+      <li><strong>Stufe 2 Do ut des:</strong> Mit elf „Angebote“: Gebet gegen gute Note = Tauschgeschäft. Passt zum Alter (ca. 9–12).</li>
+      <li><strong>Stufe 3 Deismus/Autonomie:</strong> Mit fünfzehn Abwendung von Gott, „auf mich selbst verlassen“. Auslöser ist die <strong>Theodizeefrage</strong> (Warum lässt Gott Leid zu?), typisch für das Jugendalter.</li>
+      <li><strong>Ansatz Stufe 5 Intersubjektivität:</strong> „Da war für mich Gott im Raum“: Gott wird in der zwischenmenschlichen Beziehung erfahrbar. Bei Jonas noch als Frage („vielleicht“), also eher ein Übergang.</li>
+      <li><strong>Moser:</strong> Die Oma vermittelt Gott als „allsehenden Aufpasser“ – genau wie bei Moser („Der liebe Gott sieht alles“). Gott als Erziehungsmittel erzeugt Angst und Schuld (Krankheit = Strafe). Unterschied: Jonas bleibt nicht hängen, sondern entwickelt sich weiter.</li>
+      <li><strong>Berger:</strong> Das Vertrauen des Freundes und das Dasein von Jonas erinnern an Bergers Urvertrauen: Erfahrung verlässlicher Zuwendung kann ein Hinweis auf Gott sein („Signal der Transzendenz“).</li>
+      <li><strong>Allgemein:</strong> Das Gottesbild entsteht durch Erziehung und Erfahrung (Carretto: Gott der Erfahrung) und verläuft nicht bei jedem gleich.</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>Erwartungshorizont Aufgabe 3 – Erörtern und Stellung nehmen</summary>
+    <p><strong>Pro (die Aussage passt):</strong></p>
+    <ul>
+      <li><strong>Ex 3,14:</strong> Gott nennt sich „Ich bin da“ / „Ich werde dasein, als der ich dasein werde“. Er zeigt sich nicht als Gestalt, sondern als Zusage. Jonas' „einfach da“ trifft das genau.</li>
+      <li><strong>Bilderverbot (Ex 20,4–5):</strong> Gott lässt sich auf kein Bild festlegen. Der „Mann auf der Wolke“ ist ein menschliches Bild, das Gott kleiner macht.</li>
+      <li><strong>Bultmann:</strong> Das Kinderbild ist objektivierendes Reden (Gott als Gegenstand im Himmel). Jonas' neue Sicht ist nichtobjektivierend: Er erfährt sich in Beziehung zu Gott.</li>
+      <li><strong>Carretto:</strong> Gott ist mehr als das, was Menschen sich vorstellen; der Gott der Erfahrung kann falsch sein.</li>
+      <li><strong>Rahner:</strong> Gott lässt sich nicht vollständig in Worte fassen.</li>
+    </ul>
+    <p><strong>Contra / Einschränkungen:</strong></p>
+    <ul>
+      <li>Menschen brauchen Bilder und Sprache, um überhaupt von Gott zu reden (Vater, Hirte). Ganz ohne Vorstellung bleibt Gott abstrakt.</li>
+      <li>In Ex 3 zeigt sich Gott trotzdem konkret: Feuer, Stimme, Name, Auftrag. „Einfach da“ unterschlägt, dass Gott handelt und befreit.</li>
+      <li>Der Name JHWH ist auch eine Grenze: Gott bleibt unverfügbar. „Da sein“ heißt nicht, dass Gott immer so hilft, wie man es will (Unverfügbarkeit).</li>
+    </ul>
+    <p><strong>Beispiel-Fazit:</strong> Ich stimme Jonas weitgehend zu, weil Ex 3 und das Bilderverbot zeigen, dass Gott sich nicht in einem Bild festhalten lässt, sondern als „Ich bin da“ erfahrbar ist. Allerdings ist Gott in Ex 3 nicht nur passiv da, sondern ruft Mose und befreit sein Volk. Sprachliche Bilder sind deshalb erlaubt, solange man sie nicht mit Gott selbst verwechselt.</p>
+    <p class="muted">Bewertet wird: Argumente mit Fachbegriffen, Bezug auf Ex 3 und Bilderverbot, beide Seiten, ein klares eigenes Urteil mit Begründung.</p>
+  </details>
+
+  <div class="card">
+    <h2><span class="mark t">Satzbausteine</span></h2>
+    <div class="grid2">
+      <div><h3>Zusammenfassen</h3><ul>
+        <li>Der Text „…“ von … handelt von …</li>
+        <li>Zunächst beschreibt der Autor …, anschließend …</li>
+        <li>Abschließend kommt er zu dem Ergebnis, dass …</li></ul></div>
+      <div><h3>Einordnen / Erläutern</h3><ul>
+        <li>Diese Aussage lässt sich der Stufe … zuordnen, weil …</li>
+        <li>Dies zeigt sich an der Textstelle „…“ (Z. …).</li>
+        <li>Ähnlich wie bei Moser/Berger …</li>
+        <li>Im Sinne Bultmanns handelt es sich um objektivierendes Reden, da …</li></ul></div>
+      <div><h3>Erörtern / Stellung nehmen</h3><ul>
+        <li>Für diese Position spricht, dass …</li>
+        <li>Dagegen lässt sich einwenden, dass …</li>
+        <li>Abwägend komme ich zu dem Ergebnis, dass …, weil …</li></ul></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="mark">Weitere mögliche Fragen</span></h2>
+    <p class="muted">Erst selbst antworten, dann aufklappen.</p>
+    <div style="display:grid;gap:8px">
+      <details><summary>Erläutere, warum sich Gott in Ex 3 mit einem Namen, aber nicht mit einem Bild zeigt.</summary>
+        <p>Ein Name ermöglicht Beziehung: Man kann Gott ansprechen. Ein Bild würde Gott festlegen und verfügbar machen, das verbietet Ex 20,4–5. Der Name JHWH („Ich bin da“) ist ein Versprechen (Zuverlässigkeit) und zugleich eine Grenze (Unverfügbarkeit): Gott sagt zu, dass er da ist, aber nicht, wie man ihn sich vorstellen soll.</p></details>
+      <details><summary>Deute die Symbole Feuer und Dornbusch.</summary>
+        <p>Der brennende Dornbusch steht für Gottes Gegenwart. Feuer zeigt göttliche Kraft und Heiligkeit; Feuer und Dornen machen Gott unzugänglich von außen. Feuer spendet aber auch Wärme. Dass der Busch nicht verbrennt, zeigt: Gottes Gegenwart ist außergewöhnlich und nicht zerstörerisch, keine verschlingende Totalität, sondern lebensspendend.</p></details>
+      <details><summary>Vergleiche Berger und Moser und beziehe beide auf Ex 3.</summary>
+        <p>Beide zeigen, dass Kindheitserfahrungen das Gottesbild prägen. Bei Berger führt verlässliche Liebe (Mutter tröstet) zu Urvertrauen, das auf Gott hinweist: Gott als tragender Grund. Bei Moser führt Erziehung mit Angst („Der liebe Gott sieht alles“) zu einem strafenden Gottesbild, Schuld und fehlendem Selbstwert. Ex 3 passt zu Berger: „Ich bin da“, Gott ist zuverlässig und befreit. Mosers Gott widerspricht Ex 3: Er kontrolliert, statt zu befreien, und ist ein selbstgemachtes Bild, das gegen das Bilderverbot verstößt.</p></details>
+      <details><summary>Erkläre Bultmanns Unterscheidung an einem Beispiel.</summary>
+        <p>Objektivierend: „Gott ist ein alter Mann, der im Himmel sitzt und auf uns herabsieht.“ Gott wird wie ein Gegenstand beschrieben, als ob man ihn von außen sehen könnte. Bultmann kritisiert das, weil Gott so auf menschliche Vorstellungen reduziert wird. Nichtobjektivierend: „Gott betrifft mein ganzes Leben, ich stehe in Beziehung zu ihm.“ Der Mensch spricht von Gott aus seiner Beziehung heraus.</p></details>
+      <details><summary>Was meint Rahner mit dem „Wort Gott“?</summary>
+        <p>Wenn das Wort „Gott“ verschwände, würde der Mensch nur noch einzelne Dinge sehen und nicht mehr nach Sinn und dem Ganzen fragen. Das Wort steht für das Ganze der Wirklichkeit, lässt sich nicht vollständig erklären und hält die Frage nach dem Sinn offen, auch für Nichtglaubende.</p></details>
+      <details><summary>Wie hängen Carrettos „Gott der Erfahrung“ und das Bilderverbot zusammen?</summary>
+        <p>Der Gott der Erfahrung ist ein selbstgemachtes Bild aus Gefühlen und Erlebnissen, oft so, wie man Gott gern hätte. Genau davor warnt das Bilderverbot: Gott lässt sich nicht auf eine menschliche Vorstellung festlegen. Carretto fordert deshalb, offen zu sein für den Gott der Offenbarung, der sich selbst zeigt, wie in Ex 3.</p></details>
+    </div>
+  </div>
+</section>
+</div>
+
+<script>
+(function(){
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const $=s=>document.querySelector(s);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+/* ---------- Routing ---------- */
+const views=["plan","wissen","karten","quiz","zuordnen","klausur"];
+function route(){const h=(location.hash||"#plan").slice(1);const v=views.includes(h)?h:"plan";
+  views.forEach(n=>{$("#v-"+n).hidden=n!==v});
+  document.querySelectorAll("nav a").forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+v?"true":"false"));
+}
+window.addEventListener("hashchange",()=>{route();window.scrollTo(0,0)});route();
+
+/* ---------- Plan ---------- */
+const plan=[
+ ["Block 1 · 40 min","Ex 3: Hintergrund, Ablauf, Symbole. Abschnitt 1+2 unter „Wissen“ lesen, dann Ablauf aus dem Kopf in 8 Schritten aufschreiben."],
+ ["Block 2 · 25 min","JHWH und Bilderverbot: Abschnitt 3+4 lesen, die 4 Bedeutungen (Z-U-A-U) auswendig lernen. Karteikarten „Ex 3“ und „Name & Bilderverbot“."],
+ ["Block 3 · 25 min","Rahner, Bultmann, Carretto: je einen Satz pro Theologe frei formulieren. Karteikarten „Von Gott reden“."],
+ ["Pause · 15 min","Weg vom Bildschirm."],
+ ["Block 4 · 35 min","Entwicklung: Lebensphasen + Oser/Gmünder. Danach „Stufen zuordnen“ komplett durchspielen, Ziel 10/10."],
+ ["Block 5 · 25 min","Berger vs. Moser: Vergleichstabelle abdecken und aus dem Kopf füllen. Karteikarten „Berger & Moser“."],
+ ["Block 6 · 20 min","Quiz komplett. Danach „Nur falsche wiederholen“, bis alles sitzt."],
+ ["Pause · 20 min","Essen, kurz raus."],
+ ["Block 7 · 45 min","Probeklausur unter Zeit schreiben, ohne Notizen."],
+ ["Block 8 · 20 min","Mit dem Erwartungshorizont vergleichen. Was fehlt, auf einen kleinen Zettel schreiben."],
+ ["Abends · 10 min","Kurz-Check laut durchgehen. Den Zettel aus Block 8 vor dem Schlafen noch einmal lesen."],
+];
+let done=store.get("reli-plan",[]);
+function renderPlan(){const el=$("#plan-list");el.innerHTML="";
+  plan.forEach((p,i)=>{const d=document.createElement("div");d.className="step"+(done.includes(i)?" done":"");
+    d.innerHTML=`<input type="checkbox" id="pl${i}" ${done.includes(i)?"checked":""}><label for="pl${i}"><div class="time">${p[0]}</div>${p[1]}</label>`;
+    d.querySelector("input").addEventListener("change",e=>{done=e.target.checked?[...done,i]:done.filter(x=>x!==i);store.set("reli-plan",done);renderPlan()});
+    el.appendChild(d)});
+  $("#plan-score").textContent=`${done.length} / ${plan.length} erledigt`;
+}
+$("#plan-reset").onclick=()=>{done=[];store.set("reli-plan",done);renderPlan()};renderPlan();
+
+/* ---------- Karteikarten ---------- */
+const cards=[
+ ["Ex 3","Wo und wobei begegnet Mose Gott?","Am <b>Berg Horeb</b> (Gottesberg), als er die Schafe seines Schwiegervaters <b>Jitro</b> hütet."],
+ ["Ex 3","Erzähle Ex 3 in 8 Schritten nach.","Schafe hüten → Dornbusch brennt, verbrennt nicht → Gott spricht, Schuhe ausziehen (heiliger Ort) → Gott der Väter, hat das Elend gesehen → Auftrag: Israel befreien → Mose zweifelt, „Ich bin mit dir“ → Mose fragt nach dem Namen → JHWH, „Ich bin, der ich bin“."],
+ ["Ex 3","Kernaussage von Ex 3?","Gott ermöglicht eine <b>persönliche Beziehung</b>, bleibt aber <b>unverfügbar</b>: nicht vollständig zu verstehen oder zu kontrollieren."],
+ ["Ex 3","Historischer Hintergrund des Exodus?","Israeliten in Ägypten unterdrückt (Pharao fürchtet ihre Macht), Zwangsarbeit, Sehnsucht nach Freiheit. Gott beruft Mose. Zehn Plagen, dann Auszug = Befreiung aus der Sklaverei. Ca. 13. Jh. v. Chr., historisch nicht gesichert."],
+ ["Ex 3","Was antwortet Gott auf Moses Zweifel „Wer bin ich?“","„<b>Ich bin mit dir.</b>“"],
+ ["Symbole","Bedeutung: brennender Dornbusch","Zeichen für <b>Gottes Gegenwart</b>."],
+ ["Symbole","Bedeutung: Feuer (4 Aspekte)","Göttliche <b>Kraft und Heiligkeit</b> · <b>Unzugänglichkeit</b> (Feuer + Dornen) · spendet <b>Wärme</b> · keine verschlingende Totalität, sondern <b>lebensspendende Gottheit</b>."],
+ ["Symbole","Bedeutung: Der Dornbusch verbrennt nicht","Gottes Gegenwart ist <b>außergewöhnlich</b> und <b>nicht zerstörerisch</b>."],
+ ["Symbole","Bedeutung: Berg Horeb / Schuhe ausziehen","Horeb = heiliger Ort der Gottesbegegnung. Schuhe ausziehen = <b>Ehrfurcht vor dem Heiligen</b>."],
+ ["Name & Bilderverbot","Was ist das Tetragramm?","<b>JHWH</b>: die vier Konsonanten des Gottesnamens (Jahwe)."],
+ ["Name & Bilderverbot","Warum sagen Juden „Adonai“?","Aus <b>Ehrfurcht</b> sprechen sie den Namen nicht aus; Adonai = Herr. In deutschen Bibeln: „HERR“."],
+ ["Name & Bilderverbot","Übersetzungen von Ex 3,14?","„Ich bin, der ich bin“ · „Ich bin da“ · Buber-Rosenzweig: „Ich werde dasein, als der ich dasein werde“."],
+ ["Name & Bilderverbot","Warum ist der Name Versprechen und Grenze zugleich?","<b>Versprechen:</b> „Ich bin für euch da“. <b>Grenze:</b> Gott lässt sich nicht festlegen."],
+ ["Name & Bilderverbot","Die 4 Bedeutungen des Gottesnamens (Z-U-A-U)","<b>Zuverlässigkeit</b>: immer mit ihm rechnen · <b>Unverfügbarkeit</b>: er entscheidet, wann und wie er hilft · <b>Ausschließlichkeit</b>: der Einzige, der Halt und Maß geben darf · <b>Unbegrenzbarkeit</b>: keine örtlichen, institutionellen, zeitlichen Grenzen."],
+ ["Name & Bilderverbot","Bilderverbot: Stelle und Wortlaut?","<b>Ex 20,4–5</b>: „Du sollst dir kein Bildnis noch irgendein Gleichnis machen.“"],
+ ["Name & Bilderverbot","Was bedeutet das Bilderverbot? (5 Punkte)","Keine Bilder/Statuen · nicht mit anderen Göttern verwechseln · Gott ist Schöpfer, nicht Teil der Welt · nicht auf ein Bild/eine Vorstellung festlegbar · unverfügbar, nicht kontrollierbar."],
+ ["Name & Bilderverbot","Wie hängen Bilderverbot und Ex 3 zusammen?","Gott gibt einen <b>Namen, aber kein Bild</b>. Er ist nicht bildlich darstellbar, kann sich aber <b>offenbaren</b>. Ein Bild würde ihn kleiner machen."],
+ ["Von Gott reden","Rahner – „Das Wort Gott“ in einem Satz","Ohne das Wort „Gott“ würde der Mensch nicht mehr nach <b>Sinn und dem Ganzen</b> fragen; Gott steht für das Ganze der Wirklichkeit und lässt sich nicht ganz in Worte fassen."],
+ ["Von Gott reden","Bultmann – Merksatz","Man kann Gott nicht wie einen <b>Gegenstand von außen</b> betrachten und beschreiben. Der Mensch steht selbst in <b>Beziehung</b> zu Gott."],
+ ["Von Gott reden","Bultmann: objektivierendes Reden + Kritik","Gott wird wie ein Gegenstand behandelt (Wesen, das im Himmel sitzt). Kritik: Gott wird auf <b>menschliche Vorstellungen reduziert</b>."],
+ ["Von Gott reden","Bultmann: nichtobjektivierendes Reden","Gott wird nicht als Gegenstand gesehen; der Mensch erkennt, dass er in Beziehung zu Gott steht. Gott betrifft das <b>ganze Leben</b>."],
+ ["Von Gott reden","Carretto: Gott der Erfahrung – und das Problem?","Eigenes Bild aus Erlebnissen und Gefühlen, subjektiv. Problem: Man stellt sich Gott vor, <b>wie man ihn gern hätte</b> → unvollständig oder falsch."],
+ ["Von Gott reden","Carretto: Gott der Offenbarung","<b>Gott zeigt sich selbst</b>. Er ist mehr als das, was Menschen sich vorstellen → offen sein dafür, wie Gott sich zeigt."],
+ ["Entwicklung","Grundgedanke der Entwicklung des Gottesbildes?","Das Gottesbild entwickelt sich im Laufe des Lebens, geprägt durch <b>Erziehung, Erfahrungen, Beziehungen</b> und eigene Entwicklung. Nicht bei jedem gleich."],
+ ["Entwicklung","Frühe Kindheit: Gottesbild?","Entsteht durch Erfahrung mit den <b>Eltern</b>. Geborgenheit/Vertrauen → positiv; Angst/Verlassenheit → negativ. <b>Grundvertrauen</b> entsteht."],
+ ["Entwicklung","Mittlere/späte Kindheit: Gottesbild?","<b>Anthropomorph</b>: Gott als Vater, Beschützer, Richter. Himmel/Hölle wörtlich. Gott belohnt Gutes, bestraft Schlechtes."],
+ ["Entwicklung","Jugendalter: Gottesbild?","Hinterfragen, Zweifel, <b>Theodizeefrage</b>. Suche nach Freundschaft und Nähe. Gott weniger menschlich, eher Geist und Liebe. Beziehung wird selbstständiger."],
+ ["Entwicklung","Reifender Mensch: Gottesbild?","Gott als <b>unverfügbar und geheimnisvoll</b>, Begleiter des ganzen Lebens. Man kann ihn nie ganz verstehen. Selbstständige, persönliche Beziehung."],
+ ["Entwicklung","Was ist die Theodizeefrage?","Die Frage, warum ein guter und allmächtiger Gott <b>Leid in der Welt</b> zulässt."],
+ ["Entwicklung","Oser/Gmünder: alle 5 Stufen mit Alter","1 Deus ex machina (bis 8–9) · 2 Do ut des (9–12) · 3 Deismus/Autonomie (14–20) · 4 Korrelation/Heilsplan (ab 25) · 5 Religiöse Intersubjektivität (selten)."],
+ ["Entwicklung","Was heißt „Do ut des“?","„Ich gebe, damit du gibst“: Gott ist durch Gebete und gute Taten beeinflussbar, ein <b>Tauschgeschäft</b>."],
+ ["Berger & Moser","Berger: Was ist das „Signal der Transzendenz“?","Das <b>Urvertrauen</b>: Die Mutter tröstet „Alles ist in Ordnung“. Das ist nur keine Lüge, wenn es eine Wirklichkeit gibt, die die Welt trägt → Hinweis auf Gott."],
+ ["Berger & Moser","Bergers Frage?","„<b>Lügt die Mutter?</b>“ Wenn die Welt am Ende sinnlos ist (Leid, Tod), wäre ihr Trost eine Lüge."],
+ ["Berger & Moser","Moser: Was ist „Gottesvergiftung“?","Gott wurde ihm als <b>allsehender Aufpasser und strafender Richter</b> vermittelt (Erziehungsmittel). Folge: Angst, Schuldgefühle, kein Selbstwert → Seele „vergiftet“. Buch 1976."],
+ ["Berger & Moser","Berger vs. Moser: Gemeinsamkeit und Fazit?","Beide: Gottesbild entsteht in der Kindheit durch Bezugspersonen. Fazit: Dieselbe Erfahrung kann zu Gott hinführen (Berger) oder krank machen (Moser). Ex 3 steht auf Bergers Seite."],
+ ["Berger & Moser","Bezug Moser zu Ex 3 und Oser?","Widerspricht Ex 3: Gott befreit statt zu kontrollieren; Mosers Gott ist ein selbstgemachtes Bild (Bilderverbot). Moser bleibt beim strafenden Gott der <b>Stufe 1</b> hängen."],
+];
+const topics=["Alle",...new Set(cards.map(c=>c[0]))];
+const sel=$("#fc-topic");topics.forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;sel.appendChild(o)});
+let deck=[],total=0,cur=null;
+function startDeck(){const t=sel.value;deck=shuffle(cards.filter(c=>t==="Alle"||c[0]===t));total=deck.length;nextCard()}
+function nextCard(){$("#fc").classList.remove("flip");
+  const known=total-deck.length;$("#fc-bar").style.width=(total?known/total*100:0)+"%";
+  $("#fc-count").textContent=`${known} von ${total} gewusst · ${deck.length} übrig`;
+  if(!deck.length){$("#fc-tag").textContent="Fertig";$("#fc-q").textContent="Alle Karten gewusst. Neu mischen oder anderes Thema wählen.";$("#fc-a").innerHTML="";cur=null;return}
+  cur=deck[0];
+  setTimeout(()=>{$("#fc-tag").textContent=cur[0];$("#fc-q").textContent=cur[1];$("#fc-a").innerHTML=cur[2]},cur&&$("#fc").classList.contains("flip")?0:120);
+}
+const flip=()=>{if(cur)$("#fc").classList.toggle("flip")};
+$("#fc-inner").onclick=flip;
+$("#fc-inner").addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();flip()}});
+$("#fc-know").onclick=()=>{if(!cur)return;deck.shift();nextCard()};
+$("#fc-again").onclick=()=>{if(!cur)return;deck.push(deck.shift());nextCard()};
+sel.onchange=startDeck;$("#fc-restart").onclick=startDeck;startDeck();
+
+/* ---------- Quiz ---------- */
+const quiz=[
+ ["Wo begegnet Mose Gott im brennenden Dornbusch?",["Am Berg Horeb","Am Berg Zion","Am Ölberg","Am Nil"],0,"Horeb ist der Gottesberg, der heilige Ort der Gottesbegegnung."],
+ ["Wessen Schafe hütet Mose?",["Die seines Vaters Abraham","Die seines Schwiegervaters Jitro","Die des Pharao","Die seines Bruders Aaron"],1,"Mose hütet die Schafe seines Schwiegervaters Jitro."],
+ ["Warum hat der Pharao die Israeliten unterdrückt?",["Sie wollten Ägypten erobern","Er hatte Angst, dass sie zu mächtig werden","Sie verehrten andere Götter","Sie zahlten keine Steuern"],1,"Der Pharao fürchtete die Macht der Israeliten und zwang sie zu schwerer Arbeit."],
+ ["Was bedeutet es, dass der Dornbusch nicht verbrennt?",["Gott ist schwach","Gottes Gegenwart ist außergewöhnlich und nicht zerstörerisch","Das Feuer ist nur eine Illusion","Mose träumt"],1,"Gott ist keine verschlingende Macht, sondern lebensspendend."],
+ ["Warum soll Mose die Schuhe ausziehen?",["Weil es heiß ist","Aus Ehrfurcht, weil der Ort heilig ist","Damit er nicht wegläuft","Weil Schuhe unrein sind"],1,"Schuhe ausziehen = Ehrfurcht vor dem Heiligen."],
+ ["Was antwortet Gott auf Moses Zweifel „Wer bin ich?“",["„Du bist auserwählt.“","„Ich bin mit dir.“","„Frag nicht.“","„Geh zu Aaron.“"],1,"„Ich bin mit dir“ nimmt den Namen „Ich bin da“ schon vorweg."],
+ ["JHWH ist ein …",["Tetragramm aus vier Konsonanten","Gebet","Ort am Horeb","anderer Name für Mose"],0,"Tetragramm = vier Buchstaben, nur Konsonanten."],
+ ["Was sagen Juden statt des Gottesnamens?",["Elohim","Adonai","Halleluja","Amen"],1,"Adonai = Herr, aus Ehrfurcht vor dem Namen."],
+ ["Wie übersetzen Buber und Rosenzweig Ex 3,14?",["„Ich bin der Herr“","„Ich werde dasein, als der ich dasein werde“","„Ich bin der Gott der Väter“","„Ich bin das Licht“"],1,"Die Übersetzung betont das Da-Sein und die Zukunft."],
+ ["„Er entscheidet, wann und wie er hilft.“ Welche Bedeutung des Namens ist das?",["Zuverlässigkeit","Unverfügbarkeit","Ausschließlichkeit","Unbegrenzbarkeit"],1,"Unverfügbar = Gott ist unabhängig, man kann nicht über ihn bestimmen."],
+ ["„Keine örtlichen, institutionellen und zeitlichen Grenzen“ beschreibt …",["Zuverlässigkeit","Ausschließlichkeit","Unbegrenzbarkeit","Unverfügbarkeit"],2,"Unbegrenzbarkeit."],
+ ["„Er ist der Einzige, der uns Halt und Maß geben darf“ beschreibt …",["Ausschließlichkeit","Zuverlässigkeit","Unbegrenzbarkeit","Unverfügbarkeit"],0,"Ausschließlichkeit."],
+ ["Wo steht das Bilderverbot?",["Ex 3,14","Ex 20,4–5","Gen 1,27","Mk 12,30"],1,"Ex 20,4–5, Teil der Zehn Gebote."],
+ ["Wie hängen Bilderverbot und Ex 3 zusammen?",["Gott zeigt in Ex 3 sein Gesicht","Gott gibt einen Namen, aber kein Bild","Ex 3 hebt das Bilderverbot auf","Gar nicht"],1,"Name statt Bild: Gott offenbart sich, bleibt aber unverfügbar."],
+ ["Was würde laut Rahner passieren, wenn das Wort „Gott“ verschwindet?",["Nichts","Der Mensch würde nicht mehr nach dem Sinn und dem Ganzen fragen","Alle würden Atheisten","Die Kirche würde zerfallen"],1,"Das Wort hält die Frage nach dem Ganzen offen, auch für Nichtglaubende."],
+ ["Was kritisiert Bultmann am objektivierenden Reden?",["Es ist zu kompliziert","Gott wird auf menschliche Vorstellungen reduziert","Es benutzt keine Bibelstellen","Es ist zu emotional"],1,"Gott wird wie ein Gegenstand behandelt, z. B. als Wesen im Himmel."],
+ ["Was ist laut Carretto das Problem am „Gott der Erfahrung“?",["Er ist zu streng","Menschen stellen sich Gott vor, wie sie ihn gern hätten","Er ist in der Bibel verboten","Es gibt ihn nur im Alten Testament"],1,"Das Bild ist subjektiv und kann unvollständig oder falsch sein."],
+ ["Ein anthropomorphes Gottesbild ist typisch für …",["die mittlere/späte Kindheit","den reifenden Menschen","Stufe 5 nach Oser","Bultmanns nichtobjektivierendes Reden"],0,"Gott wird menschlich vorgestellt: Vater, Beschützer, Richter."],
+ ["Die Theodizeefrage stellt sich typischerweise im …",["frühen Kindesalter","Jugendalter","Erwachsenenalter","gar nicht"],1,"Im Jugendalter wird das Gottesbild hinterfragt: Warum lässt Gott Leid zu?"],
+ ["„Wenn ich bete, hilft Gott mir bei der Arbeit.“ Welche Stufe?",["1 Deus ex machina","2 Do ut des","3 Deismus","4 Korrelation"],1,"Tauschgeschäft: Gebet gegen Hilfe."],
+ ["„Ich bin frei, weil Gott mich trägt.“ Welche Stufe?",["2","3","4","5"],2,"Korrelation: Freiheit und Gott gehören zusammen."],
+ ["Wie nennt Berger das Urvertrauen?",["Signal der Transzendenz","Gottesvergiftung","Do ut des","Heilsplan"],0,"Urvertrauen verweist auf eine Wirklichkeit, die die Welt trägt."],
+ ["Welche Frage stellt Berger am Beispiel der tröstenden Mutter?",["Liebt die Mutter das Kind?","Lügt die Mutter?","Gibt es Engel?","Warum hat das Kind Angst?"],1,"Wenn die Welt am Ende sinnlos wäre, wäre der Trost eine Lüge."],
+ ["Wie wurde Moser Gott vermittelt?",["Als tröstender Freund","Als allsehender Aufpasser und strafender Richter","Gar nicht","Als ferner Uhrmacher"],1,"„Der liebe Gott sieht alles“: Gott als Erziehungsmittel."],
+ ["Bei welcher Oser-Stufe bleibt Moser hängen?",["Stufe 1","Stufe 2","Stufe 3","Stufe 5"],0,"Beim strafenden Gott der Stufe 1 (Deus ex machina)."],
+];
+let qOrder=[],qi=0,qRight=0,qWrongIdx=[];
+function startQuiz(set){qOrder=shuffle(set||quiz.map((_,i)=>i));qi=0;qRight=0;qWrongIdx=[];$("#qz-wrong").hidden=true;showQ()}
+function showQ(){$("#qz-fb").textContent="";$("#qz-next").hidden=true;
+  $("#qz-score").textContent=`${qRight} richtig`;
+  if(qi>=qOrder.length){$("#qz-pos").textContent="Fertig";$("#qz-q").textContent=`${qRight} von ${qOrder.length} richtig.`+(qWrongIdx.length?" Wiederhole die falschen.":" Alles richtig!");$("#qz-opts").innerHTML="";$("#qz-wrong").hidden=!qWrongIdx.length;return}
+  const q=quiz[qOrder[qi]];$("#qz-pos").textContent=`Frage ${qi+1} von ${qOrder.length}`;$("#qz-q").textContent=q[0];
+  const box=$("#qz-opts");box.innerHTML="";
+  const opts=shuffle(q[1].map((t,i)=>({t,ok:i===q[2]})));
+  opts.forEach(o=>{const b=document.createElement("button");b.className="opt";b.textContent=o.t;
+    b.onclick=()=>{if(box.dataset.done)return;box.dataset.done=1;
+      [...box.children].forEach((c,k)=>{if(opts[k].ok)c.classList.add("right")});
+      if(o.ok){qRight++;$("#qz-fb").innerHTML="<strong>Richtig.</strong> "+q[3]}else{b.classList.add("wrong");qWrongIdx.push(qOrder[qi]);$("#qz-fb").innerHTML="<strong>Leider falsch.</strong> "+q[3]}
+      $("#qz-score").textContent=`${qRight} richtig`;$("#qz-next").hidden=false;$("#qz-next").focus()};
+    box.appendChild(b)});
+  delete box.dataset.done;
+}
+$("#qz-next").onclick=()=>{qi++;showQ()};
+$("#qz-restart").onclick=()=>startQuiz();
+$("#qz-wrong").onclick=()=>startQuiz(qWrongIdx.slice());
+startQuiz();
+
+/* ---------- Zuordnen ---------- */
+const zs=[
+ ["„Wenn es gewittert, ist Gott wütend, weil ich ungehorsam war.“",1,"Gott greift direkt ein und bestraft, der Mensch ist passiv."],
+ ["„Ich spende mein Taschengeld, damit Gott meine Oma wieder gesund macht.“",2,"Tauschgeschäft: Ich gebe, damit du gibst."],
+ ["„Für mein Leben bin ich allein verantwortlich. Ob es Gott gibt, spielt keine Rolle.“",3,"Autonomie: Gott ist fern oder wird abgelehnt."],
+ ["„Gerade weil Gott mir vertraut, kann ich frei meine eigenen Entscheidungen treffen.“",4,"Korrelation: Freiheit und Gott gehören zusammen."],
+ ["„Als ich meiner Freundin in der Krise beigestanden habe, war Gott da.“",5,"Intersubjektivität: Gott wird in der Beziehung zum anderen Menschen erfahrbar."],
+ ["„Wenn ich jeden Sonntag in die Kirche gehe, gewinnt mein Verein.“",2,"Gute Taten gegen Belohnung: Do ut des."],
+ ["„Gott sieht alles und schreibt sich auf, wenn ich lüge.“",1,"Allsehender, strafender Gott (wie bei Moser)."],
+ ["„Die Welt läuft nach Naturgesetzen. Gott hat sie vielleicht gemacht, aber er mischt sich nicht ein.“",3,"Deismus: Gott ist fern, der Mensch ist selbst zuständig."],
+ ["„Mein Leben hat einen Sinn, weil Gott mich trägt, und trotzdem gestalte ich es selbst.“",4,"Gott ermöglicht die Freiheit; Heilsplan."],
+ ["„In jeder echten Begegnung mit einem anderen Menschen begegnet mir Gott.“",5,"Gott in jeder zwischenmenschlichen Beziehung."],
+];
+const ps=[
+ ["Das Kind erlebt Geborgenheit bei den Eltern und entwickelt ein Grundvertrauen.","K1"],
+ ["Gott wird als Vater mit Bart vorgestellt; die Hölle ist ein echter Ort mit Feuer.","K2"],
+ ["„Warum lässt Gott zu, dass Kinder an Hunger sterben?“","J"],
+ ["Gott wird als Geheimnis verstanden, das einen durchs ganze Leben begleitet.","E"],
+ ["Gott belohnt die Guten und bestraft die Bösen.","K2"],
+ ["Die Beziehung zu Gott zeigt sich darin, dass man sich für andere einsetzt.","J"],
+];
+let zState=store.get("reli-z",{});
+function renderZ(){const el=$("#z-list");el.innerHTML="";let r=0;
+  zs.forEach((z,i)=>{const row=document.createElement("div");row.className="zrow";
+    row.innerHTML=`<div>${z[0]}</div><div class="zbtns"></div><div class="fb muted"></div>`;
+    const bb=row.querySelector(".zbtns");const pick=zState[i];
+    [1,2,3,4,5].forEach(n=>{const b=document.createElement("button");b.textContent="Stufe "+n;
+      if(pick!=null){if(n===z[1])b.classList.add("right");else if(n===pick)b.classList.add("wrong")}
+      b.onclick=()=>{if(zState[i]!=null)return;zState[i]=n;store.set("reli-z",zState);renderZ()};bb.appendChild(b)});
+    if(pick!=null){if(pick===z[1])r++;row.querySelector(".fb").innerHTML=(pick===z[1]?"<strong>Richtig.</strong> ":"<strong>Stufe "+z[1]+".</strong> ")+z[2]}
+    el.appendChild(row)});
+  $("#z-score").textContent=`${r} / ${zs.length}`;
+}
+$("#z-reset").onclick=()=>{zState={};store.set("reli-z",zState);renderZ()};renderZ();
+let pState={};
+function renderP(){const el=$("#p-list");el.innerHTML="";
+  const lbl={K1:"frühe Kindheit",K2:"mittlere/späte Kindheit",J:"Jugendalter",E:"reifender Mensch"};
+  ps.forEach((p,i)=>{const row=document.createElement("div");row.className="zrow";
+    row.innerHTML=`<div>${p[0]}</div><div class="zbtns"></div><div class="fb muted"></div>`;
+    const bb=row.querySelector(".zbtns");const pick=pState[i];
+    ["K1","K2","J","E"].forEach(n=>{const b=document.createElement("button");b.textContent=n;b.title=lbl[n];
+      if(pick!=null){if(n===p[1])b.classList.add("right");else if(n===pick)b.classList.add("wrong")}
+      b.onclick=()=>{if(pState[i]!=null)return;pState[i]=n;renderP()};bb.appendChild(b)});
+    if(pick!=null)row.querySelector(".fb").innerHTML=(pick===p[1]?"<strong>Richtig:</strong> ":"<strong>Lösung:</strong> ")+lbl[p[1]];
+    el.appendChild(row)});
+}
+renderP();
+
+/* ---------- Klausur-Entwurf ---------- */
+const ta=$("#kl-text");ta.value=store.get("reli-kl","");ta.addEventListener("input",()=>store.set("reli-kl",ta.value));
+})();
+</script>
